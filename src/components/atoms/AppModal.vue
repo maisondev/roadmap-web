@@ -74,6 +74,7 @@ onBeforeUnmount(() => {
             {{ cancelLabel }}
           </button>
           <button
+            v-if="submitLabel"
             @click="$emit('submit')"
             :class="[
               'px-4 py-3 rounded-lg text-white transition-colors font-medium',
