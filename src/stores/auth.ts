@@ -219,6 +219,36 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  async function loginWithGoogle(googleToken: string) {
+    try {
+      const response = await fetch(`${API_URL}/api/auth/google-login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: googleToken })
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Erro ao fazer login com Google')
+      }
+
+      const data: ApiResponse = await response.json()
+      user.value = data.user
+      token.value = data.token
+
+      localStorage.setItem(STORAGE_KEY, token.value)
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user.value))
+
+      // Carregar notificações do servidor
+      await loadNotificationsFromServer()
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('Failed to fetch')) {
+        throw new Error('Erro de conexão com o servidor')
+      }
+      throw error
+    }
+  }
+
   async function updateProfile(name?: string, avatar?: string) {
     if (!token.value) throw new Error('Não autenticado')
 
@@ -349,6 +379,7 @@ export const useAuthStore = defineStore('auth', () => {
     init,
     register,
     login,
+    loginWithGoogle,
     logout,
     updateProfile,
     giveConsent,

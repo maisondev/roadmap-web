@@ -1,5 +1,5 @@
 
-# 📊 BACKLOG PRIORITÁRIO - SINAPSES
+hojpra o # 📊 BACKLOG PRIORITÁRIO - SINAPSES
 
 **Data**: 16/05/2026  
 **Contexto**: Sistema educacional PWA com foco em neuroaprendizagem e formação de hábitos  

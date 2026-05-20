@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, watch, nextTick } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import AppButton from '@/components/atoms/AppButton.vue'
@@ -15,6 +15,43 @@ const password = ref('')
 const consentGiven = ref(false)
 const authError = ref<string | null>(null)
 const isSubmitting = ref(false)
+
+// Google OAuth
+const googleButtonRef = ref<HTMLDivElement | null>(null)
+
+onMounted(() => {
+  loadGoogleScript()
+})
+
+watch(showAuthModal, async (newVal) => {
+  if (newVal) {
+    await nextTick()
+    initGoogleButton()
+  }
+})
+
+function initGoogleButton() {
+  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+  if (!clientId || !window.google) return
+
+  try {
+    window.google.accounts.id.initialize({
+      client_id: clientId,
+      callback: handleGoogleLogin
+    })
+
+    const button = document.getElementById('google-signin-button')
+    if (button) {
+      window.google.accounts.id.renderButton(button, {
+        type: 'standard',
+        size: 'large',
+        text: authMode.value === 'login' ? 'signin_with' : 'signup_with'
+      })
+    }
+  } catch (e) {
+    console.error('Erro ao inicializar Google button:', e)
+  }
+}
 
 const benefits = [
   {
@@ -78,6 +115,37 @@ async function submitAuth() {
       await authStore.login(email.value, password.value)
     }
 
+    showAuthModal.value = false
+    router.push('/dashboard')
+  } catch (e) {
+    authError.value = e instanceof Error ? e.message : String(e)
+  } finally {
+    isSubmitting.value = false
+  }
+}
+
+function loadGoogleScript() {
+  if (document.getElementById('google-script')) return
+
+  const script = document.createElement('script')
+  script.id = 'google-script'
+  script.src = 'https://accounts.google.com/gsi/client'
+  script.async = true
+  script.defer = true
+  document.head.appendChild(script)
+}
+
+async function handleGoogleLogin(response: any) {
+  authError.value = null
+  isSubmitting.value = true
+
+  try {
+    const credential = response.credential
+    if (!credential) {
+      throw new Error('Google token não foi obtido')
+    }
+
+    await authStore.loginWithGoogle(credential)
     showAuthModal.value = false
     router.push('/dashboard')
   } catch (e) {
@@ -449,6 +517,14 @@ const footerLinks = [
           <p v-if="authError" class="text-sm text-red-600 dark:text-red-400">
             {{ authError }}
           </p>
+        </div>
+
+        <!-- Google Login Button -->
+        <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+          <div
+            id="google-signin-button"
+            class="flex justify-center"
+          ></div>
         </div>
 
         <div class="flex gap-2 mb-4">
