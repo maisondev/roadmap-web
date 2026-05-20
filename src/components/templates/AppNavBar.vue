@@ -16,6 +16,8 @@ import { useGoogleSignIn } from '@/composables/useGoogleSignIn'
 import type { GoogleCredentialResponse } from '@/types/google'
 import MD5 from 'crypto-js/md5'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+
 const router = useRouter()
 const route = useRoute()
 const settingsStore = useSettingsStore()
@@ -182,9 +184,27 @@ function toggleTheme() {
 
 async function toggleNotificationsMenu() {
   if (!showNotificationsMenu.value) {
-    // Abrir menu - carregar notificações
+    // Abrir menu - carregar notificações do servidor
     try {
-      await authStore.loadNotificationsFromServer()
+      const response = await fetch(`${API_URL}/api/notifications`, {
+        headers: { Authorization: `Bearer ${authStore.token}` }
+      })
+      if (response.ok) {
+        const serverNotifications = await response.json()
+        notificationsStore.clearAll()
+        if (Array.isArray(serverNotifications)) {
+          for (const notif of serverNotifications) {
+            notificationsStore.notifications.value.unshift({
+              id: notif.id,
+              title: notif.title,
+              message: notif.message,
+              type: notif.type,
+              timestamp: new Date(notif.createdAt),
+              read: notif.read
+            })
+          }
+        }
+      }
     } catch (error) {
       console.error('Erro ao carregar notificações:', error)
     }

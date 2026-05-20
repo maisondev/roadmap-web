@@ -108,46 +108,6 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  async function loadNotificationsFromServer() {
-    if (!token.value) return
-
-    try {
-      const response = await fetch(`${API_URL}/api/notifications`, {
-        headers: { Authorization: `Bearer ${token.value}` }
-      })
-      if (response.ok) {
-        const serverNotifications = await response.json()
-        try {
-          const notificationsStore = useNotificationsStore()
-          if (!notificationsStore || !notificationsStore.notifications) {
-            console.warn('Notifications store not available')
-            return
-          }
-
-          // Limpar notificações locais
-          notificationsStore.clearAll()
-
-          // Carregar notificações do servidor em ordem reversa (mais recentes primeiro)
-          for (let i = serverNotifications.length - 1; i >= 0; i--) {
-            const notif = serverNotifications[i]
-            const notification: any = {
-              id: notif.id,
-              title: notif.title,
-              message: notif.message,
-              type: notif.type,
-              timestamp: new Date(notif.createdAt),
-              read: notif.read
-            }
-            notificationsStore.notifications.value.push(notification)
-          }
-        } catch (storeError) {
-          console.error('Erro ao acessar store de notificações:', storeError)
-        }
-      }
-    } catch (error) {
-      console.error('Erro ao carregar notificações:', error)
-    }
-  }
 
   async function register(email: string, password: string, name?: string, consentGiven = false) {
     const emailClean = email.trim()
@@ -396,8 +356,7 @@ export const useAuthStore = defineStore('auth', () => {
     exportData,
     deleteAccount,
     getAuthHeaders,
-    hasPendingChanges,
-    loadNotificationsFromServer
+    hasPendingChanges
   }
 })
 
