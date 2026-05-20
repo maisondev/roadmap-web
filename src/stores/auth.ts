@@ -120,19 +120,31 @@ export const useAuthStore = defineStore('auth', () => {
       })
       if (response.ok) {
         const serverNotifications = await response.json()
-        const notificationsStore = useNotificationsStore()
+        try {
+          const notificationsStore = useNotificationsStore()
+          if (!notificationsStore || !notificationsStore.notifications) {
+            console.warn('Notifications store not available')
+            return
+          }
 
-        // Limpar notificações locais e carregar as do servidor
-        notificationsStore.clearAll()
-        for (const notif of serverNotifications) {
-          notificationsStore.notifications.value.push({
-            id: notif.id,
-            title: notif.title,
-            message: notif.message,
-            type: notif.type,
-            timestamp: new Date(notif.createdAt),
-            read: notif.read
-          })
+          // Limpar notificações locais
+          notificationsStore.clearAll()
+
+          // Carregar notificações do servidor em ordem reversa (mais recentes primeiro)
+          for (let i = serverNotifications.length - 1; i >= 0; i--) {
+            const notif = serverNotifications[i]
+            const notification: any = {
+              id: notif.id,
+              title: notif.title,
+              message: notif.message,
+              type: notif.type,
+              timestamp: new Date(notif.createdAt),
+              read: notif.read
+            }
+            notificationsStore.notifications.value.push(notification)
+          }
+        } catch (storeError) {
+          console.error('Erro ao acessar store de notificações:', storeError)
         }
       }
     } catch (error) {

@@ -31,7 +31,9 @@
       "Bash(env)",
       "PowerShell(Get-NetTCPConnection *)",
       "Bash(npx prisma *)",
-      "Bash(start *)"
+      "Bash(start *)",
+      "Bash(findstr \"3000\")",
+      "Bash(findstr \"5173\")"
     ]
   }
 }
