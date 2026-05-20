@@ -1,6 +1,16 @@
 <script setup lang="ts">
 const changelog = [
   {
+    version: '1.6.0',
+    date: '2026-05-19',
+    features: [
+      'Google Sign-In OAuth - Login com conta Google',
+      'Sincronização automática de nome e avatar do Google',
+      'Validação de ID tokens via Google tokeninfo API',
+      'Composable useGoogleSignIn para gerenciar autenticação'
+    ]
+  },
+  {
     version: '1.5.0',
     date: '2026-05-16',
     features: [
