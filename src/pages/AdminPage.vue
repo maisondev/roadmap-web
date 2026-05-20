@@ -873,8 +873,8 @@ async function sendFirstRoadmapMessage() {
             'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800': notif.type === 'error',
           }"
         >
-          <div class="flex items-start justify-between gap-2">
-            <div class="flex-1">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex-1 min-w-0">
               <p class="font-medium text-gray-900 dark:text-white">{{ notif.title }}</p>
               <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">{{ notif.message }}</p>
               <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">
@@ -896,7 +896,8 @@ async function sendFirstRoadmapMessage() {
               <button
                 @click="deleteUserNotification(notif.id)"
                 :disabled="deletingNotificationId === notif.id"
-                class="px-2 py-1 text-xs rounded transition-colors bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/60 disabled:opacity-50 disabled:cursor-not-allowed"
+                class="flex-shrink-0 px-3 py-1 text-xs font-semibold rounded transition-colors bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/60 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Remover notificação"
               >
                 {{ deletingNotificationId === notif.id ? '...' : '✕' }}
               </button>
