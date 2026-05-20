@@ -38,11 +38,6 @@ const selectedUser = ref<any>(null)
 const userNotifications = ref<any[]>([])
 const isLoadingUserNotifications = ref(false)
 
-// Notificações de boas-vindas em massa
-const isSendingWelcomeNotifications = ref(false)
-const welcomeNotificationSuccess = ref<string | null>(null)
-const welcomeNotificationError = ref<string | null>(null)
-
 onMounted(async () => {
   await loadStats()
 })
@@ -229,24 +224,6 @@ async function loadUserNotifications(userId: string) {
     userNotifications.value = []
   } finally {
     isLoadingUserNotifications.value = false
-  }
-}
-
-async function sendWelcomeNotifications() {
-  isSendingWelcomeNotifications.value = true
-  welcomeNotificationSuccess.value = null
-  welcomeNotificationError.value = null
-
-  try {
-    const response = await api.post('/api/admin/send-welcome-notifications', {})
-    welcomeNotificationSuccess.value = `✓ Notificações enviadas para ${response.count} usuário(s)!`
-    // Recarregar dados após envio
-    await loadStats()
-    setTimeout(() => { welcomeNotificationSuccess.value = null }, 5000)
-  } catch (err) {
-    welcomeNotificationError.value = err instanceof Error ? err.message : 'Erro ao enviar notificações'
-  } finally {
-    isSendingWelcomeNotifications.value = false
   }
 }
 </script>
@@ -656,31 +633,6 @@ async function sendWelcomeNotifications() {
 
       <!-- ===== NOTIFICATIONS TAB ===== -->
       <div v-else-if="activeTab === 'notifications' && users" class="space-y-6">
-        <!-- Notificações de Boas-vindas em Massa -->
-        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Enviar Notificações de Boas-vindas</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-            Envia uma notificação de boas-vindas para todos os usuários que ainda não receberam nenhuma notificação (0 notificações).
-          </p>
-          <div class="space-y-4">
-            <div v-if="welcomeNotificationSuccess" class="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-              <p class="text-sm text-green-600 dark:text-green-400">✓ {{ welcomeNotificationSuccess }}</p>
-            </div>
-            <div v-if="welcomeNotificationError" class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-              <p class="text-sm text-red-600 dark:text-red-400">{{ welcomeNotificationError }}</p>
-            </div>
-            <AppButton
-              variant="primary"
-              @click="sendWelcomeNotifications"
-              :disabled="isSendingWelcomeNotifications"
-              class="w-full"
-            >
-              {{ isSendingWelcomeNotifications ? 'Enviando...' : '🎉 Enviar Boas-vindas em Massa' }}
-            </AppButton>
-          </div>
-        </div>
-
-        <!-- Notificação Individual -->
         <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
           <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Enviar Notificação para Usuário</h3>
           <div class="space-y-4">
