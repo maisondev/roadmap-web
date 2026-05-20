@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.1.0",
-    "@react-oauth/google": "^0.13.5",
     "pinia": "^2.1.0",
     "vue": "^3.4.0",
     "vue-router": "^4.3.0"
