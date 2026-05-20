@@ -105,9 +105,6 @@ export const useAuthStore = defineStore('auth', () => {
       } catch (error) {
         console.error('Erro ao atualizar dados do usuário:', error)
       }
-
-      // Carregar notificações do servidor
-      loadNotificationsFromServer()
     }
   }
 
@@ -178,9 +175,6 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.setItem(STORAGE_KEY, token.value)
       localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user.value))
 
-      // Carregar notificações do servidor
-      await loadNotificationsFromServer()
-
       // Notificação de boas-vindas
       const notificationsStore = useNotificationsStore()
       notificationsStore.addNotification(
@@ -220,9 +214,6 @@ export const useAuthStore = defineStore('auth', () => {
 
       localStorage.setItem(STORAGE_KEY, token.value)
       localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user.value))
-
-      // Carregar notificações do servidor
-      await loadNotificationsFromServer()
     } catch (error) {
       if (error instanceof Error && error.message.includes('Failed to fetch')) {
         throw new Error('Erro de conexão com o servidor')
@@ -250,9 +241,6 @@ export const useAuthStore = defineStore('auth', () => {
 
       localStorage.setItem(STORAGE_KEY, token.value)
       localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user.value))
-
-      // Carregar notificações do servidor
-      await loadNotificationsFromServer()
 
       // Notificação de boas-vindas para novo usuário
       if (!user.value?.consentGiven) {
@@ -408,7 +396,8 @@ export const useAuthStore = defineStore('auth', () => {
     exportData,
     deleteAccount,
     getAuthHeaders,
-    hasPendingChanges
+    hasPendingChanges,
+    loadNotificationsFromServer
   }
 })
 
