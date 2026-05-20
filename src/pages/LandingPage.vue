@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, watch, nextTick } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import AppButton from '@/components/atoms/AppButton.vue'
 import BenefitIcon from '@/components/atoms/BenefitIcon.vue'
+import type { GoogleCredentialResponse } from '@/types/google'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -15,6 +16,92 @@ const password = ref('')
 const consentGiven = ref(false)
 const authError = ref<string | null>(null)
 const isSubmitting = ref(false)
+
+// Google OAuth
+onMounted(() => {
+  loadGoogleScript()
+})
+
+watch(showAuthModal, async (newVal) => {
+  if (newVal) {
+    await nextTick()
+    ensureGoogleLoaded()
+    renderGoogleButton('landing')
+  }
+})
+
+function loadGoogleScript() {
+  if (document.getElementById('google-script')) return
+
+  const script = document.createElement('script')
+  script.id = 'google-script'
+  script.src = 'https://accounts.google.com/gsi/client'
+  script.async = true
+  script.onload = () => {
+    ensureGoogleLoaded()
+  }
+  document.head.appendChild(script)
+}
+
+function ensureGoogleLoaded() {
+  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+  if (!clientId) return
+
+  if (!window.google || !window.google.accounts) {
+    setTimeout(ensureGoogleLoaded, 100)
+    return
+  }
+
+  try {
+    window.google.accounts.id.initialize({
+      client_id: clientId,
+      callback: handleGoogleLogin
+    })
+  } catch (e) {
+    console.error('Erro ao inicializar Google:', e)
+  }
+}
+
+function renderGoogleButton(location: string) {
+  if (!window.google) {
+    setTimeout(() => renderGoogleButton(location), 100)
+    return
+  }
+
+  try {
+    const element = document.getElementById(`google-signin-button-${location}`)
+    if (!element) return
+
+    window.google.accounts.id.renderButton(element, {
+      type: 'standard',
+      size: 'large',
+      theme: 'filled_blue',
+      text: authMode.value === 'login' ? 'signin' : 'signup'
+    })
+  } catch (e) {
+    console.error('Erro ao renderizar botão:', e)
+  }
+}
+
+const handleGoogleLogin = async (response: GoogleCredentialResponse) => {
+  authError.value = null
+  isSubmitting.value = true
+
+  try {
+    const credential = response.credential
+    if (!credential) {
+      throw new Error('Google token não foi obtido')
+    }
+
+    await authStore.loginWithGoogle(credential)
+    showAuthModal.value = false
+    router.push('/dashboard')
+  } catch (e) {
+    authError.value = e instanceof Error ? e.message : String(e)
+  } finally {
+    isSubmitting.value = false
+  }
+}
 
 const benefits = [
   {
@@ -473,6 +560,11 @@ const footerLinks = [
           <p v-if="authError" class="text-sm text-red-600 dark:text-red-400">
             {{ authError }}
           </p>
+        </div>
+
+        <!-- Google Login Button -->
+        <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+          <div id="google-signin-button-landing" class="flex justify-center mb-4"></div>
         </div>
 
         <div class="flex gap-2 mb-4">
