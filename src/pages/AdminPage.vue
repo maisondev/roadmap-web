@@ -14,6 +14,7 @@ const stats = ref<any>(null)
 const users = ref<any[]>([])
 const activity = ref<any>(null)
 const analytics = ref<any>(null)
+const loginStats = ref<any>(null)
 const isLoading = ref(true)
 const isLoadingAnalytics = ref(false)
 const error = ref<string | null>(null)
@@ -54,17 +55,19 @@ async function loadStats() {
   error.value = null
 
   try {
-    const [statsData, usersData, activityData, analyticsData] = await Promise.all([
+    const [statsData, usersData, activityData, analyticsData, loginStatsData] = await Promise.all([
       api.get('/api/admin/stats'),
       api.get('/api/admin/users'),
       api.get('/api/admin/activity'),
-      api.get(`/api/admin/analytics?days=${analyticsRange.value}`)
+      api.get(`/api/admin/analytics?days=${analyticsRange.value}`),
+      api.get('/api/admin/stats/login-methods')
     ])
 
     stats.value = statsData
     users.value = usersData
     activity.value = activityData
     analytics.value = analyticsData
+    loginStats.value = loginStatsData
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Erro ao carregar dados'
     console.error(error.value)
@@ -376,6 +379,33 @@ async function sendFirstRoadmapMessage() {
             </div>
           </div>
         </div>
+
+        <!-- Métodos de Login -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" v-if="loginStats">
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">📧 Login por Email</h3>
+            <p class="text-4xl font-bold text-blue-600 dark:text-blue-400">{{ loginStats.email }}</p>
+            <div class="mt-3 h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+              <div
+                class="h-full bg-blue-500 rounded-full transition-all"
+                :style="{ width: `${loginStats.emailPercent}%` }"
+              />
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">{{ loginStats.emailPercent }}% do total</p>
+          </div>
+
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">🔵 Login via Google</h3>
+            <p class="text-4xl font-bold text-orange-600 dark:text-orange-400">{{ loginStats.google }}</p>
+            <div class="mt-3 h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+              <div
+                class="h-full bg-orange-500 rounded-full transition-all"
+                :style="{ width: `${loginStats.googlePercent}%` }"
+              />
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">{{ loginStats.googlePercent }}% do total</p>
+          </div>
+        </div>
       </div>
 
       <!-- ===== ANALYTICS TAB ===== -->
@@ -589,6 +619,8 @@ async function sendFirstRoadmapMessage() {
               <tr>
                 <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Email</th>
                 <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Status</th>
+                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Login</th>
+                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Último Acesso</th>
                 <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Consentimento</th>
                 <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Roadmaps</th>
                 <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Logs</th>
@@ -610,6 +642,17 @@ async function sendFirstRoadmapMessage() {
                   <span v-else class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-semibold rounded">
                     Usuário
                   </span>
+                </td>
+                <td class="px-4 py-3">
+                  <span v-if="user.loginMethod === 'GOOGLE'" class="px-2 py-1 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 text-xs font-semibold rounded">
+                    🔵 Google
+                  </span>
+                  <span v-else class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded">
+                    📧 Email
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-gray-600 dark:text-gray-400 text-xs">
+                  {{ user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'Nunca' }}
                 </td>
                 <td class="px-4 py-3">
                   <span v-if="user.consentGiven" class="px-2 py-1 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-xs font-semibold rounded">
@@ -807,6 +850,7 @@ async function sendFirstRoadmapMessage() {
   <AppModal
     :open="showUserNotificationsModal"
     :title="`Notificações de ${selectedUser?.email}`"
+    submit-label=""
     cancel-label="Fechar"
     @cancel="showUserNotificationsModal = false"
   >
