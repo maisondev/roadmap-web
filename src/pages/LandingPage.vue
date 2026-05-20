@@ -47,24 +47,60 @@ function initGoogleButton() {
           client_id: clientId,
           callback: handleGoogleLogin
         })
-
-        const button = document.getElementById('google-signin-button')
-        if (button) {
-          button.innerHTML = '' // Limpar antes de renderizar
-          window.google.accounts.id.renderButton(button, {
-            type: 'standard',
-            size: 'large',
-            text: authMode.value === 'login' ? 'signin_with' : 'signup_with'
-          })
-        }
       } catch (e) {
-        console.error('Erro ao renderizar Google button:', e)
+        console.error('Erro ao inicializar Google:', e)
       }
     }
   }, 100)
 
   // Timeout depois de 5 segundos
   setTimeout(() => clearInterval(checkGoogle), 5000)
+}
+
+function triggerGoogleSignIn() {
+  authError.value = null
+  isSubmitting.value = true
+
+  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+  if (!clientId) {
+    authError.value = 'Google Client ID não configurado'
+    isSubmitting.value = false
+    return
+  }
+
+  if (!window.google || !window.google.accounts) {
+    authError.value = 'Script do Google ainda não carregou. Tente novamente em alguns segundos.'
+    isSubmitting.value = false
+    return
+  }
+
+  try {
+    // Inicializar Google se ainda não foi
+    window.google.accounts.id.initialize({
+      client_id: clientId,
+      callback: handleGoogleLogin
+    })
+
+    // Renderizar o button em um elemento hidden e clicar nele
+    const hiddenButton = document.getElementById('google-signin-button')
+    if (hiddenButton) {
+      hiddenButton.innerHTML = ''
+      window.google.accounts.id.renderButton(hiddenButton, {
+        type: 'standard',
+        size: 'large',
+        text: authMode.value === 'login' ? 'signin' : 'signup'
+      })
+      // Simular clique no botão renderizado
+      const button = hiddenButton.querySelector('button')
+      if (button) {
+        button.click()
+      }
+    }
+  } catch (e) {
+    console.error('Erro ao disparar Google Sign In:', e)
+    authError.value = 'Erro ao conectar com Google'
+    isSubmitting.value = false
+  }
 }
 
 const benefits = [
@@ -535,10 +571,18 @@ const footerLinks = [
 
         <!-- Google Login Button -->
         <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
-          <div
-            id="google-signin-button"
-            class="flex justify-center"
-          ></div>
+          <button
+            type="button"
+            @click="triggerGoogleSignIn"
+            :disabled="isSubmitting"
+            class="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 transition-colors"
+          >
+            <span class="text-lg">🔍</span>
+            <span class="text-gray-900 dark:text-white font-medium">
+              {{ isSubmitting ? 'Conectando...' : (authMode === 'login' ? 'Entrar com Google' : 'Cadastrar com Google') }}
+            </span>
+          </button>
+          <div id="google-signin-button" class="hidden"></div>
         </div>
 
         <div class="flex gap-2 mb-4">
