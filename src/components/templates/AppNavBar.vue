@@ -191,19 +191,7 @@ async function toggleNotificationsMenu() {
       })
       if (response.ok) {
         const serverNotifications = await response.json()
-        notificationsStore.clearAll()
-        if (Array.isArray(serverNotifications)) {
-          for (const notif of serverNotifications) {
-            notificationsStore.notifications.value.unshift({
-              id: notif.id,
-              title: notif.title,
-              message: notif.message,
-              type: notif.type,
-              timestamp: new Date(notif.createdAt),
-              read: notif.read
-            })
-          }
-        }
+        notificationsStore.loadFromServer(serverNotifications)
       }
     } catch (error) {
       console.error('Erro ao carregar notificações:', error)

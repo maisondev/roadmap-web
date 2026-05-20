@@ -78,6 +78,23 @@ export const useNotificationsStore = defineStore('notifications', () => {
     notifications.value = []
   }
 
+  function loadFromServer(serverNotifications: any[]) {
+    clearAll()
+    if (Array.isArray(serverNotifications)) {
+      for (const notif of serverNotifications) {
+        const notification: Notification = {
+          id: notif.id,
+          title: notif.title,
+          message: notif.message,
+          type: notif.type,
+          timestamp: new Date(notif.createdAt),
+          read: notif.read
+        }
+        notifications.value.unshift(notification)
+      }
+    }
+  }
+
   async function markAsReadSync(id: string) {
     const { useAuthStore } = await import('./auth')
     const authStore = useAuthStore()
@@ -159,6 +176,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
     markAllAsReadSync,
     removeNotification,
     removeNotificationSync,
-    clearAll
+    clearAll,
+    loadFromServer
   }
 })
