@@ -32,6 +32,12 @@ const isSendingNotification = ref(false)
 const notificationSendError = ref<string | null>(null)
 const notificationSendSuccess = ref(false)
 
+// Mensagem para primeiro roadmap
+const firstRoadmapMessage = ref('Continue criando roadmaps incríveis! Você está no caminho certo! 🚀')
+const isSendingFirstRoadmapMessage = ref(false)
+const firstRoadmapSuccess = ref<string | null>(null)
+const firstRoadmapError = ref<string | null>(null)
+
 // Modal de notificações de usuário
 const showUserNotificationsModal = ref(false)
 const selectedUser = ref<any>(null)
@@ -224,6 +230,30 @@ async function loadUserNotifications(userId: string) {
     userNotifications.value = []
   } finally {
     isLoadingUserNotifications.value = false
+  }
+}
+
+async function sendFirstRoadmapMessage() {
+  firstRoadmapError.value = null
+  firstRoadmapSuccess.value = null
+
+  if (!firstRoadmapMessage.value.trim()) {
+    firstRoadmapError.value = 'A mensagem não pode estar vazia'
+    return
+  }
+
+  isSendingFirstRoadmapMessage.value = true
+  try {
+    const response = await api.post('/api/admin/send-first-roadmap-message', {
+      message: firstRoadmapMessage.value
+    })
+    firstRoadmapSuccess.value = `✓ Mensagens enviadas para ${response.count} usuário(s)!`
+    setTimeout(() => { firstRoadmapSuccess.value = null }, 4000)
+    await loadStats()
+  } catch (err) {
+    firstRoadmapError.value = err instanceof Error ? err.message : 'Erro ao enviar mensagens'
+  } finally {
+    isSendingFirstRoadmapMessage.value = false
   }
 }
 </script>
@@ -633,6 +663,7 @@ async function loadUserNotifications(userId: string) {
 
       <!-- ===== NOTIFICATIONS TAB ===== -->
       <div v-else-if="activeTab === 'notifications' && users" class="space-y-6">
+        <!-- Enviar Notificação para Usuário -->
         <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
           <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Enviar Notificação para Usuário</h3>
           <div class="space-y-4">
@@ -672,6 +703,45 @@ async function loadUserNotifications(userId: string) {
                 {{ isSendingNotification ? 'Enviando...' : '🔔 Enviar Notificação' }}
               </AppButton>
             </div>
+          </div>
+        </div>
+
+        <!-- Mensagem para Primeiro Roadmap -->
+        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">🎯 Incentivar Usuários com 1 Roadmap</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            Envie mensagens personalizadas para usuários que criaram exatamente 1 roadmap e ainda não receberam a badge PRIMEIRA_AULA
+          </p>
+
+          <div class="space-y-4">
+            <div v-if="firstRoadmapSuccess" class="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+              <p class="text-sm text-green-600 dark:text-green-400">{{ firstRoadmapSuccess }}</p>
+            </div>
+            <div v-if="firstRoadmapError" class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+              <p class="text-sm text-red-600 dark:text-red-400">{{ firstRoadmapError }}</p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Mensagem Personalizada</label>
+              <textarea
+                v-model="firstRoadmapMessage"
+                placeholder="Digite a mensagem que será enviada aos usuários"
+                rows="4"
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              />
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                Título da notificação será: "🎯 Continue Aprendendo!"
+              </p>
+            </div>
+
+            <AppButton
+              variant="primary"
+              @click="sendFirstRoadmapMessage"
+              :disabled="isSendingFirstRoadmapMessage"
+              class="w-full"
+            >
+              {{ isSendingFirstRoadmapMessage ? 'Enviando...' : '📤 Enviar para Usuários' }}
+            </AppButton>
           </div>
         </div>
       </div>
