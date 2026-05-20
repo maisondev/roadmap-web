@@ -43,6 +43,7 @@ const showUserNotificationsModal = ref(false)
 const selectedUser = ref<any>(null)
 const userNotifications = ref<any[]>([])
 const isLoadingUserNotifications = ref(false)
+const deletingNotificationId = ref<string | null>(null)
 
 onMounted(async () => {
   await loadStats()
@@ -230,6 +231,25 @@ async function loadUserNotifications(userId: string) {
     userNotifications.value = []
   } finally {
     isLoadingUserNotifications.value = false
+  }
+}
+
+async function deleteUserNotification(notificationId: string) {
+  if (!selectedUser.value) return
+
+  if (!confirm('Tem certeza que deseja remover esta notificação?')) {
+    return
+  }
+
+  deletingNotificationId.value = notificationId
+  try {
+    await api.delete(`/api/admin/users/${selectedUser.value.id}/notifications/${notificationId}`)
+    userNotifications.value = userNotifications.value.filter(n => n.id !== notificationId)
+  } catch (err) {
+    console.error('Erro ao remover notificação:', err)
+    alert('Erro ao remover notificação: ' + (err instanceof Error ? err.message : 'Erro desconhecido'))
+  } finally {
+    deletingNotificationId.value = null
   }
 }
 
@@ -811,17 +831,26 @@ async function sendFirstRoadmapMessage() {
                 {{ new Date(notif.createdAt).toLocaleString('pt-BR') }}
               </p>
             </div>
-            <span
-              class="px-2 py-1 text-xs font-semibold rounded whitespace-nowrap"
-              :class="{
-                'bg-blue-200 dark:bg-blue-800 text-blue-700 dark:text-blue-200': notif.type === 'info',
-                'bg-green-200 dark:bg-green-800 text-green-700 dark:text-green-200': notif.type === 'success',
-                'bg-yellow-200 dark:bg-yellow-800 text-yellow-700 dark:text-yellow-200': notif.type === 'warning',
-                'bg-red-200 dark:bg-red-800 text-red-700 dark:text-red-200': notif.type === 'error',
-              }"
-            >
-              {{ notif.type }}
-            </span>
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <span
+                class="px-2 py-1 text-xs font-semibold rounded whitespace-nowrap"
+                :class="{
+                  'bg-blue-200 dark:bg-blue-800 text-blue-700 dark:text-blue-200': notif.type === 'info',
+                  'bg-green-200 dark:bg-green-800 text-green-700 dark:text-green-200': notif.type === 'success',
+                  'bg-yellow-200 dark:bg-yellow-800 text-yellow-700 dark:text-yellow-200': notif.type === 'warning',
+                  'bg-red-200 dark:bg-red-800 text-red-700 dark:text-red-200': notif.type === 'error',
+                }"
+              >
+                {{ notif.type }}
+              </span>
+              <button
+                @click="deleteUserNotification(notif.id)"
+                :disabled="deletingNotificationId === notif.id"
+                class="px-2 py-1 text-xs rounded transition-colors bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/60 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {{ deletingNotificationId === notif.id ? '...' : '✕' }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
