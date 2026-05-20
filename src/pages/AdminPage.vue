@@ -288,8 +288,8 @@ async function sendFirstRoadmapMessage() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-light dark:bg-gray-900 p-4">
-    <div class="max-w-6xl mx-auto space-y-6">
+  <div class="min-h-screen bg-light dark:bg-gray-900 p-6">
+    <div class="w-full mx-auto space-y-6" style="max-width: calc(100% - 2rem)">
       <!-- Header -->
       <div class="flex items-center justify-between">
         <div>
@@ -337,7 +337,7 @@ async function sendFirstRoadmapMessage() {
 
       <!-- ===== STATS TAB ===== -->
       <div v-else-if="activeTab === 'stats' && stats" class="space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
             <p class="text-sm text-gray-600 dark:text-gray-400">Total de Usuários</p>
             <p class="text-3xl font-bold text-primary mt-2">{{ stats.totalUsers }}</p>
@@ -381,7 +381,7 @@ async function sendFirstRoadmapMessage() {
         </div>
 
         <!-- Métodos de Login -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" v-if="loginStats">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" v-if="loginStats">
           <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
             <h3 class="font-semibold text-gray-900 dark:text-white mb-4">📧 Login por Email</h3>
             <p class="text-4xl font-bold text-blue-600 dark:text-blue-400">{{ loginStats.email }}</p>
@@ -404,6 +404,19 @@ async function sendFirstRoadmapMessage() {
               />
             </div>
             <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">{{ loginStats.googlePercent }}% do total</p>
+          </div>
+
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">👥 Total de Usuários</h3>
+            <p class="text-4xl font-bold text-primary">{{ loginStats.total }}</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-4">
+              <span class="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded mr-2">
+                📧 {{ loginStats.email }}
+              </span>
+              <span class="inline-block px-2 py-1 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 text-xs font-semibold rounded">
+                🔵 {{ loginStats.google }}
+              </span>
+            </p>
           </div>
         </div>
       </div>
@@ -544,7 +557,7 @@ async function sendFirstRoadmapMessage() {
         </div>
 
         <!-- Features mais usadas -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" v-if="analytics">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" v-if="analytics">
           <!-- Categorias de roadmap -->
           <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
             <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Categorias de roadmap</h3>
@@ -613,63 +626,63 @@ async function sendFirstRoadmapMessage() {
 
       <!-- ===== USERS TAB ===== -->
       <div v-else-if="activeTab === 'users' && users" class="space-y-4">
-        <div class="overflow-x-auto">
+        <div class="w-full overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
           <table class="w-full text-sm">
-            <thead class="bg-gray-50 dark:bg-gray-800 border-b border-slate-200 dark:border-slate-700">
+            <thead class="bg-gray-50 dark:bg-gray-800 border-b border-slate-200 dark:border-slate-700 sticky top-0">
               <tr>
-                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Email</th>
-                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Status</th>
-                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Login</th>
-                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Último Acesso</th>
-                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Consentimento</th>
-                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Roadmaps</th>
-                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Logs</th>
-                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">🔔 Notificações</th>
-                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Cadastro</th>
-                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Ação</th>
+                <th class="px-3 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Email</th>
+                <th class="px-2 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Status</th>
+                <th class="px-2 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Login</th>
+                <th class="px-2 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Último</th>
+                <th class="px-2 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Consentimento</th>
+                <th class="px-2 py-2 text-center font-semibold text-gray-900 dark:text-white text-xs">RM</th>
+                <th class="px-2 py-2 text-center font-semibold text-gray-900 dark:text-white text-xs">Logs</th>
+                <th class="px-2 py-2 text-center font-semibold text-gray-900 dark:text-white text-xs">🔔</th>
+                <th class="px-2 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Cadastro</th>
+                <th class="px-2 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Ação</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
-              <tr v-for="user in users" :key="user.id" class="hover:bg-gray-50 dark:hover:bg-gray-800">
-                <td class="px-4 py-3 text-gray-900 dark:text-white">{{ user.email }}</td>
-                <td class="px-4 py-3">
-                  <span v-if="user.role === 'OWNER'" class="px-2 py-1 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs font-semibold rounded">
+              <tr v-for="user in users" :key="user.id" class="hover:bg-gray-50 dark:hover:bg-gray-800 text-xs">
+                <td class="px-3 py-2 text-gray-900 dark:text-white font-medium">{{ user.email }}</td>
+                <td class="px-2 py-2">
+                  <span v-if="user.role === 'OWNER'" class="px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
                     👑 Owner
                   </span>
-                  <span v-else-if="user.role === 'ADMIN'" class="px-2 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded">
+                  <span v-else-if="user.role === 'ADMIN'" class="px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
                     Admin
                   </span>
-                  <span v-else class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-semibold rounded">
+                  <span v-else class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
                     Usuário
                   </span>
                 </td>
-                <td class="px-4 py-3">
-                  <span v-if="user.loginMethod === 'GOOGLE'" class="px-2 py-1 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 text-xs font-semibold rounded">
-                    🔵 Google
+                <td class="px-2 py-2">
+                  <span v-if="user.loginMethod === 'GOOGLE'" class="px-1.5 py-0.5 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
+                    🔵
                   </span>
-                  <span v-else class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded">
-                    📧 Email
+                  <span v-else class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
+                    📧
                   </span>
                 </td>
-                <td class="px-4 py-3 text-gray-600 dark:text-gray-400 text-xs">
-                  {{ user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'Nunca' }}
+                <td class="px-2 py-2 text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                  {{ user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—' }}
                 </td>
-                <td class="px-4 py-3">
-                  <span v-if="user.consentGiven" class="px-2 py-1 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-xs font-semibold rounded">
+                <td class="px-2 py-2">
+                  <span v-if="user.consentGiven" class="px-1.5 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
                     ✓ Sim
                   </span>
-                  <span v-else class="px-2 py-1 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 text-xs font-semibold rounded">
-                    ✗ Não
+                  <span v-else class="px-1.5 py-0.5 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
+                    ✗
                   </span>
                 </td>
-                <td class="px-4 py-3 text-gray-600 dark:text-gray-400">{{ user._count.roadmaps }}</td>
-                <td class="px-4 py-3 text-gray-600 dark:text-gray-400">{{ user._count.logs }}</td>
-                <td class="px-4 py-3">
-                  <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded">
+                <td class="px-2 py-2 text-gray-600 dark:text-gray-400 text-center">{{ user._count.roadmaps }}</td>
+                <td class="px-2 py-2 text-gray-600 dark:text-gray-400 text-center">{{ user._count.logs }}</td>
+                <td class="px-2 py-2 text-center">
+                  <span class="px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded inline-block">
                     {{ user._count.notifications }}
                   </span>
                 </td>
-                <td class="px-4 py-3 text-gray-600 dark:text-gray-400">{{ formatDate(user.createdAt) }}</td>
+                <td class="px-2 py-2 text-gray-600 dark:text-gray-400 whitespace-nowrap text-xs">{{ formatDate(user.createdAt) }}</td>
                 <td class="px-4 py-3">
                   <div class="flex gap-2 items-center">
                     <select
