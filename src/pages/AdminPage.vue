@@ -32,6 +32,12 @@ const isSendingNotification = ref(false)
 const notificationSendError = ref<string | null>(null)
 const notificationSendSuccess = ref(false)
 
+// Modal de notificações de usuário
+const showUserNotificationsModal = ref(false)
+const selectedUser = ref<any>(null)
+const userNotifications = ref<any[]>([])
+const isLoadingUserNotifications = ref(false)
+
 onMounted(async () => {
   await loadStats()
 })
@@ -199,6 +205,25 @@ async function sendNotification() {
     notificationSendError.value = err instanceof Error ? err.message : 'Erro ao enviar notificação'
   } finally {
     isSendingNotification.value = false
+  }
+}
+
+async function viewUserNotifications(user: any) {
+  selectedUser.value = user
+  showUserNotificationsModal.value = true
+  await loadUserNotifications(user.id)
+}
+
+async function loadUserNotifications(userId: string) {
+  isLoadingUserNotifications.value = true
+  try {
+    const response = await api.get(`/api/admin/users/${userId}/notifications`)
+    userNotifications.value = response.notifications || []
+  } catch (err) {
+    console.error('Erro ao carregar notificações do usuário:', err)
+    userNotifications.value = []
+  } finally {
+    isLoadingUserNotifications.value = false
   }
 }
 </script>
@@ -544,6 +569,13 @@ async function sendNotification() {
                       <option value="OWNER">Owner</option>
                     </select>
                     <button
+                      @click="viewUserNotifications(user)"
+                      :disabled="deletingUserId === user.id || togglingUserId === user.id"
+                      class="px-3 py-1 text-xs font-medium rounded transition-colors bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/60 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      🔔 Ver
+                    </button>
+                    <button
                       @click="confirmDelete(user)"
                       :disabled="deletingUserId === user.id || togglingUserId === user.id || authStore.user?.id === user.id || !authStore.isOwner"
                       :class="[
@@ -656,6 +688,57 @@ async function sendNotification() {
         <p class="text-xs text-red-600 dark:text-red-400 font-semibold leading-relaxed">
           ⚠️ Esta ação não pode ser desfeita. Todos os roadmaps, logs e dados do usuário serão permanentemente removidos.
         </p>
+      </div>
+    </div>
+  </AppModal>
+
+  <!-- User Notifications Modal -->
+  <AppModal
+    :open="showUserNotificationsModal"
+    :title="`Notificações de ${selectedUser?.email}`"
+    cancel-label="Fechar"
+    @cancel="showUserNotificationsModal = false"
+  >
+    <div class="space-y-4 max-h-96 overflow-y-auto">
+      <div v-if="isLoadingUserNotifications" class="text-center py-8">
+        <p class="text-gray-600 dark:text-gray-400">Carregando notificações...</p>
+      </div>
+      <div v-else-if="userNotifications.length === 0" class="text-center py-8">
+        <p class="text-gray-600 dark:text-gray-400">Nenhuma notificação encontrada</p>
+      </div>
+      <div v-else class="space-y-3">
+        <div
+          v-for="notif in userNotifications"
+          :key="notif.id"
+          class="p-3 border rounded-lg border-gray-200 dark:border-gray-700"
+          :class="{
+            'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800': notif.type === 'info',
+            'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800': notif.type === 'success',
+            'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800': notif.type === 'warning',
+            'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800': notif.type === 'error',
+          }"
+        >
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex-1">
+              <p class="font-medium text-gray-900 dark:text-white">{{ notif.title }}</p>
+              <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">{{ notif.message }}</p>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">
+                {{ new Date(notif.createdAt).toLocaleString('pt-BR') }}
+              </p>
+            </div>
+            <span
+              class="px-2 py-1 text-xs font-semibold rounded whitespace-nowrap"
+              :class="{
+                'bg-blue-200 dark:bg-blue-800 text-blue-700 dark:text-blue-200': notif.type === 'info',
+                'bg-green-200 dark:bg-green-800 text-green-700 dark:text-green-200': notif.type === 'success',
+                'bg-yellow-200 dark:bg-yellow-800 text-yellow-700 dark:text-yellow-200': notif.type === 'warning',
+                'bg-red-200 dark:bg-red-800 text-red-700 dark:text-red-200': notif.type === 'error',
+              }"
+            >
+              {{ notif.type }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </AppModal>
