@@ -30,7 +30,8 @@
       "PowerShell(Stop-Process *)",
       "Bash(env)",
       "PowerShell(Get-NetTCPConnection *)",
-      "Bash(npx prisma *)"
+      "Bash(npx prisma *)",
+      "Bash(start *)"
     ]
   }
 }

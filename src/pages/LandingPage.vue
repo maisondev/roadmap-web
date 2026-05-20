@@ -4,6 +4,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import AppButton from '@/components/atoms/AppButton.vue'
 import BenefitIcon from '@/components/atoms/BenefitIcon.vue'
+import type { GoogleCredentialResponse } from '@/types/google'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -16,9 +17,6 @@ const consentGiven = ref(false)
 const authError = ref<string | null>(null)
 const isSubmitting = ref(false)
 
-// Google OAuth
-const googleButtonRef = ref<HTMLDivElement | null>(null)
-
 onMounted(() => {
   loadGoogleScript()
 })
@@ -26,80 +24,93 @@ onMounted(() => {
 watch(showAuthModal, async (newVal) => {
   if (newVal) {
     await nextTick()
-    initGoogleButton()
+    ensureGoogleLoaded()
+    renderGoogleButton()
   }
 })
 
-function initGoogleButton() {
-  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
-  if (!clientId) {
-    console.warn('VITE_GOOGLE_CLIENT_ID não configurado')
+function loadGoogleScript() {
+  if (document.getElementById('google-script')) {
+    console.log('[GOOGLE] Script já carregado')
     return
   }
 
-  // Aguardar o script do Google ser carregado
-  const checkGoogle = setInterval(() => {
-    if (window.google && window.google.accounts && window.google.accounts.id) {
-      clearInterval(checkGoogle)
-
-      try {
-        window.google.accounts.id.initialize({
-          client_id: clientId,
-          callback: handleGoogleLogin
-        })
-      } catch (e) {
-        console.error('Erro ao inicializar Google:', e)
-      }
-    }
-  }, 100)
-
-  // Timeout depois de 5 segundos
-  setTimeout(() => clearInterval(checkGoogle), 5000)
+  console.log('[GOOGLE] Carregando script...')
+  const script = document.createElement('script')
+  script.id = 'google-script'
+  script.src = 'https://accounts.google.com/gsi/client'
+  script.async = true
+  script.onload = () => {
+    console.log('[GOOGLE] Script carregado, inicializando...')
+    ensureGoogleLoaded()
+  }
+  script.onerror = () => {
+    console.error('[GOOGLE] Erro ao carregar script')
+  }
+  document.head.appendChild(script)
 }
 
-function triggerGoogleSignIn() {
-  authError.value = null
-  isSubmitting.value = true
-
+function ensureGoogleLoaded() {
   const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
   if (!clientId) {
-    authError.value = 'Google Client ID não configurado'
-    isSubmitting.value = false
+    console.error('[GOOGLE] VITE_GOOGLE_CLIENT_ID não configurado')
     return
   }
 
   if (!window.google || !window.google.accounts) {
-    authError.value = 'Script do Google ainda não carregou. Tente novamente em alguns segundos.'
-    isSubmitting.value = false
+    console.log('[GOOGLE] Aguardando window.google...')
+    setTimeout(ensureGoogleLoaded, 100)
     return
   }
 
   try {
-    // Inicializar Google se ainda não foi
+    console.log('[GOOGLE] Inicializando Google Sign-In...')
     window.google.accounts.id.initialize({
       client_id: clientId,
       callback: handleGoogleLogin
     })
-
-    // Renderizar o button em um elemento hidden e clicar nele
-    const hiddenButton = document.getElementById('google-signin-button')
-    if (hiddenButton) {
-      hiddenButton.innerHTML = ''
-      window.google.accounts.id.renderButton(hiddenButton, {
-        type: 'standard',
-        size: 'large',
-        text: authMode.value === 'login' ? 'signin' : 'signup'
-      })
-      // Simular clique no botão renderizado
-      const button = hiddenButton.querySelector('button')
-      if (button) {
-        button.click()
-      }
-    }
+    console.log('[GOOGLE] Inicialização concluída')
   } catch (e) {
-    console.error('Erro ao disparar Google Sign In:', e)
-    authError.value = 'Erro ao conectar com Google'
-    isSubmitting.value = false
+    console.error('[GOOGLE] Erro ao inicializar:', e)
+  }
+}
+
+function renderGoogleButton() {
+  if (!window.google) {
+    console.log('[GOOGLE] window.google não disponível, tentando novamente...')
+    setTimeout(renderGoogleButton, 100)
+    return
+  }
+
+  try {
+    const element = document.getElementById('google-signin-button')
+    if (!element) {
+      console.error('[GOOGLE] Elemento #google-signin-button não encontrado')
+      return
+    }
+
+    console.log('[GOOGLE] Renderizando botão Google...')
+    window.google.accounts.id.renderButton(element, {
+      type: 'standard',
+      size: 'large',
+      theme: 'filled_blue',
+      text: authMode.value === 'login' ? 'signin' : 'signup'
+    })
+    console.log('[GOOGLE] Botão renderizado com sucesso!')
+  } catch (e) {
+    console.error('[GOOGLE] Erro ao renderizar botão:', e)
+  }
+}
+
+function triggerGoogleSignIn() {
+  console.log('[GOOGLE] Botão de fallback clicado')
+  // O botão do Google é renderizado automaticamente
+  // Este é apenas um fallback se algo der errado
+  const element = document.getElementById('google-signin-button')?.querySelector('button')
+  if (element) {
+    element.click()
+  } else {
+    authError.value = 'Botão Google não está disponível'
   }
 }
 
@@ -174,18 +185,8 @@ async function submitAuth() {
   }
 }
 
-function loadGoogleScript() {
-  if (document.getElementById('google-script')) return
-
-  const script = document.createElement('script')
-  script.id = 'google-script'
-  script.src = 'https://accounts.google.com/gsi/client'
-  script.async = true
-  script.defer = true
-  document.head.appendChild(script)
-}
-
-async function handleGoogleLogin(response: any) {
+const handleGoogleLogin = async (response: GoogleCredentialResponse) => {
+  console.log('[GOOGLE] Login callback recebido')
   authError.value = null
   isSubmitting.value = true
 
@@ -195,10 +196,13 @@ async function handleGoogleLogin(response: any) {
       throw new Error('Google token não foi obtido')
     }
 
+    console.log('[GOOGLE] Enviando token para o backend...')
     await authStore.loginWithGoogle(credential)
+    console.log('[GOOGLE] Login bem-sucedido!')
     showAuthModal.value = false
     router.push('/dashboard')
   } catch (e) {
+    console.error('[GOOGLE] Erro no login:', e)
     authError.value = e instanceof Error ? e.message : String(e)
   } finally {
     isSubmitting.value = false
@@ -571,18 +575,18 @@ const footerLinks = [
 
         <!-- Google Login Button -->
         <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+          <div id="google-signin-button" class="flex justify-center mb-4"></div>
           <button
             type="button"
             @click="triggerGoogleSignIn"
             :disabled="isSubmitting"
-            class="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 transition-colors"
+            class="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 transition-colors bg-white dark:bg-gray-700"
           >
-            <span class="text-lg">🔍</span>
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='20' height='20'%3E%3Ctext x='12' y='16' text-anchor='middle' font-size='20' fill='%23fff'%3EG%3C/text%3E%3C/svg%3E" alt="Google" class="w-5 h-5" />
             <span class="text-gray-900 dark:text-white font-medium">
               {{ isSubmitting ? 'Conectando...' : (authMode === 'login' ? 'Entrar com Google' : 'Cadastrar com Google') }}
             </span>
           </button>
-          <div id="google-signin-button" class="hidden"></div>
         </div>
 
         <div class="flex gap-2 mb-4">
