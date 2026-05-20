@@ -174,29 +174,6 @@ async function submitAuth() {
   }
 }
 
-const handleGoogleLogin = async (response: GoogleCredentialResponse) => {
-  console.log('[GOOGLE] Login callback recebido')
-  authError.value = null
-  isSubmitting.value = true
-
-  try {
-    const credential = response.credential
-    if (!credential) {
-      throw new Error('Google token não foi obtido')
-    }
-
-    console.log('[GOOGLE] Enviando token para o backend...')
-    await authStore.loginWithGoogle(credential)
-    console.log('[GOOGLE] Login bem-sucedido!')
-    showAuthModal.value = false
-    router.push('/dashboard')
-  } catch (e) {
-    console.error('[GOOGLE] Erro no login:', e)
-    authError.value = e instanceof Error ? e.message : String(e)
-  } finally {
-    isSubmitting.value = false
-  }
-}
 
 const footerLinks = [
   {
