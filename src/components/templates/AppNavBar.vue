@@ -12,6 +12,7 @@ import AppModal from '@/components/atoms/AppModal.vue'
 import FeedbackModal from '@/components/molecules/FeedbackModal.vue'
 import AuthActions from '@/components/molecules/AuthActions.vue'
 import { useNotificationsStore } from '@/stores/notifications'
+import { useGoogleSignIn } from '@/composables/useGoogleSignIn'
 import type { GoogleCredentialResponse } from '@/types/google'
 import MD5 from 'crypto-js/md5'
 
@@ -112,70 +113,15 @@ async function submitAuth() {
 const { withLoading } = useGlobalLoading()
 
 // Google OAuth
-onMounted(() => {
-  loadGoogleScript()
-})
+const { setCallback, renderButton } = useGoogleSignIn()
 
 watch(showAuthModal, async (newVal) => {
   if (newVal) {
     await nextTick()
-    ensureGoogleLoaded()
-    renderGoogleButton('navbar')
+    setCallback(handleGoogleLogin)
+    renderButton('google-signin-button-navbar')
   }
 })
-
-function loadGoogleScript() {
-  if (document.getElementById('google-script')) return
-
-  const script = document.createElement('script')
-  script.id = 'google-script'
-  script.src = 'https://accounts.google.com/gsi/client'
-  script.async = true
-  script.onload = () => {
-    ensureGoogleLoaded()
-  }
-  document.head.appendChild(script)
-}
-
-function ensureGoogleLoaded() {
-  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
-  if (!clientId) return
-
-  if (!window.google || !window.google.accounts) {
-    setTimeout(ensureGoogleLoaded, 100)
-    return
-  }
-
-  try {
-    window.google.accounts.id.initialize({
-      client_id: clientId,
-      callback: handleGoogleLogin
-    })
-  } catch (e) {
-    console.error('Erro ao inicializar Google:', e)
-  }
-}
-
-function renderGoogleButton(location: string) {
-  if (!window.google) {
-    setTimeout(() => renderGoogleButton(location), 100)
-    return
-  }
-
-  try {
-    const element = document.getElementById(`google-signin-button-${location}`)
-    if (!element) return
-
-    window.google.accounts.id.renderButton(element, {
-      type: 'standard',
-      size: 'large',
-      theme: 'filled_blue',
-      text: authMode.value === 'login' ? 'signin' : 'signup'
-    })
-  } catch (e) {
-    console.error('Erro ao renderizar botão:', e)
-  }
-}
 
 const handleGoogleLogin = async (response: GoogleCredentialResponse) => {
   authError.value = null
