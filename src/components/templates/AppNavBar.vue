@@ -180,6 +180,18 @@ function toggleTheme() {
   settingsStore.toggleTheme()
 }
 
+async function toggleNotificationsMenu() {
+  if (!showNotificationsMenu.value) {
+    // Abrir menu - carregar notificações
+    try {
+      await authStore.loadNotificationsFromServer()
+    } catch (error) {
+      console.error('Erro ao carregar notificações:', error)
+    }
+  }
+  showNotificationsMenu.value = !showNotificationsMenu.value
+}
+
 function handleLogout() {
   authStore.logout()
   router.push('/')
@@ -261,7 +273,7 @@ const isActive = (name: string) => route.name === name
           <!-- Notifications button -->
           <div v-if="authStore.isLoggedIn" class="relative">
             <button
-              @click="showNotificationsMenu = !showNotificationsMenu"
+              @click="toggleNotificationsMenu"
               class="relative p-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               title="Notificações"
             >
