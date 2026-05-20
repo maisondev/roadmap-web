@@ -241,6 +241,16 @@ export const useAuthStore = defineStore('auth', () => {
 
       // Carregar notificações do servidor
       await loadNotificationsFromServer()
+
+      // Notificação de boas-vindas para novo usuário
+      if (!user.value?.consentGiven) {
+        const notificationsStore = useNotificationsStore()
+        notificationsStore.addNotification(
+          'Bem-vindo ao Sinapses! 🎉',
+          'Sua conta foi criada com sucesso. Explore o roadmap "Como Aprender Qualquer Coisa" para aprender como usar a plataforma.',
+          'success'
+        )
+      }
     } catch (error) {
       if (error instanceof Error && error.message.includes('Failed to fetch')) {
         throw new Error('Erro de conexão com o servidor')
