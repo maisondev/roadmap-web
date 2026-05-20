@@ -132,7 +132,10 @@ const handleGoogleLogin = async (response: GoogleCredentialResponse) => {
       throw new Error('Google token não foi obtido')
     }
 
-    await authStore.loginWithGoogle(credential)
+    await withLoading(
+      authStore.loginWithGoogle(credential),
+      'Entrando com Google...'
+    )
     showAuthModal.value = false
     router.push('/dashboard')
   } catch (e) {
