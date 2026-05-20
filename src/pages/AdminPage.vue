@@ -652,7 +652,7 @@ async function sendFirstRoadmapMessage() {
                   </span>
                 </td>
                 <td class="px-4 py-3 text-gray-600 dark:text-gray-400 text-xs">
-                  {{ user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'Nunca' }}
+                  {{ user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'Nunca' }}
                 </td>
                 <td class="px-4 py-3">
                   <span v-if="user.consentGiven" class="px-2 py-1 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-xs font-semibold rounded">
