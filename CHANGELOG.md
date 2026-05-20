@@ -12,9 +12,13 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - Condicional na HomePage para mostrar landing quando não logado
 - Documentação completa em CLAUDE.md (frontend e backend)
 - Plano de desenvolvimento frontend
+- **Google Sign-In OAuth** — Login via conta Google com sincronização automática de nome e avatar
+- Composable `useGoogleSignIn` para gerenciar inicialização do Google Sign-In
 
 ### Melhorado
 - Reorganização da estrutura de rotas e páginas
+- **Google OAuth** — Validação de ID tokens via Google tokeninfo API
+- Sincronização automática de perfil (nome e avatar) ao fazer login via Google
 
 ---
 
