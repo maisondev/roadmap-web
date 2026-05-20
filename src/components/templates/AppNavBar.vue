@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted, watch, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useSettingsStore } from '@/stores/settings'
 import { useDailyLogStore } from '@/stores/dailyLog'
@@ -11,6 +11,8 @@ import AppButton from '@/components/atoms/AppButton.vue'
 import AppModal from '@/components/atoms/AppModal.vue'
 import FeedbackModal from '@/components/molecules/FeedbackModal.vue'
 import { useNotificationsStore } from '@/stores/notifications'
+import { useGlobalLoading as useGlobalLoadingComposable } from '@/composables/useGlobalLoading'
+import type { GoogleCredentialResponse } from '@/types/google'
 import MD5 from 'crypto-js/md5'
 
 const router = useRouter()
@@ -108,6 +110,118 @@ async function submitAuth() {
 }
 
 const { withLoading } = useGlobalLoading()
+
+// Google OAuth
+onMounted(() => {
+  loadGoogleScript()
+})
+
+watch(showAuthModal, async (newVal) => {
+  console.log('[GOOGLE] showAuthModal watch disparado:', newVal)
+  if (newVal) {
+    await nextTick()
+    console.log('[GOOGLE] nextTick executado, chamando ensureGoogleLoaded...')
+    ensureGoogleLoaded()
+    console.log('[GOOGLE] ensureGoogleLoaded chamado, chamando renderGoogleButton...')
+    renderGoogleButton()
+  }
+})
+
+function loadGoogleScript() {
+  if (document.getElementById('google-script')) {
+    console.log('[GOOGLE] Script já carregado')
+    return
+  }
+
+  console.log('[GOOGLE] Carregando script...')
+  const script = document.createElement('script')
+  script.id = 'google-script'
+  script.src = 'https://accounts.google.com/gsi/client'
+  script.async = true
+  script.onload = () => {
+    console.log('[GOOGLE] Script carregado, inicializando...')
+    ensureGoogleLoaded()
+  }
+  script.onerror = () => {
+    console.error('[GOOGLE] Erro ao carregar script')
+  }
+  document.head.appendChild(script)
+}
+
+function ensureGoogleLoaded() {
+  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+  if (!clientId) {
+    console.error('[GOOGLE] VITE_GOOGLE_CLIENT_ID não configurado')
+    return
+  }
+
+  if (!window.google || !window.google.accounts) {
+    console.log('[GOOGLE] Aguardando window.google...')
+    setTimeout(ensureGoogleLoaded, 100)
+    return
+  }
+
+  try {
+    console.log('[GOOGLE] Inicializando Google Sign-In...')
+    window.google.accounts.id.initialize({
+      client_id: clientId,
+      callback: handleGoogleLogin
+    })
+    console.log('[GOOGLE] Inicialização concluída')
+  } catch (e) {
+    console.error('[GOOGLE] Erro ao inicializar:', e)
+  }
+}
+
+function renderGoogleButton() {
+  if (!window.google) {
+    console.log('[GOOGLE] window.google não disponível, tentando novamente...')
+    setTimeout(renderGoogleButton, 100)
+    return
+  }
+
+  try {
+    const element = document.getElementById('google-signin-button-navbar')
+    if (!element) {
+      console.error('[GOOGLE] Elemento #google-signin-button-navbar não encontrado')
+      return
+    }
+
+    console.log('[GOOGLE] Renderizando botão Google...')
+    window.google.accounts.id.renderButton(element, {
+      type: 'standard',
+      size: 'large',
+      theme: 'filled_blue',
+      text: authMode.value === 'login' ? 'signin' : 'signup'
+    })
+    console.log('[GOOGLE] Botão renderizado com sucesso!')
+  } catch (e) {
+    console.error('[GOOGLE] Erro ao renderizar botão:', e)
+  }
+}
+
+const handleGoogleLogin = async (response: GoogleCredentialResponse) => {
+  console.log('[GOOGLE] Login callback recebido')
+  authError.value = null
+  try {
+    const credential = response.credential
+    if (!credential) {
+      throw new Error('Google token não foi obtido')
+    }
+
+    console.log('[GOOGLE] Enviando token para o backend...')
+    await withLoading(
+      authStore.loginWithGoogle(credential),
+      'Entrando com Google...'
+    )
+    console.log('[GOOGLE] Login bem-sucedido!')
+    showAuthModal.value = false
+    router.push('/dashboard')
+  } catch (e) {
+    console.error('[GOOGLE] Erro no login:', e)
+    authError.value = e instanceof Error ? e.message : String(e)
+  }
+}
 
 const showBackButton = computed(() => {
   // Mostrar em páginas detalhadas quando logado
@@ -720,6 +834,11 @@ const isActive = (name: string) => route.name === name
         <p v-if="authError" class="text-sm text-red-600 dark:text-red-400">
           {{ authError }}
         </p>
+
+        <!-- Google Login Button -->
+        <div class="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+          <div id="google-signin-button-navbar" class="flex justify-center mb-4"></div>
+        </div>
 
         <button
           type="button"

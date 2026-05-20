@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, nextTick } from 'vue'
+import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import AppButton from '@/components/atoms/AppButton.vue'
 import BenefitIcon from '@/components/atoms/BenefitIcon.vue'
-import type { GoogleCredentialResponse } from '@/types/google'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -16,103 +15,6 @@ const password = ref('')
 const consentGiven = ref(false)
 const authError = ref<string | null>(null)
 const isSubmitting = ref(false)
-
-onMounted(() => {
-  loadGoogleScript()
-})
-
-watch(showAuthModal, async (newVal) => {
-  if (newVal) {
-    await nextTick()
-    ensureGoogleLoaded()
-    renderGoogleButton()
-  }
-})
-
-function loadGoogleScript() {
-  if (document.getElementById('google-script')) {
-    console.log('[GOOGLE] Script já carregado')
-    return
-  }
-
-  console.log('[GOOGLE] Carregando script...')
-  const script = document.createElement('script')
-  script.id = 'google-script'
-  script.src = 'https://accounts.google.com/gsi/client'
-  script.async = true
-  script.onload = () => {
-    console.log('[GOOGLE] Script carregado, inicializando...')
-    ensureGoogleLoaded()
-  }
-  script.onerror = () => {
-    console.error('[GOOGLE] Erro ao carregar script')
-  }
-  document.head.appendChild(script)
-}
-
-function ensureGoogleLoaded() {
-  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
-  if (!clientId) {
-    console.error('[GOOGLE] VITE_GOOGLE_CLIENT_ID não configurado')
-    return
-  }
-
-  if (!window.google || !window.google.accounts) {
-    console.log('[GOOGLE] Aguardando window.google...')
-    setTimeout(ensureGoogleLoaded, 100)
-    return
-  }
-
-  try {
-    console.log('[GOOGLE] Inicializando Google Sign-In...')
-    window.google.accounts.id.initialize({
-      client_id: clientId,
-      callback: handleGoogleLogin
-    })
-    console.log('[GOOGLE] Inicialização concluída')
-  } catch (e) {
-    console.error('[GOOGLE] Erro ao inicializar:', e)
-  }
-}
-
-function renderGoogleButton() {
-  if (!window.google) {
-    console.log('[GOOGLE] window.google não disponível, tentando novamente...')
-    setTimeout(renderGoogleButton, 100)
-    return
-  }
-
-  try {
-    const element = document.getElementById('google-signin-button')
-    if (!element) {
-      console.error('[GOOGLE] Elemento #google-signin-button não encontrado')
-      return
-    }
-
-    console.log('[GOOGLE] Renderizando botão Google...')
-    window.google.accounts.id.renderButton(element, {
-      type: 'standard',
-      size: 'large',
-      theme: 'filled_blue',
-      text: authMode.value === 'login' ? 'signin' : 'signup'
-    })
-    console.log('[GOOGLE] Botão renderizado com sucesso!')
-  } catch (e) {
-    console.error('[GOOGLE] Erro ao renderizar botão:', e)
-  }
-}
-
-function triggerGoogleSignIn() {
-  console.log('[GOOGLE] Botão de fallback clicado')
-  // O botão do Google é renderizado automaticamente
-  // Este é apenas um fallback se algo der errado
-  const element = document.getElementById('google-signin-button')?.querySelector('button')
-  if (element) {
-    element.click()
-  } else {
-    authError.value = 'Botão Google não está disponível'
-  }
-}
 
 const benefits = [
   {
@@ -571,22 +473,6 @@ const footerLinks = [
           <p v-if="authError" class="text-sm text-red-600 dark:text-red-400">
             {{ authError }}
           </p>
-        </div>
-
-        <!-- Google Login Button -->
-        <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
-          <div id="google-signin-button" class="flex justify-center mb-4"></div>
-          <button
-            type="button"
-            @click="triggerGoogleSignIn"
-            :disabled="isSubmitting"
-            class="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 transition-colors bg-white dark:bg-gray-700"
-          >
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='20' height='20'%3E%3Ctext x='12' y='16' text-anchor='middle' font-size='20' fill='%23fff'%3EG%3C/text%3E%3C/svg%3E" alt="Google" class="w-5 h-5" />
-            <span class="text-gray-900 dark:text-white font-medium">
-              {{ isSubmitting ? 'Conectando...' : (authMode === 'login' ? 'Entrar com Google' : 'Cadastrar com Google') }}
-            </span>
-          </button>
         </div>
 
         <div class="flex gap-2 mb-4">
