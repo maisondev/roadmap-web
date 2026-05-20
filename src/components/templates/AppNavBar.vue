@@ -10,6 +10,7 @@ import { ArrowLeftIcon, HomeIcon, Cog6ToothIcon, SunIcon, MoonIcon, Bars3Icon, M
 import AppButton from '@/components/atoms/AppButton.vue'
 import AppModal from '@/components/atoms/AppModal.vue'
 import FeedbackModal from '@/components/molecules/FeedbackModal.vue'
+import AuthActions from '@/components/molecules/AuthActions.vue'
 import { useNotificationsStore } from '@/stores/notifications'
 import type { GoogleCredentialResponse } from '@/types/google'
 import MD5 from 'crypto-js/md5'
@@ -458,24 +459,7 @@ const isActive = (name: string) => route.name === name
           </button>
 
           <!-- User area -->
-          <div v-if="!authStore.isLoggedIn" class="flex items-center gap-3">
-            <AppButton
-              variant="secondary"
-              size="sm"
-              @click="openLogin"
-              class="hidden sm:inline-flex"
-            >
-              Entrar
-            </AppButton>
-            <AppButton
-              variant="primary"
-              size="md"
-              @click="openRegister"
-              class="inline-flex"
-            >
-              Criar conta grátis
-            </AppButton>
-          </div>
+          <AuthActions v-if="!authStore.isLoggedIn" variant="navbar" @register="openRegister" @login="openLogin" />
             <div v-else class="relative">
               <!-- Profile button -->
               <button

@@ -4,6 +4,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import AppButton from '@/components/atoms/AppButton.vue'
 import BenefitIcon from '@/components/atoms/BenefitIcon.vue'
+import AuthActions from '@/components/molecules/AuthActions.vue'
 import type { GoogleCredentialResponse } from '@/types/google'
 
 const router = useRouter()
@@ -460,20 +461,7 @@ const footerLinks = [
             Crie seu primeiro roadmap e fortaleça suas sinapses de aprendizado
           </p>
         </div>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
-            @click="openRegister"
-            class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
-          >
-            Começar agora →
-          </button>
-          <button
-            @click="openLogin"
-            class="px-8 py-4 border-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 font-semibold rounded-lg transition-colors duration-200"
-          >
-            Já tenho conta
-          </button>
-        </div>
+        <AuthActions variant="landing" @register="openRegister" @login="openLogin" />
       </div>
     </section>
 
