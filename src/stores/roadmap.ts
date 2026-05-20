@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import type { Roadmap, Block, Topic, Resource, TopicStatus, RoadmapColor, RoadmapStatus } from '@/types'
 import { roadmapInterpretacaoTextos } from '@/data/roadmaps/interpretacao-textos'
 import { useAuthStore } from '@/stores/auth'
+import { useNotificationsStore } from '@/stores/notifications'
 import { api } from '@/services/api'
 import { syncManager } from '@/services/sync'
 
@@ -385,6 +386,14 @@ export const useRoadmapStore = defineStore('roadmap', () => {
         },
         maxAttempts: 3
       })
+
+      // Mostrar notificação de sucesso
+      const notificationsStore = useNotificationsStore()
+      notificationsStore.addNotification(
+        '🎉 Roadmap criado!',
+        `O roadmap "${title}" foi criado com sucesso!`,
+        'success'
+      )
     }
 
     return newId
