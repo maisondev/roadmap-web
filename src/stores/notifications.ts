@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { useAuthStore } from './auth'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
@@ -80,6 +79,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
   }
 
   async function markAsReadSync(id: string) {
+    const { useAuthStore } = await import('./auth')
     const authStore = useAuthStore()
     if (!authStore.token) return
 
@@ -95,6 +95,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
   }
 
   async function toggleReadSync(id: string) {
+    const { useAuthStore } = await import('./auth')
     const authStore = useAuthStore()
     if (!authStore.token) return
 
@@ -114,6 +115,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
   }
 
   async function removeNotificationSync(id: string) {
+    const { useAuthStore } = await import('./auth')
     const authStore = useAuthStore()
     if (!authStore.token) return
 
@@ -129,6 +131,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
   }
 
   async function markAllAsReadSync() {
+    const { useAuthStore } = await import('./auth')
     const authStore = useAuthStore()
     if (!authStore.token) return
 
