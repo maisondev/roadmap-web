@@ -32,25 +32,39 @@ watch(showAuthModal, async (newVal) => {
 
 function initGoogleButton() {
   const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
-  if (!clientId || !window.google) return
-
-  try {
-    window.google.accounts.id.initialize({
-      client_id: clientId,
-      callback: handleGoogleLogin
-    })
-
-    const button = document.getElementById('google-signin-button')
-    if (button) {
-      window.google.accounts.id.renderButton(button, {
-        type: 'standard',
-        size: 'large',
-        text: authMode.value === 'login' ? 'signin_with' : 'signup_with'
-      })
-    }
-  } catch (e) {
-    console.error('Erro ao inicializar Google button:', e)
+  if (!clientId) {
+    console.warn('VITE_GOOGLE_CLIENT_ID não configurado')
+    return
   }
+
+  // Aguardar o script do Google ser carregado
+  const checkGoogle = setInterval(() => {
+    if (window.google && window.google.accounts && window.google.accounts.id) {
+      clearInterval(checkGoogle)
+
+      try {
+        window.google.accounts.id.initialize({
+          client_id: clientId,
+          callback: handleGoogleLogin
+        })
+
+        const button = document.getElementById('google-signin-button')
+        if (button) {
+          button.innerHTML = '' // Limpar antes de renderizar
+          window.google.accounts.id.renderButton(button, {
+            type: 'standard',
+            size: 'large',
+            text: authMode.value === 'login' ? 'signin_with' : 'signup_with'
+          })
+        }
+      } catch (e) {
+        console.error('Erro ao renderizar Google button:', e)
+      }
+    }
+  }, 100)
+
+  // Timeout depois de 5 segundos
+  setTimeout(() => clearInterval(checkGoogle), 5000)
 }
 
 const benefits = [
