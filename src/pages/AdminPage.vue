@@ -533,8 +533,10 @@ async function loadUserNotifications(userId: string) {
               <tr>
                 <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Email</th>
                 <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Status</th>
+                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Consentimento</th>
                 <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Roadmaps</th>
                 <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Logs</th>
+                <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">🔔 Notificações</th>
                 <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Cadastro</th>
                 <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Ação</th>
               </tr>
@@ -553,8 +555,21 @@ async function loadUserNotifications(userId: string) {
                     Usuário
                   </span>
                 </td>
+                <td class="px-4 py-3">
+                  <span v-if="user.consentGiven" class="px-2 py-1 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-xs font-semibold rounded">
+                    ✓ Sim
+                  </span>
+                  <span v-else class="px-2 py-1 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 text-xs font-semibold rounded">
+                    ✗ Não
+                  </span>
+                </td>
                 <td class="px-4 py-3 text-gray-600 dark:text-gray-400">{{ user._count.roadmaps }}</td>
                 <td class="px-4 py-3 text-gray-600 dark:text-gray-400">{{ user._count.logs }}</td>
+                <td class="px-4 py-3">
+                  <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded">
+                    {{ user._count.notifications }}
+                  </span>
+                </td>
                 <td class="px-4 py-3 text-gray-600 dark:text-gray-400">{{ formatDate(user.createdAt) }}</td>
                 <td class="px-4 py-3">
                   <div class="flex gap-2 items-center">
