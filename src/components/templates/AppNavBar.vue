@@ -791,7 +791,7 @@ const isActive = (name: string) => route.name === name
 
         <!-- Google Login Button -->
         <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
-          <div id="google-signin-button-navbar" class="flex justify-center"></div>
+          <div id="google-signin-button-navbar" class="flex justify-center" style="min-height: 48px;"></div>
         </div>
 
         <button
