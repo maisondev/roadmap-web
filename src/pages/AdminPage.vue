@@ -245,6 +245,12 @@ async function deleteUserNotification(notificationId: string) {
   try {
     await api.delete(`/api/admin/users/${selectedUser.value.id}/notifications/${notificationId}`)
     userNotifications.value = userNotifications.value.filter(n => n.id !== notificationId)
+
+    // Atualizar o contador na tabela de usuários
+    const userIndex = users.value.findIndex(u => u.id === selectedUser.value.id)
+    if (userIndex !== -1 && users.value[userIndex]._count) {
+      users.value[userIndex]._count.notifications = Math.max(0, users.value[userIndex]._count.notifications - 1)
+    }
   } catch (err) {
     console.error('Erro ao remover notificação:', err)
     alert('Erro ao remover notificação: ' + (err instanceof Error ? err.message : 'Erro desconhecido'))
