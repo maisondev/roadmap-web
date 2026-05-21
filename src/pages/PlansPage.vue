@@ -181,7 +181,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onActivated } from 'vue'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 import { api } from '../services/api'
 
@@ -191,6 +191,12 @@ const isLoadingCheckout = ref(false)
 const error = ref<string | null>(null)
 
 onMounted(async () => {
+  await loadPlan()
+})
+
+// Refetch ao retornar para esta página (ex: após payment/return)
+onActivated(async () => {
+  console.log('📋 [PlansPage] Página ativada - refetchando plano...')
   await loadPlan()
 })
 

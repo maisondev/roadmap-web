@@ -239,8 +239,8 @@ onMounted(async () => {
   if (status.value === 'approved') {
     console.log(`✅ [PaymentReturn] Pagamento aprovado! Aguardando webhook processar...`)
 
-    // Esperar 3 segundos para webhook processar
-    await new Promise(resolve => setTimeout(resolve, 3000))
+    // Esperar 5 segundos para webhook processar (pode levar tempo)
+    await new Promise(resolve => setTimeout(resolve, 5000))
 
     // Refetch do plano para confirmar atualização
     console.log(`🔄 [PaymentReturn] Refetchando plano...`)
