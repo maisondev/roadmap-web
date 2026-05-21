@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineEmits<{
+const emit = defineEmits<{
   register: []
   login: []
 }>()
@@ -39,6 +39,22 @@ defineEmits<{
             </span>
             Acesso ao seu progresso em qualquer dispositivo
           </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+          <button
+            @click="emit('register')"
+            class="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl"
+          >
+            Começar agora
+          </button>
+          <button
+            @click="emit('login')"
+            class="px-8 py-3 border-2 border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-semibold rounded-lg transition-colors"
+          >
+            Já tenho conta
+          </button>
         </div>
       </div>
 

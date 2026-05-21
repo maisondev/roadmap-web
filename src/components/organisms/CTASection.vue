@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AuthActions from '@/components/molecules/AuthActions.vue'
 
-defineEmits<{
+const emit = defineEmits<{
   register: []
   login: []
 }>()
