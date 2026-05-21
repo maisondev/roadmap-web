@@ -176,12 +176,6 @@
         </div>
       </div>
 
-      <!-- Info -->
-      <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
-        <p class="text-blue-900">
-          <strong>Modo Sandbox:</strong> Esta página está em modo de teste. Você pode testar o fluxo de checkout com o Mercado Pago usando cartões de teste.
-        </p>
-      </div>
     </div>
   </div>
 </template>
