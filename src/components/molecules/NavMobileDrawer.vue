@@ -12,7 +12,7 @@ interface Props {
 
 defineProps<Props>()
 
-defineEmits<{
+const emit = defineEmits<{
   (e: 'close'): void
   (e: 'openLogin'): void
   (e: 'openRegister'): void
@@ -29,7 +29,7 @@ function navigateTo(path: string, name: string) {
     name,
     params: path === '/roadmap' ? { roadmapId: 'interpretacao-textos' } : undefined
   })
-  $emit('close')
+  emit('close')
 }
 
 function toggleThemeMobile() {
@@ -39,7 +39,7 @@ function toggleThemeMobile() {
 function handleLogout() {
   authStore.logout()
   router.push('/')
-  $emit('close')
+  emit('close')
 }
 
 const navItems = computed(() => {
@@ -65,7 +65,7 @@ const isActive = (name: string) => route.name === name
     <Transition name="fade">
       <div
         v-if="open"
-        @click="$emit('close')"
+        @click="emit('close')"
         :class="[
           'fixed inset-0 z-40 md:hidden',
           authStore.isLoggedIn ? 'bg-black/40 dark:bg-black/60' : 'bg-black/50'
@@ -93,7 +93,7 @@ const isActive = (name: string) => route.name === name
         <div v-if="authStore.isLoggedIn" class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Menu</h3>
           <button
-            @click="$emit('close')"
+            @click="emit('close')"
             class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
           >
             <XMarkIcon class="w-6 h-6 text-gray-500 dark:text-gray-400" />
@@ -104,7 +104,7 @@ const isActive = (name: string) => route.name === name
         <div v-else class="flex items-center justify-between p-4 border-b border-slate-700">
           <h3 class="text-lg font-semibold text-white">Menu</h3>
           <button
-            @click="$emit('close')"
+            @click="emit('close')"
             class="p-2 hover:bg-slate-800 rounded-lg transition-colors"
           >
             <XMarkIcon class="w-6 h-6 text-slate-300" />
@@ -158,7 +158,7 @@ const isActive = (name: string) => route.name === name
         <div v-else class="flex-1 overflow-y-auto px-3 py-4 space-y-2">
           <!-- Public Navigation Items -->
           <button
-            @click="router.push('/'); $emit('close')"
+            @click="router.push('/'); emit('close')"
             class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition-colors"
           >
             <HomeIcon class="w-5 h-5 flex-shrink-0" />
@@ -166,7 +166,7 @@ const isActive = (name: string) => route.name === name
           </button>
 
           <button
-            @click="router.push('/help'); $emit('close')"
+            @click="router.push('/help'); emit('close')"
             class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition-colors"
           >
             <ChatBubbleLeftEllipsisIcon class="w-5 h-5 flex-shrink-0" />
@@ -174,7 +174,7 @@ const isActive = (name: string) => route.name === name
           </button>
 
           <button
-            @click="router.push('/contact'); $emit('close')"
+            @click="router.push('/contact'); emit('close')"
             class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition-colors"
           >
             <MapIcon class="w-5 h-5 flex-shrink-0" />
@@ -188,7 +188,7 @@ const isActive = (name: string) => route.name === name
           <div class="flex gap-2">
             <!-- Feedback -->
             <button
-              @click="$emit('openFeedback')"
+              @click="emit('openFeedback')"
               class="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition-colors"
               title="Enviar Feedback"
             >
@@ -214,7 +214,7 @@ const isActive = (name: string) => route.name === name
           <AppButton
             variant="secondary"
             size="sm"
-            @click="$emit('openLogin'); $emit('close')"
+            @click="emit('openLogin'); emit('close')"
             class="w-full text-xs sm:text-sm"
           >
             Entrar
@@ -222,7 +222,7 @@ const isActive = (name: string) => route.name === name
           <AppButton
             variant="primary"
             size="sm"
-            @click="$emit('openRegister'); $emit('close')"
+            @click="emit('openRegister'); emit('close')"
             class="w-full text-xs sm:text-sm"
           >
             Criar conta
