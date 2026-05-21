@@ -220,6 +220,8 @@ onMounted(async () => {
   const queryStatus = route.query.status as string
   status.value = queryStatus || 'unknown'
 
+  console.log(`💳 [PaymentReturn] Status: ${status.value}`)
+
   // If user is logged in, fetch current plan
   if (authStore.isAuthenticated) {
     try {
@@ -227,17 +229,37 @@ onMounted(async () => {
       const data = await response.json()
       currentPlan.value = data.plan
       planExpiresAt.value = data.planExpiresAt
+      console.log(`💳 [PaymentReturn] Plano atual:`, { plan: data.plan, expiresAt: data.planExpiresAt })
     } catch (error) {
-      console.error('Erro ao buscar plano:', error)
+      console.error('❌ [PaymentReturn] Erro ao buscar plano:', error)
     }
   }
 
-  // Auto-redirect on success
+  // Auto-redirect on success (com delay para webhook processar)
   if (status.value === 'approved') {
+    console.log(`✅ [PaymentReturn] Pagamento aprovado! Aguardando webhook processar...`)
+
+    // Esperar 3 segundos para webhook processar
+    await new Promise(resolve => setTimeout(resolve, 3000))
+
+    // Refetch do plano para confirmar atualização
+    console.log(`🔄 [PaymentReturn] Refetchando plano...`)
+    try {
+      const response = await api.get('/api/plan')
+      const data = await response.json()
+      currentPlan.value = data.plan
+      planExpiresAt.value = data.planExpiresAt
+      console.log(`✅ [PaymentReturn] Plano atualizado:`, { plan: data.plan, expiresAt: data.planExpiresAt })
+    } catch (error) {
+      console.error('❌ [PaymentReturn] Erro ao refetch plano:', error)
+    }
+
+    // Contador visual
     const interval = setInterval(() => {
       countdown.value--
       if (countdown.value <= 0) {
         clearInterval(interval)
+        console.log(`🚀 [PaymentReturn] Redirecionando para dashboard...`)
         goToDashboard()
       }
     }, 1000)
