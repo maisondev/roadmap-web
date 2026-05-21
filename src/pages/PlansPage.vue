@@ -205,9 +205,14 @@ async function loadPlan() {
   error.value = null
 
   try {
-    currentPlan.value = await api.get('/api/plan')
+    console.log('📋 [PlansPage] Carregando plano do usuário...')
+    const response = await api.get('/api/plan')
+    console.log('✅ [PlansPage] Plano carregado:', response)
+    currentPlan.value = response
   } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Erro ao carregar plano'
+    const errorMsg = err instanceof Error ? err.message : 'Erro ao carregar plano'
+    console.error('❌ [PlansPage] Erro ao carregar plano:', err)
+    error.value = errorMsg
   } finally {
     isLoading.value = false
   }
@@ -218,13 +223,26 @@ async function upgrade(plan: 'PLUS' | 'AVANCADO') {
   error.value = null
 
   try {
-    const response = await api.post('/api/plan/checkout', { plan })
-    const { checkoutUrl } = response
+    console.log(`🔄 [PlansPage] Iniciando checkout para plano: ${plan}`)
+    console.log(`📤 [PlansPage] POST /api/plan/checkout com body:`, { plan })
 
-    // Redirecionar para o Mercado Pago
+    const response = await api.post('/api/plan/checkout', { plan })
+    console.log('✅ [PlansPage] Resposta do checkout:', response)
+
+    const { checkoutUrl, publicKey, preferenceId } = response
+    console.log('🔗 [PlansPage] URLs recebidas:', { checkoutUrl, publicKey, preferenceId })
+
+    if (!checkoutUrl) {
+      throw new Error('checkoutUrl não retornou da API')
+    }
+
+    console.log('🚀 [PlansPage] Redirecionando para:', checkoutUrl)
     window.location.href = checkoutUrl
   } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Erro ao criar checkout'
+    const errorMsg = err instanceof Error ? err.message : 'Erro ao criar checkout'
+    console.error('❌ [PlansPage] Erro ao criar checkout:', err)
+    console.error('❌ [PlansPage] Mensagem de erro:', errorMsg)
+    error.value = errorMsg
     isLoadingCheckout.value = false
   }
 }
