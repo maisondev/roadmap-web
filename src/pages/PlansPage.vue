@@ -181,22 +181,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onActivated } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 import { api } from '../services/api'
 
+const route = useRoute()
 const currentPlan = ref<any>(null)
 const isLoading = ref(false)
 const isLoadingCheckout = ref(false)
 const error = ref<string | null>(null)
 
 onMounted(async () => {
-  await loadPlan()
-})
-
-// Refetch ao retornar para esta página (ex: após payment/return)
-onActivated(async () => {
-  console.log('📋 [PlansPage] Página ativada - refetchando plano...')
   await loadPlan()
 })
 
