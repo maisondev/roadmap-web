@@ -39,6 +39,11 @@ const isSendingFirstRoadmapMessage = ref(false)
 const firstRoadmapSuccess = ref<string | null>(null)
 const firstRoadmapError = ref<string | null>(null)
 
+// Sincronização de badges
+const isSyncingBadges = ref(false)
+const syncBadgesSuccess = ref<string | null>(null)
+const syncBadgesError = ref<string | null>(null)
+
 // Modal de notificações de usuário
 const showUserNotificationsModal = ref(false)
 const selectedUser = ref<any>(null)
@@ -283,6 +288,23 @@ async function sendFirstRoadmapMessage() {
     firstRoadmapError.value = err instanceof Error ? err.message : 'Erro ao enviar mensagens'
   } finally {
     isSendingFirstRoadmapMessage.value = false
+  }
+}
+
+async function syncBadges() {
+  syncBadgesError.value = null
+  syncBadgesSuccess.value = null
+
+  isSyncingBadges.value = true
+  try {
+    const response = await api.post('/api/admin/sync-badges', {})
+    syncBadgesSuccess.value = `✓ Sincronização concluída! ${response.processed} usuários processados, ${response.awarded} badges concedidos.`
+    setTimeout(() => { syncBadgesSuccess.value = null }, 5000)
+    await loadStats()
+  } catch (err) {
+    syncBadgesError.value = err instanceof Error ? err.message : 'Erro ao sincronizar badges'
+  } finally {
+    isSyncingBadges.value = false
   }
 }
 </script>
@@ -823,6 +845,32 @@ async function sendFirstRoadmapMessage() {
               class="w-full"
             >
               {{ isSendingFirstRoadmapMessage ? 'Enviando...' : '📤 Enviar para Usuários' }}
+            </AppButton>
+          </div>
+        </div>
+
+        <!-- Sincronização de Badges -->
+        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">🏆 Sincronizar Badges</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            Processa todos os usuários e atribui badges que ainda não receberam com base em suas atividades (roadmaps criados, recursos adicionados, logs diários, etc)
+          </p>
+
+          <div class="space-y-4">
+            <div v-if="syncBadgesSuccess" class="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+              <p class="text-sm text-green-600 dark:text-green-400">{{ syncBadgesSuccess }}</p>
+            </div>
+            <div v-if="syncBadgesError" class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+              <p class="text-sm text-red-600 dark:text-red-400">{{ syncBadgesError }}</p>
+            </div>
+
+            <AppButton
+              variant="primary"
+              @click="syncBadges"
+              :disabled="isSyncingBadges"
+              class="w-full"
+            >
+              {{ isSyncingBadges ? 'Sincronizando...' : '⚡ Sincronizar Badges de Todos os Usuários' }}
             </AppButton>
           </div>
         </div>
