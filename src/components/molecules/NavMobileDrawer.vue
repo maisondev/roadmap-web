@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useSettingsStore } from '@/stores/settings'
-import { HomeIcon, ChartBarIcon, CalendarIcon, TrophyIcon, ShieldCheckIcon, ChatBubbleLeftEllipsisIcon, MapIcon, SunIcon, MoonIcon, XMarkIcon, ArrowRightOnRectangleIcon } from '@heroicons/vue/24/outline'
+import { HomeIcon, ChartBarIcon, CalendarIcon, TrophyIcon, ShieldCheckIcon, ChatBubbleLeftEllipsisIcon, MapIcon, SunIcon, MoonIcon, XMarkIcon, ArrowRightOnRectangleIcon, CreditCardIcon } from '@heroicons/vue/24/outline'
 import AppButton from '@/components/atoms/AppButton.vue'
 
 interface Props {
@@ -47,7 +47,8 @@ const navItems = computed(() => {
     { name: 'home', path: '/', label: 'Roadmaps', icon: HomeIcon },
     { name: 'dashboard', path: '/dashboard', label: 'Dashboard', icon: ChartBarIcon },
     { name: 'daily-log', path: '/daily-log', label: 'Registros', icon: CalendarIcon },
-    { name: 'achievements', path: '/achievements', label: 'Conquistas', icon: TrophyIcon }
+    { name: 'achievements', path: '/achievements', label: 'Conquistas', icon: TrophyIcon },
+    { name: 'plans', path: '/plans', label: 'Planos', icon: CreditCardIcon }
   ]
   if (authStore.isAdmin) {
     items.push({ name: 'admin', path: '/admin', label: 'Admin', icon: ShieldCheckIcon })
