@@ -13,6 +13,13 @@ const authStore = useAuthStore()
 const { isLoading, loadingMessage } = useGlobalLoading()
 
 onMounted(async () => {
+  // Recuperar redirect do 404.html (GitHub Pages SPA routing)
+  const redirect = sessionStorage.redirect
+  if (redirect && redirect !== location.href) {
+    delete sessionStorage.redirect
+    history.replaceState(null, '', redirect)
+  }
+
   settingsStore.initSettings()
   await authStore.init()
   await roadmapStore.initRoadmap()
