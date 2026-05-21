@@ -15,6 +15,7 @@ import PrivacyPage from '@/pages/PrivacyPage.vue'
 import TermsPage from '@/pages/TermsPage.vue'
 import AchievementsPage from '@/pages/AchievementsPage.vue'
 import PlansPage from '@/pages/PlansPage.vue'
+import PaymentReturnPage from '@/pages/PaymentReturnPage.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const routes = [
@@ -65,6 +66,11 @@ const routes = [
     path: '/plans',
     name: 'plans',
     component: PlansPage
+  },
+  {
+    path: '/payment/return',
+    name: 'payment-return',
+    component: PaymentReturnPage
   },
   {
     path: '/admin',
