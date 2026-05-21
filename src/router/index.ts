@@ -13,6 +13,8 @@ import HelpPage from '@/pages/HelpPage.vue'
 import ContactPage from '@/pages/ContactPage.vue'
 import PrivacyPage from '@/pages/PrivacyPage.vue'
 import TermsPage from '@/pages/TermsPage.vue'
+import AchievementsPage from '@/pages/AchievementsPage.vue'
+import PlansPage from '@/pages/PlansPage.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const routes = [
@@ -53,6 +55,16 @@ const routes = [
     path: '/notifications',
     name: 'notifications',
     component: NotificationsPage
+  },
+  {
+    path: '/achievements',
+    name: 'achievements',
+    component: AchievementsPage
+  },
+  {
+    path: '/plans',
+    name: 'plans',
+    component: PlansPage
   },
   {
     path: '/admin',
@@ -106,6 +118,12 @@ router.beforeEach((to, from, next) => {
 
   if (to.name === 'admin' || to.name === 'changelog') {
     if (!authStore.isAdmin) {
+      next('/')
+    } else {
+      next()
+    }
+  } else if (to.name === 'plans') {
+    if (!authStore.isOwner) {
       next('/')
     } else {
       next()

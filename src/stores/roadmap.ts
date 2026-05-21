@@ -17,6 +17,50 @@ export const useRoadmapStore = defineStore('roadmap', () => {
     return roadmaps.value[activeRoadmapId.value] || roadmapInterpretacaoTextos
   })
 
+  function mapApiRoadmapToLocal(rm: any): Roadmap {
+    return {
+      id: rm.id,
+      title: rm.title || 'Roadmap sem título',
+      description: rm.description || '',
+      blocks: (rm.blocks || []).map((block: any) => ({
+        id: block.id,
+        order: block.order,
+        title: block.title || 'Bloco sem título',
+        priority: block.priority || 'normal',
+        topics: (block.topics || []).map((topic: any) => ({
+          id: topic.id,
+          order: topic.order,
+          title: topic.title || 'Tópico sem título',
+          description: topic.description,
+          status: topic.status === 'not_started' ? 'nao_iniciado' : topic.status || 'nao_iniciado',
+          resources: (topic.resources || []).map((resource: any) => ({
+            id: resource.id,
+            type: resource.type || 'link',
+            title: resource.title,
+            label: resource.title || 'Recurso sem título',
+            url: resource.url,
+            addedAt: resource.createdAt || new Date().toISOString(),
+            viewed: resource.seen || false,
+            viewedAt: resource.seen ? resource.updatedAt : undefined,
+            rating: resource.rating || 0
+          })),
+          notes: topic.notes,
+          questoesSolvidas: topic.questoesSolvidas || 0,
+          acertoPercent: topic.acertoPercent || 0
+        }))
+      })),
+      status: rm.status || 'ativo',
+      createdAt: rm.createdAt,
+      updatedAt: rm.updatedAt,
+      category: rm.category || '',
+      tags: rm.tags || [],
+      visibility: rm.visibility || 'private',
+      color: rm.color,
+      rating: rm.rating,
+      order: rm.order
+    }
+  }
+
   async function initRoadmap() {
     const authStore = useAuthStore()
     isLoading.value = true
@@ -32,37 +76,7 @@ export const useRoadmapStore = defineStore('roadmap', () => {
       const roadmapMap: Record<string, Roadmap> = {}
 
       data.forEach((rm: any) => {
-        roadmapMap[rm.id] = {
-          id: rm.id,
-          title: rm.title || 'Roadmap sem título',
-          description: rm.description,
-          blocks: (rm.blocks || []).map((block: any) => ({
-            id: block.id,
-            order: block.order,
-            title: block.title || 'Bloco sem título',
-            priority: block.priority || 'normal',
-            topics: (block.topics || []).map((topic: any) => ({
-              id: topic.id,
-              order: topic.order,
-              title: topic.title || 'Tópico sem título',
-              description: topic.description,
-              status: topic.status || 'nao_iniciado',
-              resources: topic.resources || [],
-              notes: topic.notes,
-              questoesSolvidas: topic.questoesSolvidas || 0,
-              acertoPercent: topic.acertoPercent || 0
-            }))
-          })),
-          status: rm.status || 'ativo',
-          createdAt: rm.createdAt,
-          updatedAt: rm.updatedAt,
-          category: rm.category || '',
-          tags: rm.tags || [],
-          visibility: rm.visibility || 'private',
-          color: rm.color,
-          rating: rm.rating,
-          order: rm.order
-        }
+        roadmapMap[rm.id] = mapApiRoadmapToLocal(rm)
       })
 
       roadmaps.value = Object.keys(roadmapMap).length > 0
@@ -346,7 +360,8 @@ export const useRoadmapStore = defineStore('roadmap', () => {
     description: string,
     category?: string,
     tags?: string[],
-    visibility: 'public' | 'private' = 'private'
+    visibility: 'public' | 'private' = 'private',
+    blocks: Block[] = []
   ): string | null {
     const authStore = useAuthStore()
     if (!authStore.isLoggedIn && Object.keys(roadmaps.value).length >= 7) {
@@ -358,7 +373,7 @@ export const useRoadmapStore = defineStore('roadmap', () => {
       id: newId,
       title,
       description,
-      blocks: [],
+      blocks,
       status: 'ativo',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -549,6 +564,13 @@ export const useRoadmapStore = defineStore('roadmap', () => {
     activeRoadmapId.value = 'interpretacao-textos'
   }
 
+  function upsertRoadmapFromApi(rm: any) {
+    const mapped = mapApiRoadmapToLocal(rm)
+    roadmaps.value[mapped.id] = mapped
+    activeRoadmapId.value = mapped.id
+    return mapped.id
+  }
+
   return {
     roadmaps,
     activeRoadmapId,
@@ -589,6 +611,7 @@ export const useRoadmapStore = defineStore('roadmap', () => {
     moveRoadmapDown,
     clearRoadmaps,
     exportRoadmap,
-    importRoadmap
+    importRoadmap,
+    upsertRoadmapFromApi
   }
 })
