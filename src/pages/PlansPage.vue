@@ -198,6 +198,10 @@ const error = ref<string | null>(null)
 
 onMounted(async () => {
   await loadPlan()
+  // Carregar SDK do Mercado Pago
+  const script = document.createElement('script')
+  script.src = 'https://sdk.mercadopago.com/js/v2'
+  document.body.appendChild(script)
 })
 
 async function loadPlan() {
@@ -215,10 +219,20 @@ async function loadPlan() {
 
 async function upgrade(plan: 'PLUS' | 'AVANCADO') {
   isLoadingCheckout.value = true
+  error.value = null
 
   try {
     const response = await api.post('/api/plan/checkout', { plan })
-    window.location.href = response.checkoutUrl
+    const { checkoutUrl, publicKey } = response
+
+    // Usar SDK do Mercado Pago se disponível
+    if ((window as any).MercadoPago && publicKey) {
+      const mp = new (window as any).MercadoPago(publicKey)
+      mp.redirect('checkout', { preference_id: response.preferenceId })
+    } else {
+      // Fallback para redirect simples se SDK não carregar
+      window.location.href = checkoutUrl
+    }
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Erro ao criar checkout'
     isLoadingCheckout.value = false
