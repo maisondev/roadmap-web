@@ -199,8 +199,8 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
 <template>
   <div class="min-h-screen bg-white dark:bg-gray-900">
     <div class="max-w-[120rem] mx-auto p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-6">
-      <div v-if="topic && block" class="grid grid-cols-1 xl:grid-cols-[minmax(0,1.5fr)_minmax(22rem,28rem)] gap-6 items-start">
-        <section class="space-y-4">
+      <div v-if="topic && block" class="grid grid-cols-1 xl:grid-cols-[minmax(0,1.5fr)_minmax(22rem,28rem)] gap-6 items-start xl:items-start">
+        <section class="space-y-4 min-w-0">
           <div class="flex items-start justify-between gap-4">
             <div class="min-w-0">
               <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ block.title }}</p>
@@ -288,7 +288,7 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
           </div>
         </section>
 
-        <aside class="p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 sticky top-4 space-y-3">
+        <aside class="p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 xl:sticky xl:top-4 space-y-3">
           <div>
             <h2 class="text-sm font-semibold text-gray-900 dark:text-white">Anotações do tópico</h2>
             <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Este campo fica junto dos recursos do tópico.</p>

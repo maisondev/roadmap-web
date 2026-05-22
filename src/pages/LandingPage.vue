@@ -6,8 +6,8 @@ import HeroSection from '@/components/organisms/HeroSection.vue'
 import BenefitsSection from '@/components/organisms/BenefitsSection.vue'
 import ScienceSection from '@/components/organisms/ScienceSection.vue'
 import CTASection from '@/components/organisms/CTASection.vue'
-import FooterSection from '@/components/organisms/FooterSection.vue'
 import { useGoogleSignIn } from '@/composables/useGoogleSignIn'
+import { SpinnerIcon } from '@heroicons/vue/24/solid'
 import type { GoogleCredentialResponse } from '@/types/google'
 
 const router = useRouter()
@@ -88,34 +88,6 @@ async function submitAuth() {
     isSubmitting.value = false
   }
 }
-
-
-const footerLinks = [
-  {
-    title: 'Produto',
-    links: [
-      { label: 'Roadmaps', href: '#' },
-      { label: 'Dashboard', href: '#' },
-      { label: 'Registros', href: '#' }
-    ]
-  },
-  {
-    title: 'Empresa',
-    links: [
-      { label: 'GitHub', href: 'https://github.com/maisondev' },
-      { label: 'Site', href: 'https://sinapses.site' },
-      { label: 'Contato', href: '#' }
-    ]
-  },
-  {
-    title: 'Recursos',
-    links: [
-      { label: 'Documentação', href: '#' },
-      { label: 'Blog', href: '#' },
-      { label: 'Ajuda', href: '#' }
-    ]
-  }
-]
 </script>
 
 <template>
@@ -124,7 +96,6 @@ const footerLinks = [
     <BenefitsSection />
     <ScienceSection />
     <CTASection @register="openRegister" @login="openLogin" />
-    <FooterSection />
 
     <!-- Auth Modal -->
     <div
@@ -197,8 +168,9 @@ const footerLinks = [
           <button
             @click="submitAuth"
             :disabled="isSubmitting || (authMode === 'register' && !consentGiven)"
-            class="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium py-2 rounded-lg transition-colors"
+            class="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
           >
+            <SpinnerIcon v-if="isSubmitting" class="w-4 h-4 animate-spin" />
             {{ isSubmitting ? 'Carregando...' : 'Continuar' }}
           </button>
           <button

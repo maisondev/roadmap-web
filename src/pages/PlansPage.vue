@@ -181,36 +181,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, onMounted } from 'vue'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 import { api } from '../services/api'
-
-const route = useRoute()
 const currentPlan = ref<any>(null)
 const isLoading = ref(false)
 const isLoadingCheckout = ref(false)
 const error = ref<string | null>(null)
-let refetchInterval: NodeJS.Timeout | null = null
 
 onMounted(async () => {
   await loadPlan()
-
-  // Auto-refetch do plano nos primeiros 15 segundos (útil após upgrade)
-  let refetchCount = 0
-  refetchInterval = setInterval(async () => {
-    refetchCount++
-    if (refetchCount > 5) {
-      if (refetchInterval) clearInterval(refetchInterval)
-      return
-    }
-    await loadPlan()
-  }, 3000)
 })
 
-onUnmounted(() => {
-  if (refetchInterval) clearInterval(refetchInterval)
-})
 
 async function loadPlan() {
   isLoading.value = true

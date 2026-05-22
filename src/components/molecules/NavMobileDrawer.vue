@@ -34,6 +34,9 @@ function navigateTo(path: string, name: string) {
 
 function toggleThemeMobile() {
   settingsStore.toggleTheme()
+  if (!authStore.isLoggedIn) {
+    emit('close')
+  }
 }
 
 function handleLogout() {
@@ -174,7 +177,7 @@ const isActive = (name: string) => route.name === name
           </button>
 
           <button
-            @click="router.push('/contact'); emit('close')"
+            @click="router.push('/contatos'); emit('close')"
             class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition-colors"
           >
             <MapIcon class="w-5 h-5 flex-shrink-0" />
@@ -198,7 +201,7 @@ const isActive = (name: string) => route.name === name
 
             <!-- Theme Toggle -->
             <button
-              @click="settingsStore.toggleTheme()"
+              @click="toggleThemeMobile"
               class="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition-colors"
               :title="settingsStore.settings.theme === 'dark' ? 'Modo claro' : 'Modo escuro'"
             >

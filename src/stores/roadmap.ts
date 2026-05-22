@@ -73,6 +73,11 @@ export const useRoadmapStore = defineStore('roadmap', () => {
       }
 
       const data = await api.get('/api/roadmaps')
+
+      if (!Array.isArray(data)) {
+        throw new Error('Resposta inválida do servidor: esperado um array de roadmaps')
+      }
+
       const roadmapMap: Record<string, Roadmap> = {}
 
       data.forEach((rm: any) => {
@@ -86,9 +91,12 @@ export const useRoadmapStore = defineStore('roadmap', () => {
       if (!roadmaps.value[activeRoadmapId.value]) {
         activeRoadmapId.value = Object.keys(roadmaps.value)[0] || 'interpretacao-textos'
       }
+
+      console.log(`✅ ${Object.keys(roadmapMap).length} roadmaps carregados com sucesso`)
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Erro ao carregar roadmaps'
-      console.error('Erro ao inicializar roadmap:', err)
+      console.error('❌ Erro ao inicializar roadmap:', err)
+      roadmaps.value = { [roadmapInterpretacaoTextos.id]: roadmapInterpretacaoTextos }
     } finally {
       isLoading.value = false
     }
