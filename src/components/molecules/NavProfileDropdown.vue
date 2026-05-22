@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useSettingsStore } from '@/stores/settings'
+import { api } from '@/services/api'
 import { Cog6ToothIcon, ChatBubbleLeftEllipsisIcon, SunIcon, MoonIcon, ArrowRightOnRectangleIcon } from '@heroicons/vue/24/outline'
 import MD5 from 'crypto-js/md5'
 
@@ -16,6 +17,29 @@ const settingsStore = useSettingsStore()
 
 const showMenu = ref(false)
 const profileImageLoaded = ref(true)
+const planData = ref<any>(null)
+
+onMounted(async () => {
+  try {
+    planData.value = await api.get('/api/plan')
+  } catch (error) {
+    console.error('Erro ao carregar plano:', error)
+  }
+})
+
+const planBadgeColor = computed(() => {
+  const plan = planData.value?.plan
+  if (plan === 'AVANCADO') return 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300'
+  if (plan === 'PLUS') return 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+  return 'bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-300'
+})
+
+const planIcon = computed(() => {
+  const plan = planData.value?.plan
+  if (plan === 'AVANCADO') return '🚀'
+  if (plan === 'PLUS') return '⭐'
+  return '📦'
+})
 
 function getGravatarUrl(userEmail: string): string {
   const emailLower = userEmail.toLowerCase().trim()
@@ -113,6 +137,9 @@ function toggleTheme() {
               <p class="text-blue-100 text-xs truncate">
                 {{ authStore.userEmail }}
               </p>
+              <div v-if="planData" :class="['text-xs font-semibold px-2 py-1 rounded-full mt-2 inline-block', planBadgeColor]">
+                {{ planIcon }} {{ planData.plan }}
+              </div>
             </div>
           </div>
         </div>
