@@ -244,6 +244,17 @@ async function upgrade(plan: 'ESSENCIAL' | 'PLUS' | 'AVANCADO') {
     const response = await api.post('/api/plan/checkout', { plan })
     console.log('✅ [PlansPage] Resposta do checkout:', response)
 
+    // Se for downgrade para Essencial (plano gratuito)
+    if (response.success && plan === 'ESSENCIAL') {
+      console.log('✅ [PlansPage] Downgrade para Essencial realizado com sucesso')
+      alert('Downgrade realizado com sucesso! Você voltou ao plano Essencial.')
+      // Recarregar para atualizar dados do plano
+      await new Promise(resolve => setTimeout(resolve, 500))
+      window.location.reload()
+      return
+    }
+
+    // Para upgrades (PLUS e AVANCADO), redirecionar para checkout
     const { checkoutUrl, publicKey, preferenceId } = response
     console.log('🔗 [PlansPage] URLs recebidas:', { checkoutUrl, publicKey, preferenceId })
 
