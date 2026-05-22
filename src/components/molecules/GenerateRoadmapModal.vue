@@ -182,6 +182,7 @@ function resetForm() {
     @cancel="handleCancel"
   >
     <div class="space-y-5">
+      <!-- Generate Section -->
       <section class="space-y-4 rounded-lg border border-blue-200 bg-blue-50/70 p-4 dark:border-blue-900 dark:bg-blue-950/20">
         <div class="grid gap-3 md:grid-cols-2">
           <div class="md:col-span-2">
@@ -212,7 +213,7 @@ function resetForm() {
 
         <div class="flex items-center justify-between gap-3">
           <div class="text-sm text-gray-600 dark:text-gray-400">
-            {{ isGenerating ? 'Gerando estrutura...' : generatedSummary || 'A IA vai preencher o roadmap e você ainda poderá revisar antes de salvar.' }}
+            {{ isGenerating ? 'Gerando estrutura...' : generatedSummary || 'A IA vai preencher o roadmap automaticamente.' }}
           </div>
           <button
             type="button"
@@ -227,32 +228,65 @@ function resetForm() {
         <p v-if="aiError" class="text-sm text-red-600 dark:text-red-400">{{ aiError }}</p>
       </section>
 
-      <div class="grid gap-4">
+      <!-- Details Section (Simplified) -->
+      <div class="space-y-4">
         <div>
           <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Título</label>
-          <input v-model="title" type="text" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white" />
+          <input
+            v-model="title"
+            type="text"
+            placeholder="O título será preenchido pela IA"
+            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+          />
         </div>
+
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Descrição</label>
-          <textarea v-model="description" rows="3" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white" />
+          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Visibilidade</label>
+          <select v-model="visibility" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white">
+            <option value="private">Privado</option>
+            <option value="public">Público</option>
+          </select>
         </div>
-        <div class="grid gap-4 md:grid-cols-2">
-          <div>
-            <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Categoria</label>
-            <input v-model="category" type="text" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white" />
+
+        <!-- Expandable Advanced Options -->
+        <details class="group">
+          <summary class="cursor-pointer select-none text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300 flex items-center gap-2">
+            <span class="inline-block transition group-open:rotate-90">▶</span>
+            ⚙️ Mais opções
+          </summary>
+
+          <div class="mt-4 space-y-4 border-t border-gray-200 dark:border-gray-700 pt-4 pl-4">
+            <div>
+              <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Descrição</label>
+              <textarea
+                v-model="description"
+                rows="2"
+                placeholder="Preenchida automaticamente pela IA"
+                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+              />
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Categoria</label>
+              <input
+                v-model="category"
+                type="text"
+                placeholder="Preenchida automaticamente pela IA"
+                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+              />
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Tags</label>
+              <input
+                v-model="tags"
+                type="text"
+                placeholder="Preenchidas automaticamente pela IA, separadas por vírgula"
+                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+              />
+            </div>
           </div>
-          <div>
-            <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Visibilidade</label>
-            <select v-model="visibility" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white">
-              <option value="private">Privado</option>
-              <option value="public">Público</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Tags</label>
-          <input v-model="tags" type="text" placeholder="react, frontend, hooks" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white" />
-        </div>
+        </details>
       </div>
     </div>
   </AppModal>
