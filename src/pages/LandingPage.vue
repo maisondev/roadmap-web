@@ -8,7 +8,7 @@ import BenefitsSection from '@/components/organisms/BenefitsSection.vue'
 import ScienceSection from '@/components/organisms/ScienceSection.vue'
 import CTASection from '@/components/organisms/CTASection.vue'
 import { useGoogleSignIn } from '@/composables/useGoogleSignIn'
-import { SpinnerIcon } from '@heroicons/vue/24/solid'
+import { ArrowPathIcon } from '@heroicons/vue/24/solid'
 import type { GoogleCredentialResponse } from '@/types/google'
 
 const router = useRouter()
@@ -181,7 +181,7 @@ async function submitAuth() {
             :disabled="isSubmitting || (authMode === 'register' && !consentGiven)"
             class="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
           >
-            <SpinnerIcon v-if="isSubmitting" class="w-4 h-4 animate-spin" />
+            <ArrowPathIcon v-if="isSubmitting" class="w-4 h-4 animate-spin" />
             {{ isSubmitting ? 'Carregando...' : 'Continuar' }}
           </button>
           <button
