@@ -130,9 +130,9 @@ const isActive = (name: string) => route.name === name
 
         <!-- Center: Public links (not logged in) -->
         <div v-else class="hidden md:flex items-center gap-8">
-          <button @click="router.push('/')" class="text-slate-300 hover:text-white text-sm transition-colors">Início</button>
-          <button @click="router.push('/help')" class="text-slate-300 hover:text-white text-sm transition-colors">Ajuda</button>
-          <button @click="router.push('/contact')" class="text-slate-300 hover:text-white text-sm transition-colors">Contato</button>
+          <button @click="router.push({ name: 'home' })" class="text-slate-300 hover:text-white text-sm transition-colors">Início</button>
+          <button @click="router.push({ name: 'help' })" class="text-slate-300 hover:text-white text-sm transition-colors">Ajuda</button>
+          <button @click="router.push({ name: 'contact' })" class="text-slate-300 hover:text-white text-sm transition-colors">Contato</button>
         </div>
 
         <!-- Right: Actions + Hamburguer -->
