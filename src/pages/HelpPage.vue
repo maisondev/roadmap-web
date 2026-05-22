@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { ChevronDownIcon, LinkIcon } from '@heroicons/vue/24/outline'
+import AppIcon from '@/components/atoms/AppIcon.vue'
 import FeedbackModal from '@/components/molecules/FeedbackModal.vue'
 
 interface HelpSection {
@@ -10,6 +11,7 @@ interface HelpSection {
   id?: string
 }
 
+const router = useRouter()
 const route = useRoute()
 
 const sections: HelpSection[] = [
@@ -132,6 +134,18 @@ onMounted(() => {
 
 <template>
   <div class="min-h-screen bg-white dark:bg-gray-900">
+    <!-- Breadcrumb -->
+    <div class="border-b border-gray-200 dark:border-gray-800 p-4">
+      <div class="max-w-4xl mx-auto flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+        <button @click="router.push('/')" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
+          <AppIcon name="home" size="sm" />
+          Início
+        </button>
+        <span>•</span>
+        <span class="font-medium text-gray-900 dark:text-white">Central de Ajuda</span>
+      </div>
+    </div>
+
     <div class="max-w-4xl mx-auto p-4 space-y-8 py-8">
       <!-- Header -->
       <div class="text-center">
