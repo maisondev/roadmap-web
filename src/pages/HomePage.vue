@@ -137,6 +137,7 @@ function handleImportRoadmap(data: string) {
         :open="showGenerateRoadmapModal"
         @submit="handleCreateRoadmap"
         @cancel="showGenerateRoadmapModal = false"
+        @close="showGenerateRoadmapModal = false"
       />
 
       <ImportRoadmapModal

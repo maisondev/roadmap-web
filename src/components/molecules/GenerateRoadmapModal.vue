@@ -39,6 +39,7 @@ defineProps<Props>()
 const emit = defineEmits<{
   cancel: []
   submit: [data: { title: string; description: string; category: string; tags: string[]; visibility: 'public' | 'private'; blocks: Block[] }]
+  close: []
 }>()
 
 const authStore = useAuthStore()
@@ -136,7 +137,11 @@ async function handleGenerateAi() {
       blocks: aiBlocks.value
     })
 
-    resetForm()
+    // Fechar modal após submit bem-sucedido
+    setTimeout(() => {
+      resetForm()
+      emit('close')
+    }, 500)
   } catch (error) {
     aiError.value = error instanceof Error ? error.message : 'Erro ao gerar roadmap com IA.'
   } finally {
