@@ -76,7 +76,7 @@ function addNewBlock() {
 const priorityLabels = {
   normal: 'Normal',
   alta: 'Alta',
-  maxima: 'Máxima ⭐'
+  maxima: 'Máxima'
 }
 
 const priorityColors = {
@@ -352,7 +352,7 @@ function deleteBlock() {
             >
               <option value="normal">Normal</option>
               <option value="alta">Alta</option>
-              <option value="maxima">Máxima ⭐</option>
+              <option value="maxima">Máxima</option>
             </select>
           </div>
         </div>
@@ -390,7 +390,7 @@ function deleteBlock() {
             >
               <option value="normal">Normal</option>
               <option value="alta">Alta</option>
-              <option value="maxima">Máxima ⭐</option>
+              <option value="maxima">Máxima</option>
             </select>
           </div>
         </div>

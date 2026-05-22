@@ -40,13 +40,11 @@ const {
 
 const showBackButton = computed(() => {
   if (route.name === 'block-detail') return true
-  if (!authStore.isLoggedIn && ['contact', 'help'].includes(route.name as string)) return true
   return false
 })
 
 const backLabel = computed(() => {
   if (route.name === 'block-detail') return 'Roadmap'
-  if (route.name === 'contact' || route.name === 'help') return 'Voltar'
   return ''
 })
 
@@ -56,8 +54,6 @@ function goBack() {
       name: 'roadmap',
       params: { roadmapId: route.params.roadmapId }
     })
-  } else if (route.name === 'contact' || route.name === 'help') {
-    router.push('/')
   }
 }
 

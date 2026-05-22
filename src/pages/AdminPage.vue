@@ -18,7 +18,9 @@ const loginStats = ref<any>(null)
 const isLoading = ref(true)
 const isLoadingAnalytics = ref(false)
 const error = ref<string | null>(null)
-const activeTab = ref<'stats' | 'users' | 'activity' | 'notifications' | 'analytics'>('stats')
+const activeTab = ref<'stats' | 'users' | 'activity' | 'notifications' | 'analytics' | 'plans'>('stats')
+const plansStats = ref<any>(null)
+const isLoadingPlans = ref(false)
 const analyticsRange = ref(30)
 const togglingUserId = ref<string | null>(null)
 const deletingUserId = ref<string | null>(null)
@@ -60,12 +62,13 @@ async function loadStats() {
   error.value = null
 
   try {
-    const [statsData, usersData, activityData, analyticsData, loginStatsData] = await Promise.all([
+    const [statsData, usersData, activityData, analyticsData, loginStatsData, plansData] = await Promise.all([
       api.get('/api/admin/stats'),
       api.get('/api/admin/users'),
       api.get('/api/admin/activity'),
       api.get(`/api/admin/analytics?days=${analyticsRange.value}`),
-      api.get('/api/admin/stats/login-methods')
+      api.get('/api/admin/stats/login-methods'),
+      api.get('/api/admin/stats/plans')
     ])
 
     stats.value = statsData
@@ -73,6 +76,7 @@ async function loadStats() {
     activity.value = activityData
     analytics.value = analyticsData
     loginStats.value = loginStatsData
+    plansStats.value = plansData
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Erro ao carregar dados'
     console.error(error.value)
@@ -332,6 +336,7 @@ async function syncBadges() {
             { id: 'users', label: '👥 Usuários' },
             { id: 'activity', label: '📝 Atividades' },
             { id: 'notifications', label: '🔔 Notificações' },
+            { id: 'plans', label: '💳 Planos' },
           ]"
           :key="tab.id"
           @click="activeTab = tab.id as any"
@@ -762,6 +767,99 @@ async function syncBadges() {
               </p>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- ===== PLANS TAB ===== -->
+      <div v-else-if="activeTab === 'plans' && plansStats" class="space-y-6">
+        <!-- Resumo por Plano -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-gray-600 dark:text-gray-400">Total de Usuários</p>
+            <p class="text-3xl font-bold text-primary mt-2">{{ plansStats.summaryCounts.total }}</p>
+          </div>
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-gray-600 dark:text-gray-400">📗 Essencial</p>
+            <p class="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">{{ plansStats.summaryCounts.essencial }}</p>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ plansStats.percentages.essencialPercent }}% do total</p>
+          </div>
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-gray-600 dark:text-gray-400">🔵 Plus</p>
+            <p class="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-2">{{ plansStats.summaryCounts.plus }}</p>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ plansStats.percentages.plusPercent }}% do total</p>
+          </div>
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-gray-600 dark:text-gray-400">🟣 Avançado</p>
+            <p class="text-3xl font-bold text-purple-600 dark:text-purple-400 mt-2">{{ plansStats.summaryCounts.avancado }}</p>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ plansStats.percentages.avancadoPercent }}% do total</p>
+          </div>
+        </div>
+
+        <!-- Assinaturas Ativas vs Expiradas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">✓ Assinaturas Ativas</h3>
+            <p class="text-4xl font-bold text-green-600 dark:text-green-400">{{ plansStats.subscriptions.active }}</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Usuários com plano ativo</p>
+          </div>
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">⏰ Assinaturas Expiradas</h3>
+            <p class="text-4xl font-bold text-orange-600 dark:text-orange-400">{{ plansStats.subscriptions.expired }}</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Usuários com plano expirado</p>
+          </div>
+        </div>
+
+        <!-- Receita Estimada -->
+        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">💰 Receita Estimada Mensal</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <p class="text-sm text-gray-600 dark:text-gray-400">Plus (R$ 19,90/mês)</p>
+              <p class="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-2">R$ {{ (plansStats.revenue.byPlan.plus || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ plansStats.summaryCounts.plus }} usuários</p>
+            </div>
+            <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <p class="text-sm text-gray-600 dark:text-gray-400">Avançado (R$ 49,90/mês)</p>
+              <p class="text-2xl font-bold text-purple-600 dark:text-purple-400 mt-2">R$ {{ (plansStats.revenue.byPlan.avancado || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ plansStats.summaryCounts.avancado }} usuários</p>
+            </div>
+            <div class="p-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg border border-green-200 dark:border-green-800">
+              <p class="text-sm font-semibold text-gray-600 dark:text-gray-400">Total Estimado</p>
+              <p class="text-2xl font-bold text-green-600 dark:text-green-400 mt-2">R$ {{ (plansStats.revenue.estimated || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alertas: Planos Expirando em 7 Dias -->
+        <div v-if="plansStats.expiringPlans && plansStats.expiringPlans.length > 0" class="p-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">⚠️ Planos Expirando em 7 Dias</h3>
+          <div class="space-y-3">
+            <div
+              v-for="user in plansStats.expiringPlans"
+              :key="user.id"
+              class="p-3 bg-white dark:bg-gray-800 rounded border border-yellow-200 dark:border-yellow-800"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">{{ user.email }}</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Plano: <strong>{{ user.plan }}</strong>
+                  </p>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm font-semibold text-yellow-700 dark:text-yellow-300">
+                    Expira em: {{ new Date(user.planExpiresAt).toLocaleDateString('pt-BR') }}
+                  </p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                    {{ Math.ceil((new Date(user.planExpiresAt).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) }} dias
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-else class="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+          <p class="text-sm text-green-700 dark:text-green-300">✓ Nenhum plano expirando nos próximos 7 dias</p>
         </div>
       </div>
 

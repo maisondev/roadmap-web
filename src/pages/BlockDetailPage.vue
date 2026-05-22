@@ -98,7 +98,7 @@ const priorityColor = computed(() => {
           <div>
             <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ block.title }}</h1>
             <AppBadge :color="priorityColor" class="mt-2">
-              {{ block.priority === 'maxima' ? 'Prioridade Máxima ⭐' : block.priority === 'alta' ? 'Alta Prioridade' : 'Prioridade Normal' }}
+              {{ block.priority === 'maxima' ? 'Prioridade Máxima' : block.priority === 'alta' ? 'Alta Prioridade' : 'Prioridade Normal' }}
             </AppBadge>
           </div>
           <div class="text-right">

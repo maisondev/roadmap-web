@@ -29,12 +29,19 @@ const routeLabels: Record<string, string> = {
 }
 
 const breadcrumbs = computed(() => {
-  if (!authStore.isLoggedIn) return []
-
   const name = route.name as string
   if (!name || name === 'home') return []
 
   const home = { label: 'Início', action: () => router.push('/') }
+
+  // Páginas públicas (não logadas)
+  if (!authStore.isLoggedIn) {
+    if (name === 'help') return [home, { label: 'Ajuda' }]
+    if (name === 'contact') return [home, { label: 'Contato' }]
+    if (name === 'privacy') return [home, { label: 'Privacidade' }]
+    if (name === 'terms') return [home, { label: 'Termos' }]
+    return []
+  }
 
   if (name === 'roadmap') {
     const roadmapId = route.params.roadmapId as string
