@@ -52,7 +52,7 @@ async function toggleMenu() {
 </script>
 
 <template>
-  <div v-if="authStore.isLoggedIn" class="relative hidden sm:block">
+  <div v-if="authStore.isLoggedIn" class="relative">
     <button
       @click="toggleMenu"
       class="relative p-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
@@ -77,7 +77,7 @@ async function toggleMenu() {
     >
       <div
         v-if="showMenu"
-        class="absolute -right-4 mt-2 w-[28rem] max-h-[48rem] overflow-y-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50"
+        class="absolute -right-4 mt-2 w-[28rem] sm:w-[28rem] max-w-[90vw] max-h-[48rem] overflow-y-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50"
       >
         <!-- Header -->
         <div class="sticky top-0 flex items-center justify-between bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-4">
