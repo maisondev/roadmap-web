@@ -23,6 +23,16 @@
         </div>
       </div>
 
+      <!-- Current Plan Info -->
+      <div v-if="!isLoading && currentPlan && currentPlan.plan !== 'ESSENCIAL' && currentPlan.planExpiresAt" class="mb-8 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+        <p class="text-blue-700 dark:text-blue-400 font-medium">
+          📅 Seu plano {{ currentPlan.plan }} está ativo até <strong>{{ formatDate(currentPlan.planExpiresAt) }}</strong>
+        </p>
+        <p class="text-sm text-blue-600 dark:text-blue-300 mt-2">
+          Se você fizer downgrade, continuará pagando até essa data, mas terá acesso imediato ao novo plano.
+        </p>
+      </div>
+
       <!-- Plans Grid -->
       <div v-else class="grid md:grid-cols-3 gap-8 mb-12">
         <!-- ESSENCIAL Plan -->
@@ -214,6 +224,16 @@ onMounted(async () => {
   await loadPlan()
 })
 
+function formatDate(dateString: string | Date | null): string {
+  if (!dateString) return 'N/A'
+  const date = new Date(dateString)
+  return date.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  })
+}
+
 
 async function loadPlan() {
   isLoading.value = true
@@ -247,7 +267,17 @@ async function upgrade(plan: 'ESSENCIAL' | 'PLUS' | 'AVANCADO') {
     // Se for downgrade para Essencial (plano gratuito)
     if (response.success && plan === 'ESSENCIAL') {
       console.log('✅ [PlansPage] Downgrade para Essencial realizado com sucesso')
-      alert('Downgrade realizado com sucesso! Você voltou ao plano Essencial.')
+
+      // Formatar data de expiração se existir
+      let message = 'Downgrade realizado com sucesso! Você agora tem acesso ao plano Essencial.'
+
+      if (response.expiresAt) {
+        const expiresDate = new Date(response.expiresAt)
+        const formattedDate = expiresDate.toLocaleDateString('pt-BR')
+        message += `\n\nVocê continuará pagando o plano anterior até ${formattedDate}.\nDepois disso, sua assinatura Essencial continuará ativa permanentemente.`
+      }
+
+      alert(message)
       // Recarregar para atualizar dados do plano
       await new Promise(resolve => setTimeout(resolve, 500))
       window.location.reload()
