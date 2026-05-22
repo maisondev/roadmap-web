@@ -34,7 +34,7 @@
       </div>
 
       <!-- Plans Grid -->
-      <div v-else class="grid md:grid-cols-3 gap-8 mb-12">
+      <div v-if="!isLoading && currentPlan" class="grid md:grid-cols-3 gap-8 mb-12">
         <!-- ESSENCIAL Plan -->
         <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition">
           <div class="p-8">
