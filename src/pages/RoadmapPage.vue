@@ -146,32 +146,32 @@ function deleteBlock() {
 
 <template>
   <div class="min-h-screen bg-white dark:bg-gray-900">
-      <div class="max-w-[120rem] mx-auto p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-8">
+      <div class="max-w-[120rem] mx-auto p-3 sm:p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-6 sm:space-y-8">
       <!-- Header -->
       <div>
-        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
           {{ roadmapStore.activeRoadmap.title }}
         </h1>
-        <p class="text-lg text-gray-600 dark:text-gray-300">
+        <p class="text-sm sm:text-lg text-gray-600 dark:text-gray-300">
           {{ roadmapStore.activeRoadmap.description }}
         </p>
       </div>
 
       <!-- Overall Progress -->
-      <div class="p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
-        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Progresso Geral do Roadmap</p>
+      <div class="p-3 sm:p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
+        <p class="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Progresso Geral do Roadmap</p>
         <AppProgressBar :value="progressStore.roadmapProgressPercent(activeRoadmapId)" show-label />
-        <div class="mt-4 pt-4 border-t border-gray-300 dark:border-gray-700">
-          <AppButton variant="primary" size="sm" @click="showAddModal = true">
+        <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-300 dark:border-gray-700">
+          <AppButton variant="primary" size="sm" class="w-full sm:w-auto" @click="showAddModal = true">
             + Adicionar Módulo
           </AppButton>
         </div>
       </div>
 
       <!-- Filters -->
-      <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+      <div class="space-y-3 sm:space-y-0 sm:flex sm:flex-row sm:gap-4 sm:items-center sm:justify-between">
         <!-- Filters -->
-        <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+        <div class="flex flex-col gap-2 w-full sm:w-auto">
           <div class="relative flex-1 sm:flex-initial">
             <input
               v-model="filterModuleName"

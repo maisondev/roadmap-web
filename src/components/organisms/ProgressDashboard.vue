@@ -25,9 +25,9 @@ const getTodayMinutes = (logs: DailyLogEntry[]): number => {
 </script>
 
 <template>
-  <div class="space-y-6">
+  <div class="space-y-4 sm:space-y-6">
     <!-- Stats Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
       <StatBadge
         label="Progresso Geral"
         :value="`${Math.round((snapshot.completedTopics / snapshot.totalTopics) * 100)}%`"

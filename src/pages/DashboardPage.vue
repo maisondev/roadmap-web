@@ -104,13 +104,13 @@ function cancelEdit() {
       />
 
       <!-- Teacher ranking -->
-      <div class="p-6 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
-        <div class="flex items-start justify-between gap-4 mb-4">
+      <div class="p-4 sm:p-6 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
           <div>
-            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Ranking de Professores</h2>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Avalie professores por disciplina (salvo neste navegador).</p>
+            <h2 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Ranking de Professores</h2>
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">Avalie professores por disciplina (salvo neste navegador).</p>
           </div>
-          <div class="min-w-[12rem]">
+          <div class="w-full sm:w-40">
             <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Disciplina</label>
             <select
               v-model="filterDiscipline"
@@ -122,7 +122,7 @@ function cancelEdit() {
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 mb-4">
           <div class="md:col-span-1">
             <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Professor</label>
             <input

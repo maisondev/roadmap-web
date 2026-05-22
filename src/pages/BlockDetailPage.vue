@@ -92,18 +92,18 @@ const priorityColor = computed(() => {
 
 <template>
   <div class="min-h-screen bg-white dark:bg-gray-900">
-    <div class="max-w-[120rem] mx-auto p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-6">
+    <div class="max-w-[120rem] mx-auto p-3 sm:p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-4 sm:space-y-6">
       <div v-if="block">
-        <div class="flex items-start justify-between gap-4">
-          <div>
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ block.title }}</h1>
-            <AppBadge :color="priorityColor" class="mt-2">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
+          <div class="min-w-0">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white break-words">{{ block.title }}</h1>
+            <AppBadge :color="priorityColor" class="mt-2 inline-block">
               {{ block.priority === 'maxima' ? 'Prioridade Máxima' : block.priority === 'alta' ? 'Alta Prioridade' : 'Prioridade Normal' }}
             </AppBadge>
           </div>
-          <div class="text-right">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Progresso</p>
-            <p class="text-2xl font-bold text-gray-900 dark:text-white">
+          <div class="text-left sm:text-right flex-shrink-0">
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Progresso</p>
+            <p class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
               {{ progressStore.blockProgressPercent(block.id) }}%
             </p>
           </div>
@@ -114,13 +114,13 @@ const priorityColor = computed(() => {
         </div>
       </div>
 
-      <div v-if="block" class="space-y-4">
-        <div class="p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 flex flex-wrap items-center justify-between gap-3">
+      <div v-if="block" class="space-y-3 sm:space-y-4">
+        <div class="p-3 sm:p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h2 class="font-semibold text-gray-900 dark:text-white">Tópicos ({{ block.topics.length }})</h2>
-            <p class="text-sm text-gray-600 dark:text-gray-400">Clique em um tópico para abrir a página de recursos.</p>
+            <h2 class="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Tópicos ({{ block.topics.length }})</h2>
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Clique em um tópico para abrir a página de recursos.</p>
           </div>
-          <AppButton variant="secondary" size="sm" @click="showAddTopicModal = true">
+          <AppButton variant="secondary" size="sm" class="w-full sm:w-auto" @click="showAddTopicModal = true">
             + Novo Tópico
           </AppButton>
         </div>
