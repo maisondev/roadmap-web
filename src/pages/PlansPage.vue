@@ -50,6 +50,10 @@
               </li>
               <li class="flex items-center gap-3">
                 <CheckIcon class="w-5 h-5 text-green-600" />
+                <span>10 tópicos por módulo</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <CheckIcon class="w-5 h-5 text-green-600" />
                 <span>10 recursos por tópico</span>
               </li>
               <li class="flex items-center gap-3">
@@ -94,6 +98,10 @@
               <li class="flex items-center gap-3">
                 <CheckIcon class="w-5 h-5 text-blue-600" />
                 <span>20 módulos por roadmap</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <CheckIcon class="w-5 h-5 text-blue-600" />
+                <span>50 tópicos por módulo</span>
               </li>
               <li class="flex items-center gap-3">
                 <CheckIcon class="w-5 h-5 text-blue-600" />
@@ -146,6 +154,10 @@
               <li class="flex items-center gap-3">
                 <CheckIcon class="w-5 h-5 text-purple-600" />
                 <span>Módulos ilimitados</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <CheckIcon class="w-5 h-5 text-purple-600" />
+                <span>Tópicos ilimitados</span>
               </li>
               <li class="flex items-center gap-3">
                 <CheckIcon class="w-5 h-5 text-purple-600" />
