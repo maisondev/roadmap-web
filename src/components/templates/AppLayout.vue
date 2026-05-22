@@ -36,7 +36,7 @@ const breadcrumbs = computed(() => {
 
   // Páginas públicas (não logadas)
   if (!authStore.isLoggedIn) {
-    if (name === 'help') return [home, { label: 'Ajuda' }]
+    if (name === 'help') return [home, { label: 'Central de Ajuda' }]
     if (name === 'contact') return [home, { label: 'Contato' }]
     if (name === 'privacy') return [home, { label: 'Privacidade' }]
     if (name === 'terms') return [home, { label: 'Termos' }]

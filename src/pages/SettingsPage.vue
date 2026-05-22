@@ -10,6 +10,7 @@ import AppButton from '@/components/atoms/AppButton.vue'
 import AppIcon from '@/components/atoms/AppIcon.vue'
 import AppCheckbox from '@/components/atoms/AppCheckbox.vue'
 import AppModal from '@/components/atoms/AppModal.vue'
+import SubscriptionStatus from '@/components/molecules/SubscriptionStatus.vue'
 import MD5 from 'crypto-js/md5'
 
 const router = useRouter()
@@ -18,10 +19,11 @@ const settingsStore = useSettingsStore()
 const roadmapStore = useRoadmapStore()
 const dailyLogStore = useDailyLogStore()
 
-const activeSection = ref<'perfil' | 'conta' | 'aparencia' | 'preferencias' | 'metas' | 'dados' | 'privacidade' | 'sobre'>('perfil')
+const activeSection = ref<'perfil' | 'assinatura' | 'conta' | 'aparencia' | 'preferencias' | 'metas' | 'dados' | 'privacidade' | 'sobre'>('perfil')
 
 const sections = [
   { id: 'perfil', label: 'Perfil', icon: 'user' },
+  { id: 'assinatura', label: 'Assinatura', icon: 'credit-card' },
   { id: 'conta', label: 'Conta', icon: 'lock' },
   { id: 'aparencia', label: 'Aparência', icon: 'sun' },
   { id: 'preferencias', label: 'Preferências', icon: 'sliders-horizontal' },
@@ -312,55 +314,6 @@ function formatPlanIcon(plan: string) {
       <div class="space-y-6">
         <!-- Seção: Perfil -->
         <div v-if="activeSection === 'perfil'" class="space-y-6">
-          <!-- Plano e Limites Card -->
-          <div v-if="planData" :class="[
-            'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6',
-            formatPlanColor(planData.plan)
-          ]">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <div class="text-3xl">{{ formatPlanIcon(planData.plan) }}</div>
-                <div>
-                  <p class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Plano Atual</p>
-                  <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{ planLabels[planData.plan as keyof typeof planLabels] }}</h3>
-                  <p v-if="planData.planExpiresAt" class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                    Válido até: {{ new Date(planData.planExpiresAt).toLocaleDateString('pt-BR') }}
-                  </p>
-                  <p v-else class="text-xs text-gray-600 dark:text-gray-400 mt-1">Sem data de expiração</p>
-                </div>
-              </div>
-              <AppButton variant="secondary" size="sm" @click="router.push('/plans')">
-                Upgrade ↗
-              </AppButton>
-            </div>
-
-            <!-- Limites do Plano -->
-            <div v-if="planData.limits" class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 pt-4 border-t border-current border-opacity-20">
-              <div class="text-center">
-                <p class="text-xs font-medium text-gray-600 dark:text-gray-400">Roadmaps</p>
-                <p class="text-lg font-bold text-gray-900 dark:text-white">
-                  {{ planData.limits.roadmaps === Infinity ? '∞' : planData.limits.roadmaps }}
-                </p>
-              </div>
-              <div class="text-center">
-                <p class="text-xs font-medium text-gray-600 dark:text-gray-400">Módulos</p>
-                <p class="text-lg font-bold text-gray-900 dark:text-white">
-                  {{ planData.limits.blocksPerRoadmap === Infinity ? '∞' : planData.limits.blocksPerRoadmap }}
-                </p>
-              </div>
-              <div class="text-center">
-                <p class="text-xs font-medium text-gray-600 dark:text-gray-400">Tópicos</p>
-                <p class="text-lg font-bold text-gray-900 dark:text-white">
-                  {{ planData.limits.topicsPerBlock === Infinity ? '∞' : planData.limits.topicsPerBlock }}
-                </p>
-              </div>
-              <div class="text-center">
-                <p class="text-xs font-medium text-gray-600 dark:text-gray-400">IA Créditos</p>
-                <p class="text-lg font-bold text-gray-900 dark:text-white">{{ planData.limits.aiCreditsPerMonth }}/mês</p>
-              </div>
-            </div>
-          </div>
-
           <!-- Perfil Card -->
           <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
             <div class="flex items-center gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
@@ -437,6 +390,11 @@ function formatPlanIcon(plan: string) {
             </div>
             </div>
           </div>
+        </div>
+
+        <!-- Seção: Assinatura -->
+        <div v-if="activeSection === 'assinatura'" class="space-y-6">
+          <SubscriptionStatus />
         </div>
 
         <!-- Seção: Conta -->
