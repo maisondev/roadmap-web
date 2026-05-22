@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useSettingsStore } from '@/stores/settings'
@@ -203,6 +203,55 @@ function importJSON(event: Event) {
   }
   reader.readAsText(file)
 }
+
+// Plano e Limites
+const planData = ref<any>(null)
+const isLoadingPlan = ref(false)
+
+const planColors = {
+  ESSENCIAL: 'gray',
+  PLUS: 'blue',
+  AVANCADO: 'purple'
+}
+
+const planLabels = {
+  ESSENCIAL: 'Essencial',
+  PLUS: 'Plus',
+  AVANCADO: 'Avançado'
+}
+
+onMounted(async () => {
+  await loadPlan()
+})
+
+async function loadPlan() {
+  isLoadingPlan.value = true
+  try {
+    planData.value = await api.get('/api/plan')
+  } catch (error) {
+    console.error('Erro ao carregar plano:', error)
+  } finally {
+    isLoadingPlan.value = false
+  }
+}
+
+function formatPlanColor(plan: string) {
+  const colorMap: Record<string, string> = {
+    ESSENCIAL: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300',
+    PLUS: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
+    AVANCADO: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300'
+  }
+  return colorMap[plan] || colorMap.ESSENCIAL
+}
+
+function formatPlanIcon(plan: string) {
+  const iconMap: Record<string, string> = {
+    ESSENCIAL: '📦',
+    PLUS: '⭐',
+    AVANCADO: '🚀'
+  }
+  return iconMap[plan] || '📦'
+}
 </script>
 
 <template>
@@ -262,17 +311,68 @@ function importJSON(event: Event) {
       <!-- Content Area -->
       <div class="space-y-6">
         <!-- Seção: Perfil -->
-        <div v-if="activeSection === 'perfil'" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
-          <div class="flex items-center gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
-            <div class="p-2 rounded-lg bg-cyan-50 dark:bg-cyan-900/20">
-              <AppIcon name="user" size="sm" class="text-cyan-600 dark:text-cyan-400" />
+        <div v-if="activeSection === 'perfil'" class="space-y-6">
+          <!-- Plano e Limites Card -->
+          <div v-if="planData" :class="[
+            'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6',
+            formatPlanColor(planData.plan)
+          ]">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="text-3xl">{{ formatPlanIcon(planData.plan) }}</div>
+                <div>
+                  <p class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Plano Atual</p>
+                  <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{ planLabels[planData.plan as keyof typeof planLabels] }}</h3>
+                  <p v-if="planData.planExpiresAt" class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                    Válido até: {{ new Date(planData.planExpiresAt).toLocaleDateString('pt-BR') }}
+                  </p>
+                  <p v-else class="text-xs text-gray-600 dark:text-gray-400 mt-1">Sem data de expiração</p>
+                </div>
+              </div>
+              <AppButton variant="secondary" size="sm" @click="router.push('/plans')">
+                Upgrade ↗
+              </AppButton>
             </div>
-            <div>
-              <h2 class="font-semibold text-gray-900 dark:text-white">Perfil</h2>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Personalize seu perfil</p>
+
+            <!-- Limites do Plano -->
+            <div v-if="planData.limits" class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 pt-4 border-t border-current border-opacity-20">
+              <div class="text-center">
+                <p class="text-xs font-medium text-gray-600 dark:text-gray-400">Roadmaps</p>
+                <p class="text-lg font-bold text-gray-900 dark:text-white">
+                  {{ planData.limits.roadmaps === Infinity ? '∞' : planData.limits.roadmaps }}
+                </p>
+              </div>
+              <div class="text-center">
+                <p class="text-xs font-medium text-gray-600 dark:text-gray-400">Módulos</p>
+                <p class="text-lg font-bold text-gray-900 dark:text-white">
+                  {{ planData.limits.blocksPerRoadmap === Infinity ? '∞' : planData.limits.blocksPerRoadmap }}
+                </p>
+              </div>
+              <div class="text-center">
+                <p class="text-xs font-medium text-gray-600 dark:text-gray-400">Tópicos</p>
+                <p class="text-lg font-bold text-gray-900 dark:text-white">
+                  {{ planData.limits.topicsPerBlock === Infinity ? '∞' : planData.limits.topicsPerBlock }}
+                </p>
+              </div>
+              <div class="text-center">
+                <p class="text-xs font-medium text-gray-600 dark:text-gray-400">IA Créditos</p>
+                <p class="text-lg font-bold text-gray-900 dark:text-white">{{ planData.limits.aiCreditsPerMonth }}/mês</p>
+              </div>
             </div>
           </div>
-          <div class="space-y-4">
+
+          <!-- Perfil Card -->
+          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+            <div class="flex items-center gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
+              <div class="p-2 rounded-lg bg-cyan-50 dark:bg-cyan-900/20">
+                <AppIcon name="user" size="sm" class="text-cyan-600 dark:text-cyan-400" />
+              </div>
+              <div>
+                <h2 class="font-semibold text-gray-900 dark:text-white">Perfil</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Personalize seu perfil</p>
+              </div>
+            </div>
+            <div class="space-y-4">
             <!-- Avatar -->
             <div>
               <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Foto de Perfil</p>
@@ -334,6 +434,7 @@ function importJSON(event: Event) {
             </div>
             <div v-if="profileSuccess" class="text-sm text-green-600 dark:text-green-400 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
               ✓ Perfil atualizado com sucesso!
+            </div>
             </div>
           </div>
         </div>
