@@ -63,10 +63,19 @@
             </ul>
 
             <button
+              v-if="currentPlan?.plan === 'ESSENCIAL'"
               disabled
               class="w-full py-3 px-4 bg-gray-100 text-gray-700 font-semibold rounded-lg cursor-not-allowed"
             >
               Plano atual
+            </button>
+            <button
+              v-else
+              @click="upgrade('ESSENCIAL')"
+              :disabled="isLoadingCheckout"
+              class="w-full py-3 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg transition disabled:opacity-50"
+            >
+              {{ isLoadingCheckout ? 'Processando...' : 'Fazer downgrade' }}
             </button>
           </div>
         </div>
@@ -224,7 +233,7 @@ async function loadPlan() {
   }
 }
 
-async function upgrade(plan: 'PLUS' | 'AVANCADO') {
+async function upgrade(plan: 'ESSENCIAL' | 'PLUS' | 'AVANCADO') {
   isLoadingCheckout.value = true
   error.value = null
 
