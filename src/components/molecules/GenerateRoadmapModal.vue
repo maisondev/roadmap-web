@@ -191,8 +191,8 @@ function resetForm() {
   <AppModal
     :open="open"
     title="Gerar Roadmap com IA"
-    submit-label="Gerar com IA"
     cancel-label="Cancelar"
+    :hide-submit="true"
     :disabled="isGenerating"
     @cancel="handleCancel"
   >
@@ -242,15 +242,16 @@ function resetForm() {
 
         <div class="flex items-center justify-between gap-3">
           <div class="text-sm text-gray-600 dark:text-gray-400">
-            {{ isGenerating ? 'Gerando estrutura...' : generatedSummary || 'A IA vai preencher o roadmap automaticamente.' }}
+            {{ generatedSummary || 'A IA vai preencher o roadmap automaticamente.' }}
           </div>
           <button
+            v-if="!isGenerating"
             type="button"
-            :disabled="isGenerating || !authStore.isLoggedIn"
+            :disabled="!authStore.isLoggedIn"
             class="rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
             @click="handleGenerateAi"
           >
-            {{ isGenerating ? 'Gerando...' : 'Gerar com IA' }}
+            Gerar com IA
           </button>
         </div>
 
