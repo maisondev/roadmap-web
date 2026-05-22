@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useSettingsStore } from '@/stores/settings'
+import { api } from '@/services/api'
 import { HomeIcon, ChartBarIcon, CalendarIcon, TrophyIcon, ShieldCheckIcon, ChatBubbleLeftEllipsisIcon, MapIcon, SunIcon, MoonIcon, XMarkIcon, ArrowRightOnRectangleIcon, CreditCardIcon } from '@heroicons/vue/24/outline'
 import MD5 from 'crypto-js/md5'
 import AppButton from '@/components/atoms/AppButton.vue'
@@ -25,6 +26,17 @@ const route = useRoute()
 const authStore = useAuthStore()
 const settingsStore = useSettingsStore()
 const profileImageLoaded = ref(true)
+const planData = ref<any>(null)
+
+onMounted(async () => {
+  if (authStore.isLoggedIn) {
+    try {
+      planData.value = await api.get('/api/plan')
+    } catch (error) {
+      console.error('Erro ao carregar plano:', error)
+    }
+  }
+})
 
 function getGravatarUrl(userEmail: string): string {
   const emailLower = userEmail.toLowerCase().trim()
@@ -144,9 +156,19 @@ const isActive = (name: string) => route.name === name
             >
               {{ profileInitials }}
             </div>
-            <div class="min-w-0">
+            <div class="min-w-0 flex-1">
               <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">{{ authStore.user?.name || authStore.username }}</p>
               <p class="text-xs text-gray-600 dark:text-gray-400 truncate">{{ authStore.userEmail }}</p>
+              <div v-if="planData" class="mt-1 inline-block">
+                <span :class="[
+                  'text-xs font-semibold px-2 py-0.5 rounded',
+                  planData.plan === 'AVANCADO' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300' :
+                  planData.plan === 'PLUS' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' :
+                  'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'
+                ]">
+                  {{ planData.plan === 'AVANCADO' ? '🚀' : planData.plan === 'PLUS' ? '⭐' : '📦' }} {{ planData.plan }}
+                </span>
+              </div>
             </div>
           </div>
         </div>
