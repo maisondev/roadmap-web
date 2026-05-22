@@ -196,6 +196,23 @@ function resetForm() {
     :disabled="isGenerating"
     @cancel="handleCancel"
   >
+    <template #footer>
+      <button
+        @click="handleCancel"
+        class="px-4 py-2.5 sm:py-3 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors font-medium text-sm sm:text-base"
+      >
+        Cancelar
+      </button>
+      <button
+        v-if="!isGenerating"
+        type="button"
+        :disabled="!authStore.isLoggedIn"
+        class="px-4 py-2.5 sm:py-3 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 text-white transition-colors font-medium text-sm sm:text-base"
+        @click="handleGenerateAi"
+      >
+        Gerar com IA
+      </button>
+    </template>
     <div class="space-y-5">
       <!-- Loading State -->
       <div v-if="isGenerating" class="flex flex-col items-center justify-center py-12 space-y-4">
@@ -240,34 +257,13 @@ function resetForm() {
           </div>
         </div>
 
-        <div class="flex items-center justify-between gap-3">
-          <div class="text-sm text-gray-600 dark:text-gray-400">
-            {{ generatedSummary || 'A IA vai preencher o roadmap automaticamente.' }}
-          </div>
-          <button
-            v-if="!isGenerating"
-            type="button"
-            :disabled="!authStore.isLoggedIn"
-            class="rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
-            @click="handleGenerateAi"
-          >
-            Gerar com IA
-          </button>
+        <div class="text-sm text-gray-600 dark:text-gray-400">
+          {{ isGenerating ? 'Gerando estrutura...' : generatedSummary || 'A IA vai preencher o roadmap automaticamente.' }}
         </div>
 
         <p v-if="aiError" class="text-sm text-red-600 dark:text-red-400">{{ aiError }}</p>
       </section>
 
-      <!-- Visibility Section -->
-      <div v-if="!isGenerating" class="space-y-4">
-        <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Visibilidade do Roadmap</label>
-          <select v-model="visibility" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white">
-            <option value="private">Privado (apenas você)</option>
-            <option value="public">Público</option>
-          </select>
-        </div>
-      </div>
     </div>
   </AppModal>
 </template>

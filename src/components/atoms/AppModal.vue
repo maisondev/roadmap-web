@@ -7,12 +7,14 @@ interface Props {
   submitLabel?: string
   cancelLabel?: string
   submitVariant?: 'primary' | 'danger'
+  showFooter?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   submitLabel: 'Salvar',
   cancelLabel: 'Cancelar',
-  submitVariant: 'primary'
+  submitVariant: 'primary',
+  showFooter: true
 })
 
 const emit = defineEmits<{
@@ -66,25 +68,27 @@ onBeforeUnmount(() => {
           <slot />
         </div>
 
-        <div class="flex gap-2 sm:gap-3 justify-end sticky bottom-0 bg-white dark:bg-gray-800 -m-4 sm:-m-6 mt-6 px-4 sm:px-6 py-3 sm:py-4 flex-col-reverse sm:flex-row">
-          <button
-            @click="$emit('cancel')"
-            class="px-4 py-2.5 sm:py-3 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors font-medium text-sm sm:text-base"
-          >
-            {{ cancelLabel }}
-          </button>
-          <button
-            v-if="submitLabel"
-            @click="$emit('submit')"
-            :class="[
-              'px-4 py-2.5 sm:py-3 rounded-lg text-white transition-colors font-medium text-sm sm:text-base',
-              props.submitVariant === 'danger'
-                ? 'bg-red-500 hover:bg-red-600'
-                : 'bg-blue-500 hover:bg-blue-600'
-            ]"
-          >
-            {{ submitLabel }}
-          </button>
+        <div v-if="showFooter" class="flex gap-2 sm:gap-3 justify-end sticky bottom-0 bg-white dark:bg-gray-800 -m-4 sm:-m-6 mt-6 px-4 sm:px-6 py-3 sm:py-4 flex-col-reverse sm:flex-row">
+          <slot name="footer">
+            <button
+              @click="$emit('cancel')"
+              class="px-4 py-2.5 sm:py-3 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors font-medium text-sm sm:text-base"
+            >
+              {{ cancelLabel }}
+            </button>
+            <button
+              v-if="submitLabel"
+              @click="$emit('submit')"
+              :class="[
+                'px-4 py-2.5 sm:py-3 rounded-lg text-white transition-colors font-medium text-sm sm:text-base',
+                props.submitVariant === 'danger'
+                  ? 'bg-red-500 hover:bg-red-600'
+                  : 'bg-blue-500 hover:bg-blue-600'
+              ]"
+            >
+              {{ submitLabel }}
+            </button>
+          </slot>
         </div>
       </div>
     </div>
