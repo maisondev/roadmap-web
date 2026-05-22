@@ -168,7 +168,7 @@ const statusClasses = computed(() => {
 })
 
 const isExample = computed(() => {
-  return props.roadmap.title === 'Como Aprender Qualquer Coisa'
+  return props.roadmap.isTemplate === true
 })
 
 const confirmDelete = () => {

@@ -61,6 +61,7 @@ export interface Roadmap {
   tags?: string[]
   category?: string
   visibility?: 'public' | 'private'
+  isTemplate?: boolean
 }
 
 // Daily Log Types
