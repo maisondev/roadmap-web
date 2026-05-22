@@ -25,9 +25,9 @@ onMounted(async () => {
 
 <template>
   <div class="min-h-screen bg-white dark:bg-gray-900">
-    <div class="max-w-3xl mx-auto px-4 py-10 space-y-8">
-      <div class="flex items-center gap-3">
-        <AppButton variant="ghost" size="sm" @click="router.back()">← Voltar</AppButton>
+    <div class="max-w-3xl mx-auto px-3 sm:px-4 py-6 sm:py-10 space-y-6 sm:space-y-8">
+      <div class="flex items-center gap-2">
+        <AppButton variant="ghost" size="sm" @click="router.back()" class="text-xs sm:text-sm">← Voltar</AppButton>
       </div>
 
       <div v-if="isLoading" class="text-center py-16 text-gray-500 dark:text-gray-400">
@@ -39,26 +39,26 @@ onMounted(async () => {
       </div>
 
       <template v-else-if="terms">
-        <div class="space-y-2">
-          <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ terms.title }}</h1>
-          <p class="text-sm text-gray-500 dark:text-gray-400">
+        <div class="space-y-1 sm:space-y-2">
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{{ terms.title }}</h1>
+          <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
             Versão {{ terms.version }} — Última atualização: {{ terms.lastUpdated }}
           </p>
         </div>
 
-        <div class="space-y-6">
+        <div class="space-y-4 sm:space-y-6">
           <div
             v-for="section in terms.sections"
             :key="section.title"
-            class="space-y-2"
+            class="space-y-1 sm:space-y-2"
           >
-            <h2 class="text-base font-semibold text-gray-900 dark:text-white">{{ section.title }}</h2>
-            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{{ section.content }}</p>
+            <h2 class="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">{{ section.title }}</h2>
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{{ section.content }}</p>
           </div>
         </div>
 
-        <div class="pt-6 border-t border-gray-200 dark:border-gray-700">
-          <router-link to="/privacidade" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+        <div class="pt-4 sm:pt-6 border-t border-gray-200 dark:border-gray-700">
+          <router-link to="/privacidade" class="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline">
             Ver também: Política de Privacidade →
           </router-link>
         </div>

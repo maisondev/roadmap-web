@@ -132,13 +132,13 @@ onMounted(() => {
 
 <template>
   <div class="min-h-screen bg-white dark:bg-gray-900">
-    <div class="max-w-4xl mx-auto p-4 space-y-8 py-8">
+    <div class="max-w-4xl mx-auto p-3 sm:p-4 space-y-6 sm:space-y-8 py-6 sm:py-8">
       <!-- Header -->
       <div class="text-center">
-        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-3">
+        <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3">
           Central de Ajuda
         </h1>
-        <p class="text-lg text-gray-600 dark:text-gray-300">
+        <p class="text-sm sm:text-lg text-gray-600 dark:text-gray-300">
           Saiba como usar o Concursos Português
         </p>
       </div>
@@ -153,9 +153,9 @@ onMounted(() => {
         >
           <button
             @click="toggleSection(idx)"
-            class="w-full p-4 flex items-center justify-between bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
+            class="w-full p-3 sm:p-4 flex items-center justify-between bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
           >
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white text-left">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-900 dark:text-white text-left">
               {{ section.title }}
             </h3>
             <div class="flex items-center gap-2">
@@ -190,7 +190,7 @@ onMounted(() => {
               v-if="expandedIndex === idx"
               class="overflow-hidden"
             >
-              <p class="p-4 text-gray-700 dark:text-gray-300 border-t border-gray-300 dark:border-gray-700">
+              <p class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 border-t border-gray-300 dark:border-gray-700">
                 {{ section.content }}
               </p>
             </div>
@@ -199,13 +199,13 @@ onMounted(() => {
       </div>
 
       <!-- FAQ Footer -->
-      <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 text-center">
-        <h3 class="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-4">
+      <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 sm:p-6 text-center">
+        <h3 class="text-base sm:text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3 sm:mb-4">
           Precisa de mais ajuda?
         </h3>
         <button
           @click="showFeedbackModal = true"
-          class="inline-flex items-center gap-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+          class="inline-flex items-center gap-2 px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm sm:text-base rounded-lg transition-colors"
         >
           Enviar Feedback
         </button>

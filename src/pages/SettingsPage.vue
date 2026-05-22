@@ -259,12 +259,12 @@ function formatPlanIcon(plan: string) {
 <template>
   <div class="min-h-screen bg-white dark:bg-gray-900">
     <!-- Header -->
-    <div class="border-b border-gray-200 dark:border-gray-800 p-4">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-white max-w-7xl mx-auto">Configurações</h1>
+    <div class="border-b border-gray-200 dark:border-gray-800 p-3 sm:p-4">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white max-w-7xl mx-auto">Configurações</h1>
     </div>
 
     <!-- Main content: Sidebar + Content -->
-    <div class="max-w-7xl mx-auto p-4 grid grid-cols-1 md:grid-cols-[200px_1fr] lg:grid-cols-[240px_1fr] gap-6">
+    <div class="max-w-7xl mx-auto p-3 sm:p-4 grid grid-cols-1 md:grid-cols-[200px_1fr] lg:grid-cols-[240px_1fr] gap-4 sm:gap-6">
       <!-- Sidebar Navigation (Desktop) -->
       <nav class="hidden md:flex flex-col gap-1">
         <button
@@ -284,14 +284,14 @@ function formatPlanIcon(plan: string) {
       </nav>
 
       <!-- Tabs Navigation (Mobile) -->
-      <div class="md:hidden -mx-4 px-4 mb-4">
-        <div class="flex gap-2 overflow-x-auto pb-2">
+      <div class="md:hidden -mx-3 sm:-mx-4 px-3 sm:px-4 mb-3 sm:mb-4">
+        <div class="flex gap-1 sm:gap-2 overflow-x-auto pb-2">
           <button
             v-for="section in sections"
             :key="section.id"
             @click="activeSection = section.id as typeof activeSection"
             :class="[
-              'px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors',
+              'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors',
               activeSection === section.id
                 ? 'bg-blue-600 text-white'
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
@@ -303,26 +303,26 @@ function formatPlanIcon(plan: string) {
       </div>
 
       <!-- Content Area -->
-      <div class="space-y-6">
+      <div class="space-y-4 sm:space-y-6">
         <!-- Seção: Perfil -->
         <div v-if="activeSection === 'perfil'" class="space-y-6">
           <!-- Perfil Card -->
-          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
-            <div class="flex items-center gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
+          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
+            <div class="flex items-center gap-3 pb-3 sm:pb-4 border-b border-gray-100 dark:border-gray-700">
               <div class="p-2 rounded-lg bg-cyan-50 dark:bg-cyan-900/20">
                 <AppIcon name="user" size="sm" class="text-cyan-600 dark:text-cyan-400" />
               </div>
               <div>
-                <h2 class="font-semibold text-gray-900 dark:text-white">Perfil</h2>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Personalize seu perfil</p>
+                <h2 class="font-semibold text-gray-900 dark:text-white text-sm sm:text-base">Perfil</h2>
+                <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Personalize seu perfil</p>
               </div>
             </div>
-            <div class="space-y-4">
+            <div class="space-y-3 sm:space-y-4">
             <!-- Avatar -->
             <div>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Foto de Perfil</p>
-              <div class="flex items-center gap-4">
-                <img :src="currentAvatarUrl" :alt="authStore.username || 'Avatar'" class="w-20 h-20 rounded-full border-2 border-gray-200 dark:border-gray-700" />
+              <p class="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 sm:mb-3">Foto de Perfil</p>
+              <div class="flex items-center gap-3 sm:gap-4">
+                <img :src="currentAvatarUrl" :alt="authStore.username || 'Avatar'" class="w-16 sm:w-20 h-16 sm:h-20 rounded-full border-2 border-gray-200 dark:border-gray-700" />
                 <div>
                   <p class="text-xs text-gray-500 dark:text-gray-400">
                     {{ profileAvatar ? 'URL customizada' : 'Usando Gravatar' }}
@@ -332,20 +332,20 @@ function formatPlanIcon(plan: string) {
               </div>
 
               <!-- Gravatar info -->
-              <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                <p class="text-xs text-blue-900 dark:text-blue-300">
+              <div class="mt-3 sm:mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                <p class="text-xs text-blue-900 dark:text-blue-300 leading-relaxed">
                   <strong>Gravatar</strong> é um serviço gratuito que associa sua foto a seu email. Ao usar Gravatar, sua foto aparecerá automaticamente em muitos sites que usam este serviço.
                 </p>
               </div>
 
-              <div class="mt-4 space-y-3">
+              <div class="mt-3 sm:mt-4 space-y-2 sm:space-y-3">
                 <label class="block">
-                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">URL customizada da foto (opcional)</span>
+                  <span class="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">URL customizada da foto (opcional)</span>
                   <input v-model="profileAvatar" type="url" placeholder="https://exemplo.com/foto.jpg"
-                    class="w-full mt-1 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white" />
+                    class="w-full mt-1 px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white" />
                 </label>
                 <div class="flex gap-2">
-                  <AppButton variant="ghost" size="sm" @click="resetAvatar" class="flex-1">
+                  <AppButton variant="ghost" size="sm" @click="resetAvatar" class="flex-1 text-xs sm:text-sm">
                     Usar Gravatar
                   </AppButton>
                   <AppButton

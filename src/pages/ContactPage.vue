@@ -65,32 +65,32 @@ const handleSubmit = async () => {
 
 <template>
   <div class="min-h-screen bg-white dark:bg-gray-900">
-    <div class="max-w-4xl mx-auto p-4 py-8 space-y-12">
+    <div class="max-w-4xl mx-auto p-3 sm:p-4 py-6 sm:py-8 space-y-8 sm:space-y-12">
       <!-- Header -->
-      <div class="text-center space-y-4">
-        <h1 class="text-4xl font-bold text-gray-900 dark:text-white">
+      <div class="text-center space-y-2 sm:space-y-4">
+        <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 dark:text-white">
           Entre em Contato
         </h1>
-        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        <p class="text-sm sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           Tem dúvidas, sugestões ou feedback? Adoramos ouvir de você!
         </p>
       </div>
 
       <!-- Contact Links -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
         <a
           v-for="link in contactLinks"
           :key="link.name"
           :href="link.url"
           target="_blank"
           rel="noopener noreferrer"
-          class="group p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-transparent transition-all duration-300 bg-white dark:bg-gray-800 hover:shadow-lg"
+          class="group p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-transparent transition-all duration-300 bg-white dark:bg-gray-800 hover:shadow-lg"
         >
-          <div class="flex flex-col items-center space-y-3">
+          <div class="flex flex-col items-center space-y-2 sm:space-y-3">
             <div class="group-hover:scale-110 transition-transform duration-300">
               <SocialIcon :icon="link.icon" :size="48" />
             </div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
               {{ link.name }}
             </h3>
             <p v-if="link.name === 'Email'" class="text-sm text-gray-500 dark:text-gray-400 break-all">
@@ -104,68 +104,68 @@ const handleSubmit = async () => {
       </div>
 
       <!-- Contact Form -->
-      <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-8 space-y-6">
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
         <div>
-          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1 sm:mb-2">
             Envie uma Mensagem
           </h2>
-          <p class="text-gray-600 dark:text-gray-300">
+          <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300">
             Preencha o formulário abaixo e entraremos em contato em breve.
           </p>
         </div>
 
-        <form @submit.prevent="handleSubmit" class="space-y-4">
+        <form @submit.prevent="handleSubmit" class="space-y-3 sm:space-y-4">
           <!-- Name -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
               Nome <span class="text-red-500">*</span>
             </label>
             <input
               v-model="formData.name"
               type="text"
               placeholder="Seu nome"
-              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              class="w-full px-3 sm:px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               required
             />
           </div>
 
           <!-- Email -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
               Email <span class="text-red-500">*</span>
             </label>
             <input
               v-model="formData.email"
               type="email"
               placeholder="seu.email@exemplo.com"
-              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              class="w-full px-3 sm:px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               required
             />
           </div>
 
           <!-- Subject -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
               Assunto
             </label>
             <input
               v-model="formData.subject"
               type="text"
               placeholder="Ex: Feedback, Dúvida, Bug Report"
-              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              class="w-full px-3 sm:px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
             />
           </div>
 
           <!-- Message -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
               Mensagem <span class="text-red-500">*</span>
             </label>
             <textarea
               v-model="formData.message"
               placeholder="Digite sua mensagem aqui..."
               rows="5"
-              class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+              class="w-full px-3 sm:px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
               required
             />
           </div>
@@ -173,9 +173,9 @@ const handleSubmit = async () => {
           <!-- Submit Button -->
           <button
             type="submit"
-            class="w-full px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
+            class="w-full px-4 sm:px-6 py-2.5 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm sm:text-base rounded-lg transition-colors flex items-center justify-center gap-2"
           >
-            <EnvelopeIcon class="w-5 h-5" />
+            <EnvelopeIcon class="w-4 sm:w-5 h-4 sm:h-5" />
             Enviar Mensagem
           </button>
 
@@ -199,11 +199,11 @@ const handleSubmit = async () => {
       </div>
 
       <!-- FAQ Shortcuts -->
-      <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
-        <h3 class="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-4">
+      <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 sm:p-6">
+        <h3 class="text-base sm:text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2 sm:mb-4">
           Dúvidas Comuns?
         </h3>
-        <p class="text-blue-800 dark:text-blue-200 mb-4">
+        <p class="text-sm sm:text-base text-blue-800 dark:text-blue-200">
           Confira nossa <router-link to="/help" class="underline hover:opacity-75">Central de Ajuda</router-link> para respostas rápidas.
         </p>
       </div>

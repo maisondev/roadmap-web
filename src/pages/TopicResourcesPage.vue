@@ -198,13 +198,13 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
 
 <template>
   <div class="min-h-screen bg-white dark:bg-gray-900">
-    <div class="max-w-[120rem] mx-auto p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-6">
-      <div v-if="topic && block" class="grid grid-cols-1 xl:grid-cols-[minmax(0,1.5fr)_minmax(22rem,28rem)] gap-6 items-start xl:items-start">
-        <section class="space-y-4 min-w-0">
-          <div class="flex items-start justify-between gap-4">
+    <div class="max-w-[120rem] mx-auto p-3 sm:p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-4 sm:space-y-6">
+      <div v-if="topic && block" class="grid grid-cols-1 xl:grid-cols-[minmax(0,1.5fr)_minmax(22rem,28rem)] gap-4 sm:gap-6 items-start xl:items-start">
+        <section class="space-y-3 sm:space-y-4 min-w-0">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
             <div class="min-w-0">
-              <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ block.title }}</p>
-              <h1 class="text-3xl font-bold text-gray-900 dark:text-white break-words">{{ topic.title }}</h1>
+              <p class="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">{{ block.title }}</p>
+              <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white break-words">{{ topic.title }}</h1>
               <div class="mt-3 flex flex-wrap gap-2">
                 <AppBadge :color="statusMap[topic.status].color" size="sm">
                   {{ statusMap[topic.status].label }}
@@ -215,45 +215,42 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
               </div>
             </div>
 
-            <AppButton variant="secondary" size="sm" @click="showAddResourceModal = true">
+            <AppButton variant="secondary" size="sm" class="w-full sm:w-auto" @click="showAddResourceModal = true">
               + Novo Recurso
             </AppButton>
           </div>
 
-          <div class="p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 flex flex-wrap items-end gap-3">
-            <div class="flex-1 min-w-[14rem]">
-              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Buscar</label>
-              <input
-                v-model="searchQuery"
-                type="text"
-                placeholder="Título, URL, anotações..."
-                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-              />
-            </div>
-            <div>
-              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Tipo</label>
-              <select
-                v-model="filterType"
-                class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-              >
-                <option value="all">Todos</option>
-                <option value="youtube">YouTube</option>
-                <option value="drive">Google Drive</option>
-                <option value="document">Documento</option>
-                <option value="link">Link</option>
-                <option value="local">Local</option>
-              </select>
-            </div>
-            <label class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-              <input v-model="onlyUnviewed" type="checkbox" />
-              Não vistos
-            </label>
-            <div>
-              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Ordenar</label>
-              <select
-                v-model="sortBy"
-                class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-              >
+          <div class="p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Buscar</label>
+                <input
+                  v-model="searchQuery"
+                  type="text"
+                  placeholder="Título, URL, anotações..."
+                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Tipo</label>
+                <select
+                  v-model="filterType"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                >
+                  <option value="all">Todos</option>
+                  <option value="youtube">YouTube</option>
+                  <option value="drive">Google Drive</option>
+                  <option value="document">Documento</option>
+                  <option value="link">Link</option>
+                  <option value="local">Local</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Ordenar</label>
+                <select
+                  v-model="sortBy"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                >
                 <option value="added_desc">Mais recentes</option>
                 <option value="added_asc">Mais antigos</option>
                 <option value="rating_desc">Melhor rating</option>
@@ -262,6 +259,7 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
             <div class="text-xs text-gray-600 dark:text-gray-400">
               {{ filteredResources.length }} resultado{{ filteredResources.length === 1 ? '' : 's' }}
             </div>
+          </div>
           </div>
 
           <div v-if="filteredResources.length > 0" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
