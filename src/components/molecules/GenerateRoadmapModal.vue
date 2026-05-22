@@ -192,7 +192,7 @@ function resetForm() {
     :open="open"
     title="Gerar Roadmap com IA"
     cancel-label="Cancelar"
-    :hide-submit="true"
+    submit-label=""
     :disabled="isGenerating"
     @cancel="handleCancel"
   >
