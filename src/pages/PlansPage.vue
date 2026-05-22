@@ -278,9 +278,9 @@ async function upgrade(plan: 'ESSENCIAL' | 'PLUS' | 'AVANCADO') {
       }
 
       alert(message)
-      // Recarregar para atualizar dados do plano
-      await new Promise(resolve => setTimeout(resolve, 500))
-      window.location.reload()
+      // Recarregar dados do plano sem fazer reload da página
+      await loadPlan()
+      isLoadingCheckout.value = false
       return
     }
 
