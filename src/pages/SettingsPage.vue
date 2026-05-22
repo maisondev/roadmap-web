@@ -258,16 +258,8 @@ function formatPlanIcon(plan: string) {
 
 <template>
   <div class="min-h-screen bg-white dark:bg-gray-900">
-    <!-- Header com breadcrumb -->
+    <!-- Header -->
     <div class="border-b border-gray-200 dark:border-gray-800 p-4">
-      <div class="max-w-7xl mx-auto flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-4">
-        <button @click="router.push('/')" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
-          <AppIcon name="home" size="sm" />
-          Início
-        </button>
-        <span>•</span>
-        <span class="font-medium text-gray-900 dark:text-white">Configurações</span>
-      </div>
       <h1 class="text-3xl font-bold text-gray-900 dark:text-white max-w-7xl mx-auto">Configurações</h1>
     </div>
 
