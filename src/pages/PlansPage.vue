@@ -135,7 +135,7 @@
               disabled
               class="w-full py-3 px-4 bg-gray-100 text-gray-700 font-semibold rounded-lg cursor-not-allowed"
             >
-              Plano atual ou superior
+              Plano atual
             </button>
           </div>
         </div>
