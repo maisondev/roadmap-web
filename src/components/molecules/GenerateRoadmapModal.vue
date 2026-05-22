@@ -121,7 +121,22 @@ async function handleGenerateAi() {
     category.value = preview.category || ''
     tags.value = (preview.tags || []).join(', ')
     aiBlocks.value = mapAiPreviewToBlocks(preview.blocks || [])
-    generatedSummary.value = `${aiBlocks.value.length} bloco(s) e ${aiBlocks.value.reduce((acc, block) => acc + block.topics.length, 0)} tópico(s) gerados.`
+
+    // Criar roadmap automaticamente após gerar
+    const tagArray = tags.value.trim()
+      ? tags.value.split(',').map(tag => tag.trim()).filter(Boolean)
+      : []
+
+    emit('submit', {
+      title: title.value.trim(),
+      description: description.value.trim(),
+      category: category.value.trim(),
+      tags: tagArray,
+      visibility: visibility.value,
+      blocks: aiBlocks.value
+    })
+
+    resetForm()
   } catch (error) {
     aiError.value = error instanceof Error ? error.message : 'Erro ao gerar roadmap com IA.'
   } finally {
@@ -176,14 +191,28 @@ function resetForm() {
   <AppModal
     :open="open"
     title="Gerar Roadmap com IA"
-    submit-label="Criar Roadmap"
+    submit-label="Gerar com IA"
     cancel-label="Cancelar"
-    @submit="handleSubmit"
+    :disabled="isGenerating"
     @cancel="handleCancel"
   >
     <div class="space-y-5">
+      <!-- Loading State -->
+      <div v-if="isGenerating" class="flex flex-col items-center justify-center py-12 space-y-4">
+        <div class="animate-spin">
+          <svg class="w-12 h-12 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </div>
+        <div class="text-center">
+          <p class="text-lg font-semibold text-gray-900 dark:text-white">Gerando seu roadmap...</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Isso pode levar alguns segundos</p>
+        </div>
+      </div>
+
       <!-- Generate Section -->
-      <section class="space-y-4 rounded-lg border border-blue-200 bg-blue-50/70 p-4 dark:border-blue-900 dark:bg-blue-950/20">
+      <section v-else class="space-y-4 rounded-lg border border-blue-200 bg-blue-50/70 p-4 dark:border-blue-900 dark:bg-blue-950/20">
         <div class="grid gap-3 md:grid-cols-2">
           <div class="md:col-span-2">
             <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Tema</label>
@@ -228,65 +257,15 @@ function resetForm() {
         <p v-if="aiError" class="text-sm text-red-600 dark:text-red-400">{{ aiError }}</p>
       </section>
 
-      <!-- Details Section (Simplified) -->
-      <div class="space-y-4">
+      <!-- Visibility Section -->
+      <div v-if="!isGenerating" class="space-y-4">
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Título</label>
-          <input
-            v-model="title"
-            type="text"
-            placeholder="O título será preenchido pela IA"
-            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
-          />
-        </div>
-
-        <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Visibilidade</label>
+          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Visibilidade do Roadmap</label>
           <select v-model="visibility" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white">
-            <option value="private">Privado</option>
+            <option value="private">Privado (apenas você)</option>
             <option value="public">Público</option>
           </select>
         </div>
-
-        <!-- Expandable Advanced Options -->
-        <details class="group">
-          <summary class="cursor-pointer select-none text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300 flex items-center gap-2">
-            <span class="inline-block transition group-open:rotate-90">▶</span>
-            ⚙️ Mais opções
-          </summary>
-
-          <div class="mt-4 space-y-4 border-t border-gray-200 dark:border-gray-700 pt-4 pl-4">
-            <div>
-              <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Descrição</label>
-              <textarea
-                v-model="description"
-                rows="2"
-                placeholder="Preenchida automaticamente pela IA"
-                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
-              />
-            </div>
-
-            <div>
-              <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Categoria</label>
-              <input
-                v-model="category"
-                type="text"
-                placeholder="Preenchida automaticamente pela IA"
-                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
-              />
-            </div>
-
-            <div>
-              <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Tags</label>
-              <input
-                v-model="tags"
-                type="text"
-                placeholder="Preenchidas automaticamente pela IA, separadas por vírgula"
-                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
-              />
-            </div>
-          </div>
-        </details>
       </div>
     </div>
   </AppModal>
