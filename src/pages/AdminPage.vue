@@ -15,10 +15,11 @@ const users = ref<any[]>([])
 const activity = ref<any>(null)
 const analytics = ref<any>(null)
 const loginStats = ref<any>(null)
+const geminiStats = ref<any>(null)
 const isLoading = ref(true)
 const isLoadingAnalytics = ref(false)
 const error = ref<string | null>(null)
-const activeTab = ref<'stats' | 'users' | 'activity' | 'notifications' | 'analytics' | 'plans'>('stats')
+const activeTab = ref<'stats' | 'users' | 'activity' | 'notifications' | 'analytics' | 'plans' | 'ia'>('stats')
 const plansStats = ref<any>(null)
 const isLoadingPlans = ref(false)
 const analyticsRange = ref(30)
@@ -62,13 +63,14 @@ async function loadStats() {
   error.value = null
 
   try {
-    const [statsData, usersData, activityData, analyticsData, loginStatsData, plansData] = await Promise.all([
+    const [statsData, usersData, activityData, analyticsData, loginStatsData, plansData, geminiData] = await Promise.all([
       api.get('/api/admin/stats'),
       api.get('/api/admin/users'),
       api.get('/api/admin/activity'),
       api.get(`/api/admin/analytics?days=${analyticsRange.value}`),
       api.get('/api/admin/stats/login-methods'),
-      api.get('/api/admin/stats/plans')
+      api.get('/api/admin/stats/plans'),
+      api.get('/api/admin/gemini-usage')
     ])
 
     stats.value = statsData
@@ -77,6 +79,7 @@ async function loadStats() {
     analytics.value = analyticsData
     loginStats.value = loginStatsData
     plansStats.value = plansData
+    geminiStats.value = geminiData
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Erro ao carregar dados'
     console.error(error.value)
@@ -337,6 +340,7 @@ async function syncBadges() {
             { id: 'activity', label: '📝 Atividades' },
             { id: 'notifications', label: '🔔 Notificações' },
             { id: 'plans', label: '💳 Planos' },
+            { id: 'ia', label: '⚡ IA (Gemini)' },
           ]"
           :key="tab.id"
           @click="activeTab = tab.id as any"
@@ -970,6 +974,105 @@ async function syncBadges() {
             >
               {{ isSyncingBadges ? 'Sincronizando...' : '⚡ Sincronizar Badges de Todos os Usuários' }}
             </AppButton>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== IA (GEMINI) TAB ===== -->
+      <div v-else-if="activeTab === 'ia' && geminiStats" class="space-y-6">
+        <!-- Resumo Principal -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-gray-600 dark:text-gray-400">Roadmaps Gerados</p>
+            <p class="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-2">{{ geminiStats.totalAiRoadmaps }}</p>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">com IA (Gemini)</p>
+          </div>
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-gray-600 dark:text-gray-400">Usuários Ativos</p>
+            <p class="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">{{ geminiStats.usersWithAi }}</p>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">utilizaram IA</p>
+          </div>
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-gray-600 dark:text-gray-400">Tokens Estimados</p>
+            <p class="text-3xl font-bold text-purple-600 dark:text-purple-400 mt-2">{{ (geminiStats.estimatedTokens / 1000).toFixed(0) }}k</p>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">~1.5k por roadmap</p>
+          </div>
+          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-gray-600 dark:text-gray-400">Custo Total</p>
+            <p class="text-3xl font-bold text-orange-600 dark:text-orange-400 mt-2">US$ {{ geminiStats.estimatedCost.totalUSD.toFixed(2) }}</p>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ geminiStats.estimatedCost.description }}</p>
+          </div>
+        </div>
+
+        <!-- Detalhes de Custos -->
+        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">💰 Análise de Custos</h3>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded">
+              <span class="text-sm text-gray-700 dark:text-gray-300">Total de Tokens</span>
+              <span class="text-sm font-semibold text-gray-900 dark:text-white">{{ geminiStats.estimatedTokens.toLocaleString('pt-BR') }}</span>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded">
+              <span class="text-sm text-gray-700 dark:text-gray-300">Custo por Token</span>
+              <span class="text-sm font-semibold text-gray-900 dark:text-white">US$ {{ geminiStats.estimatedCost.costPerToken.toFixed(9) }}</span>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded border border-orange-200 dark:border-orange-800">
+              <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Custo Total Estimado</span>
+              <span class="text-lg font-bold text-orange-600 dark:text-orange-400">US$ {{ geminiStats.estimatedCost.totalUSD.toFixed(2) }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Usuários -->
+        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">🏆 Top 10 Usuários com IA</h3>
+          <div v-if="geminiStats.topUsers.length > 0" class="space-y-3">
+            <div
+              v-for="(user, idx) in geminiStats.topUsers"
+              :key="user.id"
+              class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition"
+            >
+              <div class="flex items-center gap-3 flex-1">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-500 text-white text-sm font-bold">
+                  {{ idx + 1 }}
+                </span>
+                <span class="text-sm text-gray-900 dark:text-white truncate">{{ user.email }}</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">
+                  ⚡ {{ user.aiCreditsUsed }}
+                </span>
+                <span class="text-xs text-gray-500 dark:text-gray-400 w-16 text-right">
+                  US$ {{ (user.aiCreditsUsed * 1500 * geminiStats.estimatedCost.costPerToken).toFixed(2) }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div v-else class="text-center py-8">
+            <p class="text-gray-600 dark:text-gray-400">Nenhum usuário utilizou IA ainda</p>
+          </div>
+        </div>
+
+        <!-- Informações de Modelo -->
+        <div class="p-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-3">ℹ️ Detalhes Técnicos</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div>
+              <p class="text-gray-600 dark:text-gray-400">Modelo Utilizado</p>
+              <p class="text-gray-900 dark:text-white font-medium mt-1">Gemini Flash</p>
+            </div>
+            <div>
+              <p class="text-gray-600 dark:text-gray-400">Tokens por Roadmap</p>
+              <p class="text-gray-900 dark:text-white font-medium mt-1">~1.500 (estimado)</p>
+            </div>
+            <div>
+              <p class="text-gray-600 dark:text-gray-400">Método de Cálculo</p>
+              <p class="text-gray-900 dark:text-white font-medium mt-1">tokens × US$ 0,000000075</p>
+            </div>
+            <div>
+              <p class="text-gray-600 dark:text-gray-400">Atualização</p>
+              <p class="text-gray-900 dark:text-white font-medium mt-1">Em tempo real</p>
+            </div>
           </div>
         </div>
       </div>
