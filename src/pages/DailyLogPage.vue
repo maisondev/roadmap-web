@@ -124,15 +124,6 @@ const cancelEdit = () => {
 
 <template>
   <div class="space-y-8">
-    <!-- Breadcrumb -->
-    <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-      <button @click="$router.push('/')" class="text-blue-600 dark:text-blue-400 hover:underline">
-        Início
-      </button>
-      <span>•</span>
-      <span class="font-medium text-gray-900 dark:text-white">Registros Diários</span>
-    </div>
-
     <!-- Header -->
     <div class="space-y-4 text-center">
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white">Registros Diários</h1>

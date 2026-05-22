@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useSettingsStore } from '@/stores/settings'
 import { HomeIcon, ChartBarIcon, CalendarIcon, TrophyIcon, ShieldCheckIcon, ChatBubbleLeftEllipsisIcon, MapIcon, SunIcon, MoonIcon, XMarkIcon, ArrowRightOnRectangleIcon, CreditCardIcon } from '@heroicons/vue/24/outline'
+import MD5 from 'crypto-js/md5'
 import AppButton from '@/components/atoms/AppButton.vue'
 
 interface Props {
@@ -23,6 +24,30 @@ const router = useRouter()
 const route = useRoute()
 const authStore = useAuthStore()
 const settingsStore = useSettingsStore()
+const profileImageLoaded = ref(true)
+
+function getGravatarUrl(userEmail: string): string {
+  const emailLower = userEmail.toLowerCase().trim()
+  const hash = MD5(emailLower).toString()
+  return `https://www.gravatar.com/avatar/${hash}?s=40&d=identicon`
+}
+
+function getUserInitials(name: string): string {
+  return name
+    .split(' ')
+    .slice(0, 2)
+    .map(word => word[0]?.toUpperCase())
+    .join('')
+}
+
+const profileAvatarUrl = computed(() => {
+  if (authStore.user?.avatar) return authStore.user.avatar
+  return getGravatarUrl(authStore.userEmail || '')
+})
+
+const profileInitials = computed(() => {
+  return getUserInitials(authStore.user?.name || authStore.username || 'U')
+})
 
 function navigateTo(path: string, name: string) {
   router.push({
@@ -93,14 +118,37 @@ const isActive = (name: string) => route.name === name
         ]"
       >
         <!-- Drawer Header (Logado) -->
-        <div v-if="authStore.isLoggedIn" class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Menu</h3>
-          <button
-            @click="emit('close')"
-            class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-          >
-            <XMarkIcon class="w-6 h-6 text-gray-500 dark:text-gray-400" />
-          </button>
+        <div v-if="authStore.isLoggedIn" class="p-4 border-b border-gray-200 dark:border-gray-700 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Menu</h3>
+            <button
+              @click="emit('close')"
+              class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            >
+              <XMarkIcon class="w-6 h-6 text-gray-500 dark:text-gray-400" />
+            </button>
+          </div>
+
+          <!-- Profile Mini (Logado) -->
+          <div class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+            <img
+              v-if="profileImageLoaded"
+              :src="profileAvatarUrl"
+              :alt="authStore.username"
+              class="w-10 h-10 rounded-full flex-shrink-0"
+              @error="profileImageLoaded = false"
+            />
+            <div
+              v-else
+              class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+            >
+              {{ profileInitials }}
+            </div>
+            <div class="min-w-0">
+              <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">{{ authStore.user?.name || authStore.username }}</p>
+              <p class="text-xs text-gray-600 dark:text-gray-400 truncate">{{ authStore.userEmail }}</p>
+            </div>
+          </div>
         </div>
 
         <!-- Drawer Header (Não logado) -->

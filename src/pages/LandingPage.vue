@@ -2,6 +2,7 @@
 import { ref, watch, nextTick } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import { useGlobalLoading } from '@/composables/useGlobalLoading'
 import HeroSection from '@/components/organisms/HeroSection.vue'
 import BenefitsSection from '@/components/organisms/BenefitsSection.vue'
 import ScienceSection from '@/components/organisms/ScienceSection.vue'
@@ -12,6 +13,7 @@ import type { GoogleCredentialResponse } from '@/types/google'
 
 const router = useRouter()
 const authStore = useAuthStore()
+const { withLoading } = useGlobalLoading()
 
 const showAuthModal = ref(false)
 const authMode = ref<'login' | 'register'>('register')
@@ -41,7 +43,10 @@ const handleGoogleLogin = async (response: GoogleCredentialResponse) => {
       throw new Error('Google token não foi obtido')
     }
 
-    await authStore.loginWithGoogle(credential)
+    await withLoading(
+      authStore.loginWithGoogle(credential),
+      'Entrando com Google...'
+    )
     showAuthModal.value = false
     router.push('/dashboard')
   } catch (e) {
@@ -75,9 +80,15 @@ async function submitAuth() {
 
   try {
     if (authMode.value === 'register') {
-      await authStore.register(email.value, password.value, undefined, consentGiven.value)
+      await withLoading(
+        authStore.register(email.value, password.value, undefined, consentGiven.value),
+        'Criando sua conta...'
+      )
     } else {
-      await authStore.login(email.value, password.value)
+      await withLoading(
+        authStore.login(email.value, password.value),
+        'Entrando...'
+      )
     }
 
     showAuthModal.value = false

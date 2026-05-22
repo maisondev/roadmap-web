@@ -33,21 +33,21 @@ const filterStatus = computed({
 </script>
 
 <template>
-  <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+  <div class="space-y-4">
     <!-- Filters -->
-    <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-      <div class="relative flex-1 sm:flex-initial">
+    <div class="flex flex-col sm:flex-row gap-3 w-full">
+      <div class="relative flex-1">
         <input
           v-model="filterName"
           type="text"
           placeholder="Buscar roadmaps..."
-          class="w-full sm:w-64 px-3 py-2 pl-10 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+          class="w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm"
         />
         <AppIcon name="search" size="sm" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
       </div>
       <select
         v-model="filterStatus"
-        class="px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-base"
+        class="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm"
       >
         <option value="all">Todos os status</option>
         <option value="ativo">Ativos</option>
@@ -57,30 +57,30 @@ const filterStatus = computed({
     </div>
 
     <!-- Buttons -->
-    <div class="flex items-center gap-3">
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
       <AppButton
         variant="primary"
-        size="md"
+        size="sm"
         @click="emit('create')"
-        class="flex items-center gap-2 flex-shrink-0"
+        class="flex items-center justify-center gap-2 flex-1 sm:flex-initial"
       >
         <AppIcon name="plus" size="sm" />
-        Novo Roadmap
+        <span>Novo</span>
       </AppButton>
       <AppButton
         variant="secondary"
-        size="md"
+        size="sm"
         @click="emit('generate')"
-        class="flex items-center gap-2 flex-shrink-0"
+        class="flex items-center justify-center gap-2 flex-1 sm:flex-initial"
       >
         <AppIcon name="sparkles" size="sm" />
-        Gerar com IA
+        <span>IA</span>
       </AppButton>
       <AppButton
         variant="ghost"
         size="sm"
         @click="emit('import')"
-        class="flex items-center gap-2 px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+        class="flex items-center justify-center gap-2 flex-1 sm:flex-initial px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
         title="Importar um roadmap"
       >
         <AppIcon name="upload" size="sm" />
