@@ -3,9 +3,10 @@ import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useDailyLogStore } from '@/stores/dailyLog'
+import { useSettingsStore } from '@/stores/settings'
 import { useSync } from '@/composables/useSync'
 import { useNavBar } from '@/composables/useNavBar'
-import { ArrowLeftIcon, HomeIcon, Bars3Icon, ChartBarIcon, CalendarIcon, TrophyIcon, ShieldCheckIcon, CreditCardIcon } from '@heroicons/vue/24/outline'
+import { ArrowLeftIcon, HomeIcon, Bars3Icon, ChartBarIcon, CalendarIcon, TrophyIcon, ShieldCheckIcon, CreditCardIcon, MoonIcon, SunIcon } from '@heroicons/vue/24/outline'
 import AppButton from '@/components/atoms/AppButton.vue'
 import FeedbackModal from '@/components/molecules/FeedbackModal.vue'
 import AuthActions from '@/components/molecules/AuthActions.vue'
@@ -18,6 +19,7 @@ const router = useRouter()
 const route = useRoute()
 const authStore = useAuthStore()
 const dailyLogStore = useDailyLogStore()
+const settingsStore = useSettingsStore()
 const { syncStatus } = useSync()
 
 const {
@@ -149,6 +151,16 @@ const isActive = (name: string) => route.name === name
 
           <!-- Notifications -->
           <NavNotificationsDropdown />
+
+          <!-- Theme toggle -->
+          <button
+            @click="settingsStore.toggleTheme()"
+            class="p-2.5 rounded-[6px] transition-colors text-ink-body hover:bg-canvas-soft-2"
+            :title="`Alternar para modo ${settingsStore.settings.theme === 'dark' ? 'claro' : 'escuro'}`"
+          >
+            <SunIcon v-if="settingsStore.settings.theme === 'dark'" class="w-5 h-5" />
+            <MoonIcon v-else class="w-5 h-5" />
+          </button>
 
           <!-- Profile (desktop only) -->
           <NavProfileDropdown v-if="authStore.isLoggedIn" class="hidden md:block" @openFeedback="showFeedbackModal = true" />

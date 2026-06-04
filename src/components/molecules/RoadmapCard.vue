@@ -161,10 +161,7 @@ const statusLabel = computed(() => {
 })
 
 const statusClasses = computed(() => {
-  const s = (props.roadmap.status || 'ativo') as RoadmapStatus
-  if (s === 'concluido') return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200'
-  if (s === 'pausado') return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200'
-  return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200'
+  return 'bg-canvas-soft-2 text-ink-body'
 })
 
 const isExample = computed(() => {
@@ -198,7 +195,7 @@ const handleDeleteConfirm = (password: string) => {
             {{ roadmap.title }}
           </h3>
           <div class="flex items-center gap-2 flex-shrink-0">
-            <span v-if="isExample" class="text-xs px-2.5 py-1 rounded whitespace-nowrap bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200 font-semibold">
+            <span v-if="isExample" class="text-xs px-2.5 py-1 rounded whitespace-nowrap bg-canvas-soft-2 text-ink-body font-semibold">
               📚 Exemplo
             </span>
             <span class="text-xs px-2 py-1 rounded whitespace-nowrap" :class="statusClasses">
@@ -211,8 +208,8 @@ const handleDeleteConfirm = (password: string) => {
       <!-- Rating -->
       <div class="flex items-center gap-1">
         <div class="flex gap-0.5">
-          <StarSolidIcon v-for="i in displayRating" :key="i" class="w-4 h-4 text-yellow-400" />
-          <StarIcon v-for="i in 5 - displayRating" :key="`empty-${i}`" class="w-4 h-4 text-gray-300 dark:text-gray-600" />
+          <StarSolidIcon v-for="i in displayRating" :key="i" class="w-4 h-4 text-ds-warning" />
+          <StarIcon v-for="i in 5 - displayRating" :key="`empty-${i}`" class="w-4 h-4 text-hairline" />
         </div>
         <span class="text-xs text-ink-body">{{ displayRating }}/5</span>
       </div>
@@ -223,13 +220,13 @@ const handleDeleteConfirm = (password: string) => {
 
       <!-- Category and Tags -->
       <div v-if="roadmap.category || (roadmap.tags && roadmap.tags.length > 0)" class="flex flex-wrap gap-2 mb-2">
-        <span v-if="roadmap.category" class="text-xs px-2 py-1 rounded bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300">
+        <span v-if="roadmap.category" class="text-xs px-2 py-1 rounded bg-canvas-soft-2 text-ink-body">
           {{ roadmap.category }}
         </span>
-        <span 
-          v-for="tag in (roadmap.tags || [])" 
-          :key="tag" 
-          class="text-xs px-2 py-1 rounded bg-gray-100 dark:bg-gray-800 text-ink-body"
+        <span
+          v-for="tag in (roadmap.tags || [])"
+          :key="tag"
+          class="text-xs px-2 py-1 rounded bg-canvas-soft-2 text-ink-body"
         >
           {{ tag }}
         </span>
@@ -237,12 +234,12 @@ const handleDeleteConfirm = (password: string) => {
 
       <!-- Visibility -->
       <div v-if="roadmap.visibility === 'public'" class="flex items-center gap-1 mb-2">
-        <AppIcon name="eye" size="xs" class="text-green-500" />
-        <span class="text-xs text-green-600 dark:text-green-400">Público</span>
+        <AppIcon name="eye" size="xs" class="text-ink-body" />
+        <span class="text-xs text-ink-body">Público</span>
       </div>
 
       <!-- Last Update -->
-      <div class="text-xs text-gray-500 dark:text-gray-400">
+      <div class="text-xs text-ink-mute">
         Última atualização: {{ formatDate(roadmap.updatedAt) }}
       </div>
 
@@ -290,9 +287,8 @@ const handleDeleteConfirm = (password: string) => {
             size="sm"
             @click="(e) => { e.stopPropagation(); $emit('export') }"
             title="Exportar roadmap"
-            class="border border-blue-200"
           >
-            <AppIcon name="download" size="sm" class="text-blue-600" />
+            <AppIcon name="download" size="sm" class="text-ink-body" />
           </AppButton>
           <AppButton
             :variant="isCompleted ? 'secondary' : 'ghost'"
@@ -309,7 +305,7 @@ const handleDeleteConfirm = (password: string) => {
             @click="(e) => { e.stopPropagation(); confirmDelete() }"
             title="Deletar roadmap"
           >
-            <TrashIcon class="w-4 h-4 text-red-500" />
+            <TrashIcon class="w-4 h-4 text-ds-error" />
           </AppButton>
         </div>
 
@@ -393,15 +389,15 @@ const handleDeleteConfirm = (password: string) => {
               v-for="i in 5"
               :key="i"
               @click="setRating(i)"
-              class="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+              class="p-1 rounded hover:bg-canvas-soft-2"
             >
               <StarSolidIcon
                 v-if="i <= editRating"
-                class="w-5 h-5 text-yellow-400"
+                class="w-5 h-5 text-ds-warning"
               />
               <StarIcon
                 v-else
-                class="w-5 h-5 text-gray-300 dark:text-gray-600"
+                class="w-5 h-5 text-hairline"
               />
             </button>
           </div>
@@ -419,7 +415,7 @@ const handleDeleteConfirm = (password: string) => {
               :class="[
                 c.class,
                 'w-8 h-8 rounded-lg border-2 transition-all',
-                editColor === c.color ? 'border-gray-900 dark:border-white' : 'border-transparent'
+                editColor === c.color ? 'border-ink' : 'border-transparent'
               ]"
               :title="c.label"
             />

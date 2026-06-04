@@ -152,7 +152,7 @@ const isActive = (name: string) => route.name === name
             />
             <div
               v-else
-              class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+              class="w-10 h-10 rounded-full bg-ink flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
             >
               {{ profileInitials }}
             </div>
@@ -178,9 +178,9 @@ const isActive = (name: string) => route.name === name
           <h3 class="text-lg font-semibold text-white">Menu</h3>
           <button
             @click="emit('close')"
-            class="p-2 hover:bg-slate-800 rounded-lg transition-colors"
+            class="p-2 hover:bg-canvas-soft-2 rounded-lg transition-colors"
           >
-            <XMarkIcon class="w-6 h-6 text-slate-300" />
+            <XMarkIcon class="w-6 h-6 text-ink-body" />
           </button>
         </div>
 
@@ -232,7 +232,7 @@ const isActive = (name: string) => route.name === name
           <!-- Public Navigation Items -->
           <button
             @click="router.push('/'); emit('close')"
-            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition-colors"
+            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-ink-body hover:bg-canvas-soft-2 transition-colors"
           >
             <HomeIcon class="w-5 h-5 flex-shrink-0" />
             <span>Início</span>
@@ -240,7 +240,7 @@ const isActive = (name: string) => route.name === name
 
           <button
             @click="router.push('/help'); emit('close')"
-            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition-colors"
+            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-ink-body hover:bg-canvas-soft-2 transition-colors"
           >
             <ChatBubbleLeftEllipsisIcon class="w-5 h-5 flex-shrink-0" />
             <span>Ajuda</span>
@@ -248,21 +248,21 @@ const isActive = (name: string) => route.name === name
 
           <button
             @click="router.push('/contatos'); emit('close')"
-            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition-colors"
+            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-ink-body hover:bg-canvas-soft-2 transition-colors"
           >
             <MapIcon class="w-5 h-5 flex-shrink-0" />
             <span>Contato</span>
           </button>
 
           <!-- Divider -->
-          <div class="h-px bg-slate-700 my-3" />
+          <div class="h-px border-hairline my-3" />
 
           <!-- Ações (Feedback + Dark Mode) -->
           <div class="flex gap-2">
             <!-- Feedback -->
             <button
               @click="emit('openFeedback')"
-              class="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition-colors"
+              class="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-ink-body hover:bg-canvas-soft-2 transition-colors"
               title="Enviar Feedback"
             >
               <ChatBubbleLeftEllipsisIcon class="w-5 h-5 flex-shrink-0" />
@@ -272,7 +272,7 @@ const isActive = (name: string) => route.name === name
             <!-- Theme Toggle -->
             <button
               @click="toggleThemeMobile"
-              class="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition-colors"
+              class="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-ink-body hover:bg-canvas-soft-2 transition-colors"
               :title="settingsStore.settings.theme === 'dark' ? 'Modo claro' : 'Modo escuro'"
             >
               <SunIcon v-if="settingsStore.settings.theme === 'dark'" class="w-5 h-5 flex-shrink-0" />

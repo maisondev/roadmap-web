@@ -36,7 +36,15 @@
       "Bash(findstr \"5173\")",
       "Bash(Get-Content \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\roadmap-web\\\\src\\\\stores\\\\auth.ts\")",
       "Bash(Select-Object -First 30)",
-      "Bash(npm --version)"
+      "Bash(npm --version)",
+      "Bash(Find-ChildItem -Path \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\roadmap-web\\\\src\" -Recurse -Name \"*dashboard*\" -o -Name \"*Dashboard*\")",
+      "Bash(Select-Object -First 20)",
+      "Bash(sed -i 's/hover:bg-slate-800/hover:bg-canvas-soft-2/g' src/components/molecules/NavMobileDrawer.vue)",
+      "Bash(sed -i 's/text-slate-300/text-ink-body/g' src/components/molecules/NavMobileDrawer.vue)",
+      "Bash(sed -i 's/bg-slate-700/border-hairline/g' src/components/molecules/NavMobileDrawer.vue)",
+      "Bash(sed -i 's/bg-gradient-to-br from-blue-400 to-purple-600/bg-ink/g' src/components/molecules/NavMobileDrawer.vue)",
+      "Bash(npx -y playwright install chromium)",
+      "Bash(npx -y playwright codegen http://localhost:5173 --output /tmp/test.js)"
     ]
   }
 }

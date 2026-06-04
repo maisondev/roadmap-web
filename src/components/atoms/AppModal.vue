@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, watch } from 'vue'
+import AppButton from '@/components/atoms/AppButton.vue'
 
 interface Props {
   open: boolean
@@ -70,24 +71,12 @@ onBeforeUnmount(() => {
 
         <div v-if="showFooter" class="flex gap-2 sm:gap-3 justify-end sticky bottom-0 bg-canvas -m-4 sm:-m-6 mt-6 px-4 sm:px-6 py-3 sm:py-4 flex-col-reverse sm:flex-row">
           <slot name="footer">
-            <button
-              @click="$emit('cancel')"
-              class="px-4 py-2.5 sm:py-3 rounded-lg border border-hairline text-ink hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors font-medium text-sm sm:text-base"
-            >
+            <AppButton variant="ghost" size="sm" @click="$emit('cancel')">
               {{ cancelLabel }}
-            </button>
-            <button
-              v-if="submitLabel"
-              @click="$emit('submit')"
-              :class="[
-                'px-4 py-2.5 sm:py-3 rounded-lg text-white transition-colors font-medium text-sm sm:text-base',
-                props.submitVariant === 'danger'
-                  ? 'bg-red-500 hover:bg-red-600'
-                  : 'bg-blue-500 hover:bg-blue-600'
-              ]"
-            >
+            </AppButton>
+            <AppButton v-if="submitLabel" :variant="props.submitVariant" size="sm" @click="$emit('submit')">
               {{ submitLabel }}
-            </button>
+            </AppButton>
           </slot>
         </div>
       </div>

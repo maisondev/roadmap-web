@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, ref, watch } from 'vue'
+import AppButton from '@/components/atoms/AppButton.vue'
 
 interface Props {
   open: boolean
@@ -98,18 +99,12 @@ onBeforeUnmount(() => {
         </div>
 
         <div class="flex gap-3 justify-end pt-4 border-t border-hairline">
-          <button
-            @click="handleCancel"
-            class="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-ink hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors font-medium"
-          >
+          <AppButton variant="ghost" size="sm" @click="handleCancel">
             {{ cancelLabel }}
-          </button>
-          <button
-            @click="handleSubmit"
-            class="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors font-medium"
-          >
+          </AppButton>
+          <AppButton variant="danger" size="sm" @click="handleSubmit">
             {{ submitLabel }}
-          </button>
+          </AppButton>
         </div>
       </div>
     </div>
