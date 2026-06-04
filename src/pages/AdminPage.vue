@@ -322,8 +322,8 @@ async function syncBadges() {
       <!-- Header -->
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Painel de Administrador</h1>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Acompanhe a evolução do produto</p>
+          <h1 class="text-3xl font-bold text-ink">Painel de Administrador</h1>
+          <p class="text-sm text-ink-body mt-1">Acompanhe a evolução do produto</p>
         </div>
         <AppButton variant="secondary" size="sm" @click="router.push('/')" class="flex items-center gap-2">
           ← Voltar
@@ -348,7 +348,7 @@ async function syncBadges() {
             'px-4 py-3 font-medium transition-colors whitespace-nowrap',
             activeTab === tab.id
               ? 'border-b-2 border-primary text-primary'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+              : 'text-ink-body hover:text-gray-900 dark:hover:text-white'
           ]"
         >
           {{ tab.label }}
@@ -363,49 +363,49 @@ async function syncBadges() {
 
       <!-- Loading -->
       <div v-if="isLoading" class="text-center py-12">
-        <p class="text-gray-600 dark:text-gray-400">Carregando dados...</p>
+        <p class="text-ink-body">Carregando dados...</p>
       </div>
 
       <!-- ===== STATS TAB ===== -->
       <div v-else-if="activeTab === 'stats' && stats" class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Total de Usuários</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">Total de Usuários</p>
             <p class="text-3xl font-bold text-primary mt-2">{{ stats.totalUsers }}</p>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ stats.usersToday }} hoje</p>
+            <p class="text-xs text-ink-body mt-1">{{ stats.usersToday }} hoje</p>
           </div>
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Total de Roadmaps</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">Total de Roadmaps</p>
             <p class="text-3xl font-bold text-primary mt-2">{{ stats.totalRoadmaps }}</p>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ stats.roadmapsWeek }} esta semana</p>
+            <p class="text-xs text-ink-body mt-1">{{ stats.roadmapsWeek }} esta semana</p>
           </div>
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Total de Blocos</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">Total de Blocos</p>
             <p class="text-3xl font-bold text-primary mt-2">{{ stats.totalBlocks }}</p>
           </div>
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Total de Tópicos</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">Total de Tópicos</p>
             <p class="text-3xl font-bold text-primary mt-2">{{ stats.totalTopics }}</p>
           </div>
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Total de Recursos</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">Total de Recursos</p>
             <p class="text-3xl font-bold text-primary mt-2">{{ stats.totalResources }}</p>
           </div>
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Total de Logs</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">Total de Logs</p>
             <p class="text-3xl font-bold text-primary mt-2">{{ stats.totalLogs }}</p>
           </div>
         </div>
 
-        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Top 5 Usuários Mais Ativos</h3>
+        <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-ink mb-4">Top 5 Usuários Mais Ativos</h3>
           <div class="space-y-2">
             <div
               v-for="(user, idx) in stats.topUsers"
               :key="idx"
               class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded"
             >
-              <span class="text-sm text-gray-900 dark:text-white">{{ user.email }}</span>
+              <span class="text-sm text-ink">{{ user.email }}</span>
               <span class="text-sm font-semibold text-primary">{{ user.roadmapCount }} roadmaps</span>
             </div>
           </div>
@@ -413,8 +413,8 @@ async function syncBadges() {
 
         <!-- Métodos de Login -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" v-if="loginStats">
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">📧 Login por Email</h3>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-ink mb-4">📧 Login por Email</h3>
             <p class="text-4xl font-bold text-blue-600 dark:text-blue-400">{{ loginStats.email }}</p>
             <div class="mt-3 h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
               <div
@@ -422,11 +422,11 @@ async function syncBadges() {
                 :style="{ width: `${loginStats.emailPercent}%` }"
               />
             </div>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">{{ loginStats.emailPercent }}% do total</p>
+            <p class="text-sm text-ink-body mt-2">{{ loginStats.emailPercent }}% do total</p>
           </div>
 
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">🔵 Login via Google</h3>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-ink mb-4">🔵 Login via Google</h3>
             <p class="text-4xl font-bold text-orange-600 dark:text-orange-400">{{ loginStats.google }}</p>
             <div class="mt-3 h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
               <div
@@ -434,13 +434,13 @@ async function syncBadges() {
                 :style="{ width: `${loginStats.googlePercent}%` }"
               />
             </div>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">{{ loginStats.googlePercent }}% do total</p>
+            <p class="text-sm text-ink-body mt-2">{{ loginStats.googlePercent }}% do total</p>
           </div>
 
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">👥 Total de Usuários</h3>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-ink mb-4">👥 Total de Usuários</h3>
             <p class="text-4xl font-bold text-primary">{{ loginStats.total }}</p>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mt-4">
+            <p class="text-sm text-ink-body mt-4">
               <span class="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded mr-2">
                 📧 {{ loginStats.email }}
               </span>
@@ -456,7 +456,7 @@ async function syncBadges() {
       <div v-else-if="activeTab === 'analytics'" class="space-y-6">
         <!-- Seletor de período -->
         <div class="flex items-center gap-2">
-          <span class="text-sm text-gray-600 dark:text-gray-400">Período:</span>
+          <span class="text-sm text-ink-body">Período:</span>
           <button
             v-for="d in [7, 30, 90]"
             :key="d"
@@ -465,7 +465,7 @@ async function syncBadges() {
               'px-3 py-1 text-sm rounded-full font-medium transition-colors',
               analyticsRange === d
                 ? 'bg-primary text-white'
-                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                : 'bg-gray-100 dark:bg-gray-700 text-ink-body hover:bg-gray-200 dark:hover:bg-gray-600'
             ]"
           >
             {{ d }}d
@@ -474,8 +474,8 @@ async function syncBadges() {
         </div>
 
         <!-- Gráfico: Novos usuários por dia -->
-        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Novos usuários por dia</h3>
+        <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-ink mb-1">Novos usuários por dia</h3>
           <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">Últimos {{ analyticsRange }} dias</p>
 
           <div v-if="analytics && paddedUsersByDay.length" class="overflow-x-auto">
@@ -537,15 +537,15 @@ async function syncBadges() {
         <!-- Cards: Usuários ativos + Taxa de abandono -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- Usuários ativos -->
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Usuários ativos (última semana)</h3>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-ink mb-1">Usuários ativos (última semana)</h3>
             <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">Criaram roadmap ou registro de log</p>
 
             <div v-if="analytics">
               <p class="text-4xl font-bold text-green-600 dark:text-green-400">
                 {{ analytics.activeUsers.count }}
               </p>
-              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p class="text-sm text-ink-body mt-1">
                 de {{ analytics.churn.abandonedCount + analytics.activeUsers.count }} usuários com conta
               </p>
 
@@ -563,15 +563,15 @@ async function syncBadges() {
           </div>
 
           <!-- Taxa de abandono -->
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Taxa de abandono</h3>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-ink mb-1">Taxa de abandono</h3>
             <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">{{ analytics?.churn?.definition }}</p>
 
             <div v-if="analytics">
               <p class="text-4xl font-bold" :class="analytics.churn.abandonedPercent > 30 ? 'text-red-500' : 'text-orange-500'">
                 {{ analytics.churn.abandonedPercent }}%
               </p>
-              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p class="text-sm text-ink-body mt-1">
                 {{ analytics.churn.abandonedCount }} usuários nunca criaram um roadmap
               </p>
 
@@ -590,8 +590,8 @@ async function syncBadges() {
         <!-- Features mais usadas -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" v-if="analytics">
           <!-- Categorias de roadmap -->
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Categorias de roadmap</h3>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-ink mb-4">Categorias de roadmap</h3>
             <div v-if="analytics.featureUsage.roadmapCategories.length" class="space-y-3">
               <div
                 v-for="item in analytics.featureUsage.roadmapCategories"
@@ -599,7 +599,7 @@ async function syncBadges() {
                 class="space-y-1"
               >
                 <div class="flex justify-between text-sm">
-                  <span class="text-gray-700 dark:text-gray-300 truncate max-w-[70%]">{{ item.category }}</span>
+                  <span class="text-ink-body truncate max-w-[70%]">{{ item.category }}</span>
                   <span class="text-gray-500 dark:text-gray-400 font-medium">{{ item.count }}</span>
                 </div>
                 <div class="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -614,8 +614,8 @@ async function syncBadges() {
           </div>
 
           <!-- Tipos de resource -->
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Tipos de recurso usados</h3>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-ink mb-4">Tipos de recurso usados</h3>
             <div v-if="analytics.featureUsage.resourceTypes.length" class="space-y-3">
               <div
                 v-for="item in analytics.featureUsage.resourceTypes"
@@ -623,7 +623,7 @@ async function syncBadges() {
                 class="space-y-1"
               >
                 <div class="flex justify-between text-sm">
-                  <span class="text-gray-700 dark:text-gray-300">{{ item.type }}</span>
+                  <span class="text-ink-body">{{ item.type }}</span>
                   <span class="text-gray-500 dark:text-gray-400 font-medium">{{ item.count }}</span>
                 </div>
                 <div class="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -638,15 +638,15 @@ async function syncBadges() {
           </div>
 
           <!-- Status dos tópicos -->
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg md:col-span-2">
-            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Status dos tópicos</h3>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg md:col-span-2">
+            <h3 class="font-semibold text-ink mb-4">Status dos tópicos</h3>
             <div v-if="analytics.featureUsage.topicStatuses.length" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div
                 v-for="item in analytics.featureUsage.topicStatuses"
                 :key="item.status"
                 class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center"
               >
-                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ item.count }}</p>
+                <p class="text-2xl font-bold text-ink">{{ item.count }}</p>
                 <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ item.status }}</p>
               </div>
             </div>
@@ -659,23 +659,23 @@ async function syncBadges() {
       <div v-else-if="activeTab === 'users' && users" class="space-y-4">
         <div class="w-full overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
           <table class="w-full text-sm">
-            <thead class="bg-gray-50 dark:bg-gray-800 border-b border-slate-200 dark:border-slate-700 sticky top-0">
+            <thead class="bg-canvas-soft border-b border-slate-200 dark:border-slate-700 sticky top-0">
               <tr>
-                <th class="px-3 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Email</th>
-                <th class="px-2 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Status</th>
-                <th class="px-2 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Login</th>
-                <th class="px-2 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Último</th>
-                <th class="px-2 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Consentimento</th>
-                <th class="px-2 py-2 text-center font-semibold text-gray-900 dark:text-white text-xs">RM</th>
-                <th class="px-2 py-2 text-center font-semibold text-gray-900 dark:text-white text-xs">Logs</th>
-                <th class="px-2 py-2 text-center font-semibold text-gray-900 dark:text-white text-xs">🔔</th>
-                <th class="px-2 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Cadastro</th>
-                <th class="px-2 py-2 text-left font-semibold text-gray-900 dark:text-white text-xs">Ação</th>
+                <th class="px-3 py-2 text-left font-semibold text-ink text-xs">Email</th>
+                <th class="px-2 py-2 text-left font-semibold text-ink text-xs">Status</th>
+                <th class="px-2 py-2 text-left font-semibold text-ink text-xs">Login</th>
+                <th class="px-2 py-2 text-left font-semibold text-ink text-xs">Último</th>
+                <th class="px-2 py-2 text-left font-semibold text-ink text-xs">Consentimento</th>
+                <th class="px-2 py-2 text-center font-semibold text-ink text-xs">RM</th>
+                <th class="px-2 py-2 text-center font-semibold text-ink text-xs">Logs</th>
+                <th class="px-2 py-2 text-center font-semibold text-ink text-xs">🔔</th>
+                <th class="px-2 py-2 text-left font-semibold text-ink text-xs">Cadastro</th>
+                <th class="px-2 py-2 text-left font-semibold text-ink text-xs">Ação</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
               <tr v-for="user in users" :key="user.id" class="hover:bg-gray-50 dark:hover:bg-gray-800 text-xs">
-                <td class="px-3 py-2 text-gray-900 dark:text-white font-medium">{{ user.email }}</td>
+                <td class="px-3 py-2 text-ink font-medium">{{ user.email }}</td>
                 <td class="px-2 py-2">
                   <span v-if="user.role === 'OWNER'" class="px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
                     👑 Owner
@@ -683,7 +683,7 @@ async function syncBadges() {
                   <span v-else-if="user.role === 'ADMIN'" class="px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
                     Admin
                   </span>
-                  <span v-else class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
+                  <span v-else class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-ink-body text-xs font-semibold rounded whitespace-nowrap inline-block">
                     Usuário
                   </span>
                 </td>
@@ -695,7 +695,7 @@ async function syncBadges() {
                     📧
                   </span>
                 </td>
-                <td class="px-2 py-2 text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                <td class="px-2 py-2 text-ink-body whitespace-nowrap">
                   {{ user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—' }}
                 </td>
                 <td class="px-2 py-2">
@@ -706,21 +706,21 @@ async function syncBadges() {
                     ✗
                   </span>
                 </td>
-                <td class="px-2 py-2 text-gray-600 dark:text-gray-400 text-center">{{ user._count.roadmaps }}</td>
-                <td class="px-2 py-2 text-gray-600 dark:text-gray-400 text-center">{{ user._count.logs }}</td>
+                <td class="px-2 py-2 text-ink-body text-center">{{ user._count.roadmaps }}</td>
+                <td class="px-2 py-2 text-ink-body text-center">{{ user._count.logs }}</td>
                 <td class="px-2 py-2 text-center">
                   <span class="px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded inline-block">
                     {{ user._count.notifications }}
                   </span>
                 </td>
-                <td class="px-2 py-2 text-gray-600 dark:text-gray-400 whitespace-nowrap text-xs">{{ formatDate(user.createdAt) }}</td>
+                <td class="px-2 py-2 text-ink-body whitespace-nowrap text-xs">{{ formatDate(user.createdAt) }}</td>
                 <td class="px-4 py-3">
                   <div class="flex gap-2 items-center">
                     <select
                       :value="user.role"
                       @change="(e) => changeRole(user, (e.target as HTMLSelectElement).value)"
                       :disabled="togglingUserId === user.id || deletingUserId === user.id || authStore.user?.id === user.id || !authStore.isOwner"
-                      class="px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                      class="px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-canvas text-ink disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <option value="USER">Usuário</option>
                       <option value="ADMIN">Admin</option>
@@ -739,9 +739,9 @@ async function syncBadges() {
                       :class="[
                         'px-3 py-1 text-xs font-medium rounded transition-colors',
                         deletingUserId === user.id || togglingUserId === user.id || !authStore.isOwner
-                          ? 'bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400 cursor-not-allowed'
+                          ? 'bg-gray-300 dark:bg-gray-600 text-ink-body cursor-not-allowed'
                           : authStore.user?.id === user.id
-                            ? 'bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400 cursor-not-allowed'
+                            ? 'bg-gray-300 dark:bg-gray-600 text-ink-body cursor-not-allowed'
                             : 'bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/60'
                       ]"
                     >
@@ -757,16 +757,16 @@ async function syncBadges() {
 
       <!-- ===== ACTIVITY TAB ===== -->
       <div v-else-if="activeTab === 'activity' && activity" class="space-y-4">
-        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Roadmaps Recentes</h3>
+        <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-ink mb-4">Roadmaps Recentes</h3>
           <div class="space-y-2">
             <div
               v-for="roadmap in activity.recentRoadmaps"
               :key="roadmap.id"
               class="p-3 bg-gray-50 dark:bg-gray-700 rounded"
             >
-              <p class="text-sm font-medium text-gray-900 dark:text-white">{{ roadmap.title }}</p>
-              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+              <p class="text-sm font-medium text-ink">{{ roadmap.title }}</p>
+              <p class="text-xs text-ink-body mt-1">
                 Por: <strong>{{ roadmap.user.email }}</strong> em {{ formatDate(roadmap.createdAt) }}
               </p>
             </div>
@@ -778,57 +778,57 @@ async function syncBadges() {
       <div v-else-if="activeTab === 'plans' && plansStats" class="space-y-6">
         <!-- Resumo por Plano -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Total de Usuários</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">Total de Usuários</p>
             <p class="text-3xl font-bold text-primary mt-2">{{ plansStats.summaryCounts.total }}</p>
           </div>
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">📗 Essencial</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">📗 Essencial</p>
             <p class="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">{{ plansStats.summaryCounts.essencial }}</p>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ plansStats.percentages.essencialPercent }}% do total</p>
+            <p class="text-xs text-ink-body mt-1">{{ plansStats.percentages.essencialPercent }}% do total</p>
           </div>
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">🔵 Plus</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">🔵 Plus</p>
             <p class="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-2">{{ plansStats.summaryCounts.plus }}</p>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ plansStats.percentages.plusPercent }}% do total</p>
+            <p class="text-xs text-ink-body mt-1">{{ plansStats.percentages.plusPercent }}% do total</p>
           </div>
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">🟣 Avançado</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">🟣 Avançado</p>
             <p class="text-3xl font-bold text-purple-600 dark:text-purple-400 mt-2">{{ plansStats.summaryCounts.avancado }}</p>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ plansStats.percentages.avancadoPercent }}% do total</p>
+            <p class="text-xs text-ink-body mt-1">{{ plansStats.percentages.avancadoPercent }}% do total</p>
           </div>
         </div>
 
         <!-- Assinaturas Ativas vs Expiradas -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">✓ Assinaturas Ativas</h3>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-ink mb-4">✓ Assinaturas Ativas</h3>
             <p class="text-4xl font-bold text-green-600 dark:text-green-400">{{ plansStats.subscriptions.active }}</p>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Usuários com plano ativo</p>
+            <p class="text-sm text-ink-body mt-2">Usuários com plano ativo</p>
           </div>
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">⏰ Assinaturas Expiradas</h3>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <h3 class="font-semibold text-ink mb-4">⏰ Assinaturas Expiradas</h3>
             <p class="text-4xl font-bold text-orange-600 dark:text-orange-400">{{ plansStats.subscriptions.expired }}</p>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Usuários com plano expirado</p>
+            <p class="text-sm text-ink-body mt-2">Usuários com plano expirado</p>
           </div>
         </div>
 
         <!-- Receita Estimada -->
-        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">💰 Receita Estimada Mensal</h3>
+        <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-ink mb-4">💰 Receita Estimada Mensal</h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <p class="text-sm text-gray-600 dark:text-gray-400">Plus (R$ 19,90/mês)</p>
+              <p class="text-sm text-ink-body">Plus (R$ 19,90/mês)</p>
               <p class="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-2">R$ {{ (plansStats.revenue.byPlan.plus || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
-              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ plansStats.summaryCounts.plus }} usuários</p>
+              <p class="text-xs text-ink-body mt-1">{{ plansStats.summaryCounts.plus }} usuários</p>
             </div>
             <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <p class="text-sm text-gray-600 dark:text-gray-400">Avançado (R$ 49,90/mês)</p>
+              <p class="text-sm text-ink-body">Avançado (R$ 49,90/mês)</p>
               <p class="text-2xl font-bold text-purple-600 dark:text-purple-400 mt-2">R$ {{ (plansStats.revenue.byPlan.avancado || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
-              <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ plansStats.summaryCounts.avancado }} usuários</p>
+              <p class="text-xs text-ink-body mt-1">{{ plansStats.summaryCounts.avancado }} usuários</p>
             </div>
             <div class="p-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg border border-green-200 dark:border-green-800">
-              <p class="text-sm font-semibold text-gray-600 dark:text-gray-400">Total Estimado</p>
+              <p class="text-sm font-semibold text-ink-body">Total Estimado</p>
               <p class="text-2xl font-bold text-green-600 dark:text-green-400 mt-2">R$ {{ (plansStats.revenue.estimated || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
             </div>
           </div>
@@ -836,17 +836,17 @@ async function syncBadges() {
 
         <!-- Alertas: Planos Expirando em 7 Dias -->
         <div v-if="plansStats.expiringPlans && plansStats.expiringPlans.length > 0" class="p-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">⚠️ Planos Expirando em 7 Dias</h3>
+          <h3 class="font-semibold text-ink mb-4">⚠️ Planos Expirando em 7 Dias</h3>
           <div class="space-y-3">
             <div
               v-for="user in plansStats.expiringPlans"
               :key="user.id"
-              class="p-3 bg-white dark:bg-gray-800 rounded border border-yellow-200 dark:border-yellow-800"
+              class="p-3 bg-canvas rounded border border-yellow-200 dark:border-yellow-800"
             >
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="font-medium text-gray-900 dark:text-white">{{ user.email }}</p>
-                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  <p class="font-medium text-ink">{{ user.email }}</p>
+                  <p class="text-sm text-ink-body mt-1">
                     Plano: <strong>{{ user.plan }}</strong>
                   </p>
                 </div>
@@ -854,7 +854,7 @@ async function syncBadges() {
                   <p class="text-sm font-semibold text-yellow-700 dark:text-yellow-300">
                     Expira em: {{ new Date(user.planExpiresAt).toLocaleDateString('pt-BR') }}
                   </p>
-                  <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                  <p class="text-xs text-ink-body mt-1">
                     {{ Math.ceil((new Date(user.planExpiresAt).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) }} dias
                   </p>
                 </div>
@@ -870,8 +870,8 @@ async function syncBadges() {
       <!-- ===== NOTIFICATIONS TAB ===== -->
       <div v-else-if="activeTab === 'notifications' && users" class="space-y-6">
         <!-- Enviar Notificação para Usuário -->
-        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Enviar Notificação para Usuário</h3>
+        <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-ink mb-4">Enviar Notificação para Usuário</h3>
           <div class="space-y-4">
             <div v-if="notificationSendSuccess" class="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
               <p class="text-sm text-green-600 dark:text-green-400">✓ Notificação enviada com sucesso!</p>
@@ -882,15 +882,15 @@ async function syncBadges() {
 
             <div class="space-y-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Selecione um usuário</label>
-                <select v-model="selectedUserId" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+                <label class="block text-sm font-medium text-ink-body mb-2">Selecione um usuário</label>
+                <select v-model="selectedUserId" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-canvas-soft text-ink">
                   <option value="">-- Selecione um usuário --</option>
                   <option v-for="user in users" :key="user.id" :value="user.id">{{ user.email }} ({{ user.role }})</option>
                 </select>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tipo de Notificação</label>
-                <select v-model="notificationType" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+                <label class="block text-sm font-medium text-ink-body mb-2">Tipo de Notificação</label>
+                <select v-model="notificationType" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-canvas-soft text-ink">
                   <option value="info">ℹ️ Informação</option>
                   <option value="success">✓ Sucesso</option>
                   <option value="warning">⚠️ Aviso</option>
@@ -898,12 +898,12 @@ async function syncBadges() {
                 </select>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Título</label>
-                <input v-model="notificationTitle" type="text" placeholder="Título da notificação" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white" />
+                <label class="block text-sm font-medium text-ink-body mb-2">Título</label>
+                <input v-model="notificationTitle" type="text" placeholder="Título da notificação" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-canvas-soft text-ink" />
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Mensagem</label>
-                <textarea v-model="notificationMessage" placeholder="Mensagem da notificação" rows="4" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white" />
+                <label class="block text-sm font-medium text-ink-body mb-2">Mensagem</label>
+                <textarea v-model="notificationMessage" placeholder="Mensagem da notificação" rows="4" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-canvas-soft text-ink" />
               </div>
               <AppButton variant="primary" @click="sendNotification" :disabled="isSendingNotification" class="w-full">
                 {{ isSendingNotification ? 'Enviando...' : '🔔 Enviar Notificação' }}
@@ -913,9 +913,9 @@ async function syncBadges() {
         </div>
 
         <!-- Mensagem para Primeiro Roadmap -->
-        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">🎯 Incentivar Usuários com 1 Roadmap</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-ink mb-2">🎯 Incentivar Usuários com 1 Roadmap</h3>
+          <p class="text-sm text-ink-body mb-4">
             Envie mensagens personalizadas para usuários que criaram exatamente 1 roadmap e ainda não receberam a badge PRIMEIRA_AULA
           </p>
 
@@ -928,12 +928,12 @@ async function syncBadges() {
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Mensagem Personalizada</label>
+              <label class="block text-sm font-medium text-ink-body mb-2">Mensagem Personalizada</label>
               <textarea
                 v-model="firstRoadmapMessage"
                 placeholder="Digite a mensagem que será enviada aos usuários"
                 rows="4"
-                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-canvas-soft text-ink"
               />
               <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
                 Título da notificação será: "🎯 Continue Aprendendo!"
@@ -952,9 +952,9 @@ async function syncBadges() {
         </div>
 
         <!-- Sincronização de Badges -->
-        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">🏆 Sincronizar Badges</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-ink mb-2">🏆 Sincronizar Badges</h3>
+          <p class="text-sm text-ink-body mb-4">
             Processa todos os usuários e atribui badges que ainda não receberam com base em suas atividades (roadmaps criados, recursos adicionados, logs diários, etc)
           </p>
 
@@ -982,50 +982,50 @@ async function syncBadges() {
       <div v-else-if="activeTab === 'ia' && geminiStats" class="space-y-6">
         <!-- Resumo Principal -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Roadmaps Gerados</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">Roadmaps Gerados</p>
             <p class="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-2">{{ geminiStats.totalAiRoadmaps }}</p>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">com IA (Gemini)</p>
+            <p class="text-xs text-ink-body mt-1">com IA (Gemini)</p>
           </div>
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Usuários Ativos</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">Usuários Ativos</p>
             <p class="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">{{ geminiStats.usersWithAi }}</p>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">utilizaram IA</p>
+            <p class="text-xs text-ink-body mt-1">utilizaram IA</p>
           </div>
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Tokens Estimados</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">Tokens Estimados</p>
             <p class="text-3xl font-bold text-purple-600 dark:text-purple-400 mt-2">{{ (geminiStats.estimatedTokens / 1000).toFixed(0) }}k</p>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">~1.5k por roadmap</p>
+            <p class="text-xs text-ink-body mt-1">~1.5k por roadmap</p>
           </div>
-          <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Custo Total</p>
+          <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-sm text-ink-body">Custo Total</p>
             <p class="text-3xl font-bold text-orange-600 dark:text-orange-400 mt-2">US$ {{ geminiStats.estimatedCost.totalUSD.toFixed(2) }}</p>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ geminiStats.estimatedCost.description }}</p>
+            <p class="text-xs text-ink-body mt-1">{{ geminiStats.estimatedCost.description }}</p>
           </div>
         </div>
 
         <!-- Detalhes de Custos -->
-        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">💰 Análise de Custos</h3>
+        <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-ink mb-4">💰 Análise de Custos</h3>
           <div class="space-y-4">
             <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded">
-              <span class="text-sm text-gray-700 dark:text-gray-300">Total de Tokens</span>
-              <span class="text-sm font-semibold text-gray-900 dark:text-white">{{ geminiStats.estimatedTokens.toLocaleString('pt-BR') }}</span>
+              <span class="text-sm text-ink-body">Total de Tokens</span>
+              <span class="text-sm font-semibold text-ink">{{ geminiStats.estimatedTokens.toLocaleString('pt-BR') }}</span>
             </div>
             <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded">
-              <span class="text-sm text-gray-700 dark:text-gray-300">Custo por Token</span>
-              <span class="text-sm font-semibold text-gray-900 dark:text-white">US$ {{ geminiStats.estimatedCost.costPerToken.toFixed(9) }}</span>
+              <span class="text-sm text-ink-body">Custo por Token</span>
+              <span class="text-sm font-semibold text-ink">US$ {{ geminiStats.estimatedCost.costPerToken.toFixed(9) }}</span>
             </div>
             <div class="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded border border-orange-200 dark:border-orange-800">
-              <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Custo Total Estimado</span>
+              <span class="text-sm font-semibold text-ink-body">Custo Total Estimado</span>
               <span class="text-lg font-bold text-orange-600 dark:text-orange-400">US$ {{ geminiStats.estimatedCost.totalUSD.toFixed(2) }}</span>
             </div>
           </div>
         </div>
 
         <!-- Top Usuários -->
-        <div class="p-6 bg-white dark:bg-gray-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">🏆 Top 10 Usuários com IA</h3>
+        <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
+          <h3 class="font-semibold text-ink mb-4">🏆 Top 10 Usuários com IA</h3>
           <div v-if="geminiStats.topUsers.length > 0" class="space-y-3">
             <div
               v-for="(user, idx) in geminiStats.topUsers"
@@ -1036,7 +1036,7 @@ async function syncBadges() {
                 <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-500 text-white text-sm font-bold">
                   {{ idx + 1 }}
                 </span>
-                <span class="text-sm text-gray-900 dark:text-white truncate">{{ user.email }}</span>
+                <span class="text-sm text-ink truncate">{{ user.email }}</span>
               </div>
               <div class="flex items-center gap-3">
                 <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">
@@ -1049,29 +1049,29 @@ async function syncBadges() {
             </div>
           </div>
           <div v-else class="text-center py-8">
-            <p class="text-gray-600 dark:text-gray-400">Nenhum usuário utilizou IA ainda</p>
+            <p class="text-ink-body">Nenhum usuário utilizou IA ainda</p>
           </div>
         </div>
 
         <!-- Informações de Modelo -->
         <div class="p-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-3">ℹ️ Detalhes Técnicos</h3>
+          <h3 class="font-semibold text-ink mb-3">ℹ️ Detalhes Técnicos</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div>
-              <p class="text-gray-600 dark:text-gray-400">Modelo Utilizado</p>
-              <p class="text-gray-900 dark:text-white font-medium mt-1">Gemini Flash</p>
+              <p class="text-ink-body">Modelo Utilizado</p>
+              <p class="text-ink font-medium mt-1">Gemini Flash</p>
             </div>
             <div>
-              <p class="text-gray-600 dark:text-gray-400">Tokens por Roadmap</p>
-              <p class="text-gray-900 dark:text-white font-medium mt-1">~1.500 (estimado)</p>
+              <p class="text-ink-body">Tokens por Roadmap</p>
+              <p class="text-ink font-medium mt-1">~1.500 (estimado)</p>
             </div>
             <div>
-              <p class="text-gray-600 dark:text-gray-400">Método de Cálculo</p>
-              <p class="text-gray-900 dark:text-white font-medium mt-1">tokens × US$ 0,000000075</p>
+              <p class="text-ink-body">Método de Cálculo</p>
+              <p class="text-ink font-medium mt-1">tokens × US$ 0,000000075</p>
             </div>
             <div>
-              <p class="text-gray-600 dark:text-gray-400">Atualização</p>
-              <p class="text-gray-900 dark:text-white font-medium mt-1">Em tempo real</p>
+              <p class="text-ink-body">Atualização</p>
+              <p class="text-ink font-medium mt-1">Em tempo real</p>
             </div>
           </div>
         </div>
@@ -1097,7 +1097,7 @@ async function syncBadges() {
     @cancel="showDeleteModal = false"
   >
     <div class="space-y-3">
-      <p class="text-gray-700 dark:text-gray-300">
+      <p class="text-ink-body">
         Tem certeza que deseja deletar o usuário <strong>{{ userToDelete?.email }}</strong>?
       </p>
       <div class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
@@ -1118,16 +1118,16 @@ async function syncBadges() {
   >
     <div class="space-y-4 max-h-96 overflow-y-auto">
       <div v-if="isLoadingUserNotifications" class="text-center py-8">
-        <p class="text-gray-600 dark:text-gray-400">Carregando notificações...</p>
+        <p class="text-ink-body">Carregando notificações...</p>
       </div>
       <div v-else-if="userNotifications.length === 0" class="text-center py-8">
-        <p class="text-gray-600 dark:text-gray-400">Nenhuma notificação encontrada</p>
+        <p class="text-ink-body">Nenhuma notificação encontrada</p>
       </div>
       <div v-else class="space-y-3">
         <div
           v-for="notif in userNotifications"
           :key="notif.id"
-          class="p-3 border rounded-lg border-gray-200 dark:border-gray-700"
+          class="p-3 border rounded-lg border-hairline"
           :class="{
             'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800': notif.type === 'info',
             'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800': notif.type === 'success',
@@ -1137,9 +1137,9 @@ async function syncBadges() {
         >
           <div class="flex items-start justify-between gap-3">
             <div class="flex-1 min-w-0">
-              <p class="font-medium text-gray-900 dark:text-white">{{ notif.title }}</p>
-              <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">{{ notif.message }}</p>
-              <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">
+              <p class="font-medium text-ink">{{ notif.title }}</p>
+              <p class="text-sm text-ink-body mt-1">{{ notif.message }}</p>
+              <p class="text-xs text-ink-body mt-2">
                 {{ new Date(notif.createdAt).toLocaleString('pt-BR') }}
               </p>
             </div>

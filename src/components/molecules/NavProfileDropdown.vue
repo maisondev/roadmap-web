@@ -31,7 +31,7 @@ const planBadgeColor = computed(() => {
   const plan = planData.value?.plan
   if (plan === 'AVANCADO') return 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300'
   if (plan === 'PLUS') return 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
-  return 'bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-300'
+  return 'bg-gray-100 dark:bg-gray-900/30 text-ink-body'
 })
 
 const planIcon = computed(() => {
@@ -112,7 +112,7 @@ function toggleTheme() {
     >
       <div
         v-if="showMenu"
-        class="absolute -right-2 sm:-right-4 mt-2 w-72 sm:w-80 max-h-96 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden z-50"
+        class="absolute -right-2 sm:-right-4 mt-2 w-72 sm:w-80 max-h-96 bg-canvas rounded-lg shadow-lg border border-hairline overflow-hidden z-50"
       >
         <!-- Profile header -->
         <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-3 sm:p-4">
@@ -145,11 +145,11 @@ function toggleTheme() {
         </div>
 
         <!-- Menu items -->
-        <div class="py-2 border-t border-gray-200 dark:border-gray-700">
+        <div class="py-2 border-t border-hairline">
           <!-- Settings button -->
           <button
             @click="router.push('/settings'); showMenu = false"
-            class="w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
+            class="w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-ink-body hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
             title="Configurações"
           >
             <Cog6ToothIcon class="w-4 h-4 flex-shrink-0" />
@@ -159,7 +159,7 @@ function toggleTheme() {
           <!-- Feedback button -->
           <button
             @click="$emit('openFeedback'); showMenu = false"
-            class="w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
+            class="w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-ink-body hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
             title="Enviar Feedback"
           >
             <ChatBubbleLeftEllipsisIcon class="w-4 h-4 flex-shrink-0" />
@@ -169,7 +169,7 @@ function toggleTheme() {
           <!-- Theme toggle -->
           <button
             @click="toggleTheme(); showMenu = false"
-            class="w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
+            class="w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-ink-body hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
             :title="settingsStore.settings.theme === 'dark' ? 'Modo claro' : 'Modo escuro'"
           >
             <SunIcon v-if="settingsStore.settings.theme === 'dark'" class="w-4 h-4 flex-shrink-0" />

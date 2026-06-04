@@ -37,7 +37,7 @@ function toggle() {
       <div
         :class="[
           'w-5 h-5 border-2 rounded transition-colors',
-          modelValue === true ? 'bg-blue-500 border-blue-500' : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600'
+          modelValue === true ? 'bg-blue-500 border-blue-500' : 'bg-canvas border-gray-300 dark:border-gray-600'
         ]"
       >
         <svg
@@ -58,6 +58,6 @@ function toggle() {
         </svg>
       </div>
     </div>
-    <span v-if="label" class="text-gray-900 dark:text-white">{{ label }}</span>
+    <span v-if="label" class="text-ink">{{ label }}</span>
   </label>
 </template>

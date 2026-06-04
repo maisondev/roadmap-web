@@ -18,14 +18,14 @@ defineEmits<{
 
 <template>
   <div class="space-y-4">
-    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Roadmaps de Exemplo</h2>
+    <h2 class="text-2xl font-bold text-ink">Roadmaps de Exemplo</h2>
     <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
       <div class="flex items-start justify-between">
         <div class="space-y-2">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 class="text-lg font-semibold text-ink">
             {{ roadmap.title }}
           </h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">
+          <p class="text-sm text-ink-body">
             {{ roadmap.description }}
           </p>
           <div class="flex gap-2 pt-2">

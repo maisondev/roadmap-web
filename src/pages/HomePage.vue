@@ -75,7 +75,7 @@ function handleImportRoadmap(data: string) {
 <template>
   <LandingPage v-if="!authStore.isLoggedIn" />
 
-  <div v-else class="min-h-screen bg-white dark:bg-gray-900">
+  <div v-else class="min-h-screen bg-canvas-soft">
     <div class="max-w-6xl mx-auto p-4 space-y-8">
       <HomePageHeader @openSearch="showGlobalSearch = true" />
 
@@ -93,7 +93,7 @@ function handleImportRoadmap(data: string) {
         @useTemplate="useExampleRoadmap"
       />
 
-      <div v-if="filterName || filterStatus !== 'all'" class="text-sm text-gray-600 dark:text-gray-400">
+      <div v-if="filterName || filterStatus !== 'all'" class="text-sm text-ink-body">
         {{ filteredRoadmapIds.length }} {{ filteredRoadmapIds.length === 1 ? 'roadmap encontrado' : 'roadmaps encontrados' }}
       </div>
 
@@ -120,7 +120,7 @@ function handleImportRoadmap(data: string) {
       </div>
 
       <div v-if="filteredRoadmapIds.length === 0 && (filterName || filterStatus !== 'all')" class="text-center py-12">
-        <p class="text-gray-600 dark:text-gray-400">
+        <p class="text-ink-body">
           Nenhum roadmap encontrado para os filtros selecionados.
         </p>
       </div>

@@ -44,7 +44,7 @@ const trackClasses = {
         :style="{ width: `${Math.min(value, 100)}%` }"
       />
     </div>
-    <div v-if="showLabel" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+    <div v-if="showLabel" class="mt-1 text-sm text-ink-body">
       {{ value }}%
     </div>
   </div>

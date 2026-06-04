@@ -57,29 +57,29 @@ function handleFileImport(event: Event) {
   >
     <div class="space-y-4">
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Arquivo JSON
         </label>
         <input
           type="file"
           accept=".json"
           @change="handleFileImport"
-          class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-base"
+          class="w-full px-4 py-3 border border-hairline rounded-lg bg-canvas-soft text-ink text-base"
         />
       </div>
-      <div class="text-center text-sm text-gray-600 dark:text-gray-400">ou</div>
+      <div class="text-center text-sm text-ink-body">ou</div>
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Cole os dados do Roadmap (JSON)
         </label>
         <textarea
           v-model="importData"
           rows="8"
-          class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-mono text-base"
+          class="w-full px-4 py-3 border border-hairline rounded-lg bg-canvas-soft text-ink font-mono text-base"
           placeholder="Cole os dados JSON do roadmap aqui..."
         />
       </div>
-      <div class="text-xs text-gray-600 dark:text-gray-400">
+      <div class="text-xs text-ink-body">
         <p>Dicas:</p>
         <ul class="list-disc list-inside mt-1 space-y-1">
           <li>Selecione um arquivo .json ou cole os dados diretamente</li>

@@ -92,56 +92,56 @@ function resetForm() {
   >
     <div class="space-y-5">
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Título do Roadmap
         </label>
         <input
           v-model="title"
           type="text"
           placeholder="Ex: Gramática, Redação, Análise Combinatória"
-          class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-base"
+          class="w-full px-4 py-3 border border-hairline rounded-lg bg-canvas-soft text-ink text-base"
           @keyup.enter="handleSubmit"
         />
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Descrição
         </label>
         <textarea
           v-model="description"
           placeholder="Descreva o foco deste roadmap..."
           rows="3"
-          class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-base"
+          class="w-full px-4 py-3 border border-hairline rounded-lg bg-canvas-soft text-ink text-base"
         />
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Categoria
         </label>
         <input
           v-model="category"
           type="text"
           placeholder="Ex: programação, direito, dados"
-          class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-base"
+          class="w-full px-4 py-3 border border-hairline rounded-lg bg-canvas-soft text-ink text-base"
         />
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Tags (separadas por vírgula)
         </label>
         <input
           v-model="tags"
           type="text"
           placeholder="Ex: concursos, estudo, preparação"
-          class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-base"
+          class="w-full px-4 py-3 border border-hairline rounded-lg bg-canvas-soft text-ink text-base"
         />
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Visibilidade
         </label>
         <div class="flex gap-4">
@@ -152,7 +152,7 @@ function resetForm() {
               value="private"
               class="mr-2"
             />
-            <span class="text-sm text-gray-700 dark:text-gray-300">Privado</span>
+            <span class="text-sm text-ink-body">Privado</span>
           </label>
           <label class="flex items-center">
             <input
@@ -161,7 +161,7 @@ function resetForm() {
               value="public"
               class="mr-2"
             />
-            <span class="text-sm text-gray-700 dark:text-gray-300">Público</span>
+            <span class="text-sm text-ink-body">Público</span>
           </label>
         </div>
       </div>

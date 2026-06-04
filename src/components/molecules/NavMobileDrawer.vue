@@ -126,13 +126,13 @@ const isActive = (name: string) => route.name === name
         v-if="open"
         :class="[
           'fixed right-0 top-0 bottom-0 w-screen sm:w-80 max-w-full overflow-hidden shadow-lg z-50 md:hidden flex flex-col',
-          authStore.isLoggedIn ? 'bg-white dark:bg-gray-800' : 'bg-slate-900'
+          authStore.isLoggedIn ? 'bg-canvas' : 'bg-slate-900'
         ]"
       >
         <!-- Drawer Header (Logado) -->
-        <div v-if="authStore.isLoggedIn" class="p-4 border-b border-gray-200 dark:border-gray-700 space-y-4">
+        <div v-if="authStore.isLoggedIn" class="p-4 border-b border-hairline space-y-4">
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Menu</h3>
+            <h3 class="text-lg font-semibold text-ink">Menu</h3>
             <button
               @click="emit('close')"
               class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
@@ -157,14 +157,14 @@ const isActive = (name: string) => route.name === name
               {{ profileInitials }}
             </div>
             <div class="min-w-0 flex-1">
-              <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">{{ authStore.user?.name || authStore.username }}</p>
-              <p class="text-xs text-gray-600 dark:text-gray-400 truncate">{{ authStore.userEmail }}</p>
+              <p class="text-sm font-semibold text-ink truncate">{{ authStore.user?.name || authStore.username }}</p>
+              <p class="text-xs text-ink-body truncate">{{ authStore.userEmail }}</p>
               <div v-if="planData" class="mt-1 inline-block">
                 <span :class="[
                   'text-xs font-semibold px-2 py-0.5 rounded',
                   planData.plan === 'AVANCADO' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300' :
                   planData.plan === 'PLUS' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' :
-                  'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300'
+                  'bg-gray-200 dark:bg-gray-600 text-ink-body'
                 ]">
                   {{ planData.plan === 'AVANCADO' ? '🚀' : planData.plan === 'PLUS' ? '⭐' : '📦' }} {{ planData.plan }}
                 </span>
@@ -195,7 +195,7 @@ const isActive = (name: string) => route.name === name
               'w-full flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium transition-colors',
               isActive(item.name)
                 ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-                : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                : 'text-ink-body hover:bg-gray-100 dark:hover:bg-gray-700'
             ]"
           >
             <component :is="item.icon" class="w-5 h-5 flex-shrink-0" />
@@ -208,7 +208,7 @@ const isActive = (name: string) => route.name === name
           <!-- Theme Toggle in Drawer -->
           <button
             @click="toggleThemeMobile"
-            class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-ink-body hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           >
             <SunIcon v-if="settingsStore.settings.theme === 'dark'" class="w-5 h-5 flex-shrink-0" />
             <MoonIcon v-else class="w-5 h-5 flex-shrink-0" />
@@ -217,7 +217,7 @@ const isActive = (name: string) => route.name === name
         </div>
 
         <!-- Drawer Footer (Logado) -->
-        <div v-if="authStore.isLoggedIn" class="border-t border-gray-200 dark:border-gray-700 p-4">
+        <div v-if="authStore.isLoggedIn" class="border-t border-hairline p-4">
           <button
             @click="handleLogout"
             class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"

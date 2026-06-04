@@ -197,14 +197,14 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900">
+  <div class="min-h-screen bg-canvas-soft">
     <div class="max-w-[120rem] mx-auto p-3 sm:p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-4 sm:space-y-6">
       <div v-if="topic && block" class="grid grid-cols-1 xl:grid-cols-[minmax(0,1.5fr)_minmax(22rem,28rem)] gap-4 sm:gap-6 items-start xl:items-start">
         <section class="space-y-3 sm:space-y-4 min-w-0">
           <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
             <div class="min-w-0">
               <p class="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">{{ block.title }}</p>
-              <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white break-words">{{ topic.title }}</h1>
+              <h1 class="text-2xl sm:text-3xl font-bold text-ink break-words">{{ topic.title }}</h1>
               <div class="mt-3 flex flex-wrap gap-2">
                 <AppBadge :color="statusMap[topic.status].color" size="sm">
                   {{ statusMap[topic.status].label }}
@@ -220,22 +220,22 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
             </AppButton>
           </div>
 
-          <div class="p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 space-y-3">
+          <div class="p-3 border border-hairline rounded-lg bg-canvas-soft space-y-3">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div class="sm:col-span-2">
-                <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Buscar</label>
+                <label class="block text-xs font-medium text-ink-body mb-1">Buscar</label>
                 <input
                   v-model="searchQuery"
                   type="text"
                   placeholder="Título, URL, anotações..."
-                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                  class="w-full px-3 py-2 text-sm border border-hairline rounded-lg bg-canvas-soft text-ink"
                 />
               </div>
               <div>
-                <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Tipo</label>
+                <label class="block text-xs font-medium text-ink-body mb-1">Tipo</label>
                 <select
                   v-model="filterType"
-                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                  class="w-full px-3 py-2 text-sm border border-hairline rounded-lg bg-canvas-soft text-ink"
                 >
                   <option value="all">Todos</option>
                   <option value="youtube">YouTube</option>
@@ -246,17 +246,17 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
                 </select>
               </div>
               <div>
-                <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Ordenar</label>
+                <label class="block text-xs font-medium text-ink-body mb-1">Ordenar</label>
                 <select
                   v-model="sortBy"
-                  class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                  class="w-full px-3 py-2 text-sm border border-hairline rounded-lg bg-canvas-soft text-ink"
                 >
                 <option value="added_desc">Mais recentes</option>
                 <option value="added_asc">Mais antigos</option>
                 <option value="rating_desc">Melhor rating</option>
               </select>
             </div>
-            <div class="text-xs text-gray-600 dark:text-gray-400">
+            <div class="text-xs text-ink-body">
               {{ filteredResources.length }} resultado{{ filteredResources.length === 1 ? '' : 's' }}
             </div>
           </div>
@@ -281,22 +281,22 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
             />
           </div>
 
-          <div v-else class="p-6 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-center text-gray-600 dark:text-gray-400">
+          <div v-else class="p-6 border border-hairline rounded-lg bg-canvas-soft text-center text-ink-body">
             Nenhum recurso encontrado com os filtros atuais.
           </div>
         </section>
 
-        <aside class="p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 xl:sticky xl:top-4 space-y-3">
+        <aside class="p-4 border border-hairline rounded-lg bg-canvas-soft xl:sticky xl:top-4 space-y-3">
           <div>
-            <h2 class="text-sm font-semibold text-gray-900 dark:text-white">Anotações do tópico</h2>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Este campo fica junto dos recursos do tópico.</p>
+            <h2 class="text-sm font-semibold text-ink">Anotações do tópico</h2>
+            <p class="text-xs text-ink-body mt-1">Este campo fica junto dos recursos do tópico.</p>
           </div>
 
           <textarea
             :value="topic.notes"
             @input="updateTopicNotes(($event.target as HTMLTextAreaElement).value)"
             rows="12"
-            class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+            class="w-full px-3 py-2 text-sm border border-hairline rounded-lg bg-canvas-soft text-ink"
             placeholder="Anotações, dúvidas, links de revisão, resumo..."
           />
 
@@ -318,12 +318,12 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
     >
       <div class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label class="block text-sm font-medium text-ink-body mb-2">
             Tipo
           </label>
           <select
             v-model="resourceType"
-            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+            class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
           >
             <option value="youtube">YouTube</option>
             <option value="drive">Google Drive</option>
@@ -334,24 +334,24 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label class="block text-sm font-medium text-ink-body mb-2">
             Título
           </label>
           <input
             v-model="resourceLabel"
             type="text"
-            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+            class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
           />
         </div>
 
         <div v-if="resourceType !== 'local' && !(resourceType === 'document' && documentIsLocal)">
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label class="block text-sm font-medium text-ink-body mb-2">
             URL
           </label>
           <input
             v-model="resourceUrl"
             type="url"
-            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+            class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
           />
 
           <AppButton
@@ -367,14 +367,14 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
         </div>
 
         <div v-else-if="resourceType === 'local' || (resourceType === 'document' && documentIsLocal)" class="space-y-2">
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label class="block text-sm font-medium text-ink-body">
             Caminho no computador
           </label>
           <input
             v-model="resourceUrl"
             type="text"
             readonly
-            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white opacity-70"
+            class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink opacity-70"
           />
           <AppButton
             variant="secondary"

@@ -55,14 +55,14 @@ const getTodayMinutes = (logs: DailyLogEntry[]): number => {
     </div>
 
     <!-- Overall Progress -->
-    <div class="p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
-      <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Progresso Geral</p>
+    <div class="p-4 border border-hairline rounded-lg bg-canvas-soft">
+      <p class="text-sm font-medium text-ink-body mb-2">Progresso Geral</p>
       <AppProgressBar
         :value="Math.round((snapshot.completedTopics / snapshot.totalTopics) * 100)"
         :color="getProgressColor((snapshot.completedTopics / snapshot.totalTopics) * 100)"
         show-label
       />
-      <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">
+      <p class="text-xs text-ink-body mt-2">
         {{ snapshot.completedTopics }} de {{ snapshot.totalTopics }} tópicos concluídos
       </p>
     </div>

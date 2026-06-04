@@ -33,7 +33,7 @@ const textColors = {
   <div :class="['p-4 border rounded-lg', bgColors[color]]">
     <div class="flex items-center justify-between">
       <div>
-        <p :class="['text-sm font-medium text-gray-600 dark:text-gray-400']">{{ label }}</p>
+        <p :class="['text-sm font-medium text-ink-body']">{{ label }}</p>
         <p :class="['text-3xl font-bold mt-1', textColors[color]]">{{ value }}</p>
       </div>
       <div v-if="icon" class="flex items-center justify-center">

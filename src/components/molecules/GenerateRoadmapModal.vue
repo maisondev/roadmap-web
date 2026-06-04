@@ -204,7 +204,7 @@ function resetForm() {
     <template #footer>
       <button
         @click="handleCancel"
-        class="px-4 py-2.5 sm:py-3 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors font-medium text-sm sm:text-base"
+        class="px-4 py-2.5 sm:py-3 rounded-lg border border-hairline text-ink hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors font-medium text-sm sm:text-base"
       >
         Cancelar
       </button>
@@ -228,8 +228,8 @@ function resetForm() {
           </svg>
         </div>
         <div class="text-center">
-          <p class="text-lg font-semibold text-gray-900 dark:text-white">Gerando seu roadmap...</p>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Isso pode levar alguns segundos</p>
+          <p class="text-lg font-semibold text-ink">Gerando seu roadmap...</p>
+          <p class="text-sm text-ink-body mt-2">Isso pode levar alguns segundos</p>
         </div>
       </div>
 
@@ -237,7 +237,7 @@ function resetForm() {
       <section v-else class="space-y-4 rounded-lg border border-blue-200 bg-blue-50/70 p-4 dark:border-blue-900 dark:bg-blue-950/20">
         <div class="grid gap-3 md:grid-cols-2">
           <div class="md:col-span-2">
-            <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Tema</label>
+            <label class="mb-2 block text-sm font-medium text-ink-body">Tema</label>
             <input
               v-model="aiTopic"
               type="text"
@@ -246,14 +246,14 @@ function resetForm() {
             />
           </div>
           <div>
-            <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Idioma</label>
+            <label class="mb-2 block text-sm font-medium text-ink-body">Idioma</label>
             <select v-model="aiLanguage" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white">
               <option value="pt">Português</option>
               <option value="en">English</option>
             </select>
           </div>
           <div>
-            <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Nível</label>
+            <label class="mb-2 block text-sm font-medium text-ink-body">Nível</label>
             <select v-model="aiLevel" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-white">
               <option value="beginner">Beginner</option>
               <option value="intermediate">Intermediate</option>
@@ -262,7 +262,7 @@ function resetForm() {
           </div>
         </div>
 
-        <div class="text-sm text-gray-600 dark:text-gray-400">
+        <div class="text-sm text-ink-body">
           {{ isGenerating ? 'Gerando estrutura...' : generatedSummary || 'A IA vai preencher o roadmap automaticamente.' }}
         </div>
 

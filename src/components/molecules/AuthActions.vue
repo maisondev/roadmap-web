@@ -30,7 +30,7 @@ const emit = defineEmits<{
   <div v-else-if="variant === 'navbar'" class="flex items-center gap-3">
     <button
       @click="emit('login')"
-      class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium rounded-lg transition-colors"
+      class="px-4 py-2 text-ink-body hover:bg-gray-100 dark:hover:bg-gray-700 font-medium rounded-lg transition-colors"
     >
       Entrar
     </button>

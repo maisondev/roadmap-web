@@ -50,7 +50,7 @@ function getStatusText() {
 
 <template>
   <div v-if="isLoading" class="p-6 text-center">
-    <p class="text-gray-600 dark:text-gray-400">Carregando status...</p>
+    <p class="text-ink-body">Carregando status...</p>
   </div>
 
   <div v-else-if="error" class="p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
@@ -64,38 +64,38 @@ function getStatusText() {
         <div class="flex items-center gap-2 mb-2">
           <span class="text-2xl">{{ getStatusIcon() }}</span>
           <div>
-            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Plano {{ subscriptionStatus.plan }}</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400">{{ getStatusText() }}</p>
+            <h3 class="text-lg font-bold text-ink">Plano {{ subscriptionStatus.plan }}</h3>
+            <p class="text-sm text-ink-body">{{ getStatusText() }}</p>
           </div>
         </div>
       </div>
       <div class="text-right" v-if="subscriptionStatus.planExpiresAt">
-        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <p class="text-sm font-medium text-ink-body">
           {{ subscriptionStatus.isActive ? 'Expira em' : 'Expirou em' }}
         </p>
-        <p class="text-lg font-bold text-gray-900 dark:text-white">
+        <p class="text-lg font-bold text-ink">
           {{ new Date(subscriptionStatus.planExpiresAt).toLocaleDateString('pt-BR') }}
         </p>
-        <p v-if="subscriptionStatus.expiresInDays !== null" class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+        <p v-if="subscriptionStatus.expiresInDays !== null" class="text-xs text-ink-body mt-1">
           {{ subscriptionStatus.expiresInDays > 0 ? `em ${subscriptionStatus.expiresInDays} dias` : 'hoje' }}
         </p>
       </div>
       <div v-else class="text-right">
-        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Plano Gratuito</p>
-        <p class="text-lg font-bold text-gray-900 dark:text-white">Sem expiração</p>
+        <p class="text-sm font-medium text-ink-body">Plano Gratuito</p>
+        <p class="text-lg font-bold text-ink">Sem expiração</p>
       </div>
     </div>
 
     <!-- Mensagem -->
-    <p class="text-sm text-gray-700 dark:text-gray-300 mb-6 p-3 bg-white/50 dark:bg-white/5 rounded">
+    <p class="text-sm text-ink-body mb-6 p-3 bg-white/50 dark:bg-white/5 rounded">
       {{ subscriptionStatus.message }}
     </p>
 
     <!-- Roadmaps -->
     <div class="mb-6">
       <div class="flex items-center justify-between mb-2">
-        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Roadmaps</span>
-        <span class="text-sm font-semibold text-gray-900 dark:text-white">
+        <span class="text-sm font-medium text-ink-body">Roadmaps</span>
+        <span class="text-sm font-semibold text-ink">
           {{ subscriptionStatus.limits.roadmaps.used }}/{{ subscriptionStatus.limits.roadmaps.limit === Infinity ? '∞' : subscriptionStatus.limits.roadmaps.limit }}
         </span>
       </div>
@@ -105,14 +105,14 @@ function getStatusText() {
           :style="{ width: `${Math.min((subscriptionStatus.limits.roadmaps.used / subscriptionStatus.limits.roadmaps.limit) * 100, 100)}%` }"
         />
       </div>
-      <p v-else class="text-xs text-gray-600 dark:text-gray-400 mt-1">Roadmaps ilimitados 🎉</p>
+      <p v-else class="text-xs text-ink-body mt-1">Roadmaps ilimitados 🎉</p>
     </div>
 
     <!-- IA Credits -->
     <div v-if="subscriptionStatus.limits.aiCreditsPerMonth > 0" class="mb-6">
       <div class="flex items-center justify-between mb-2">
-        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">⚡ Créditos de IA/mês</span>
-        <span class="text-sm font-semibold text-gray-900 dark:text-white">
+        <span class="text-sm font-medium text-ink-body">⚡ Créditos de IA/mês</span>
+        <span class="text-sm font-semibold text-ink">
           {{ subscriptionStatus.limits.aiCreditsRemaining }}/{{ subscriptionStatus.limits.aiCreditsPerMonth }}
         </span>
       </div>
@@ -122,7 +122,7 @@ function getStatusText() {
           :style="{ width: `${Math.min((subscriptionStatus.limits.aiCreditsRemaining / subscriptionStatus.limits.aiCreditsPerMonth) * 100, 100)}%` }"
         />
       </div>
-      <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+      <p class="text-xs text-ink-body mt-1">
         {{ subscriptionStatus.limits.aiCreditsRemaining > 0
           ? `${subscriptionStatus.limits.aiCreditsRemaining} crédito${subscriptionStatus.limits.aiCreditsRemaining !== 1 ? 's' : ''} disponível${subscriptionStatus.limits.aiCreditsRemaining !== 1 ? 's' : ''}`
           : 'Sem créditos disponíveis este mês' }}
@@ -131,27 +131,27 @@ function getStatusText() {
 
     <!-- Limites -->
     <div class="bg-white/50 dark:bg-white/5 p-4 rounded mb-6">
-      <p class="text-sm font-semibold text-gray-900 dark:text-white mb-3">O que você pode fazer:</p>
+      <p class="text-sm font-semibold text-ink mb-3">O que você pode fazer:</p>
       <ul class="space-y-2">
-        <li class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-center gap-2 text-sm text-ink-body">
           <span>✓</span>
           <span>
             {{ subscriptionStatus.features.maxBlocksPerBlock === Infinity ? 'Módulos ilimitados' : `Até ${subscriptionStatus.features.maxBlocksPerRoadmap} módulos por roadmap` }}
           </span>
         </li>
-        <li class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-center gap-2 text-sm text-ink-body">
           <span>✓</span>
           <span>
             {{ subscriptionStatus.features.maxTopicsPerBlock === Infinity ? 'Tópicos ilimitados' : `Até ${subscriptionStatus.features.maxTopicsPerBlock} tópicos por módulo` }}
           </span>
         </li>
-        <li class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-center gap-2 text-sm text-ink-body">
           <span>✓</span>
           <span>
             {{ subscriptionStatus.features.maxResourcesPerTopic === Infinity ? 'Recursos ilimitados' : `Até ${subscriptionStatus.features.maxResourcesPerTopic} recursos por tópico` }}
           </span>
         </li>
-        <li v-if="subscriptionStatus.limits.aiCreditsPerMonth === 0" class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+        <li v-if="subscriptionStatus.limits.aiCreditsPerMonth === 0" class="flex items-center gap-2 text-sm text-ink-body">
           <span>✗</span>
           <span>Geração com IA (upgrade necessário)</span>
         </li>

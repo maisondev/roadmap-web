@@ -22,7 +22,7 @@ function handleClick(crumb: Crumb) {
 </script>
 
 <template>
-  <div class="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400 overflow-x-auto pb-2">
+  <div class="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-ink-body overflow-x-auto pb-2">
     <button
       @click="handleClick(crumbs[0])"
       class="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 whitespace-nowrap"
@@ -39,7 +39,7 @@ function handleClick(crumb: Crumb) {
       >
         {{ crumb.label }}
       </button>
-      <span v-else class="font-medium text-gray-900 dark:text-white whitespace-nowrap">
+      <span v-else class="font-medium text-ink whitespace-nowrap">
         {{ crumb.label }}
       </span>
     </template>

@@ -72,11 +72,11 @@ const changelog = [
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900">
+  <div class="min-h-screen bg-canvas-soft">
     <div class="max-w-4xl mx-auto p-4 space-y-8 py-8">
       <!-- Header -->
       <div class="text-center">
-        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-3">
+        <h1 class="text-4xl font-bold text-ink mb-3">
           Changelog
         </h1>
         <p class="text-lg text-gray-600 dark:text-gray-300">
@@ -92,10 +92,10 @@ const changelog = [
           class="border-l-4 border-blue-500 pl-6 py-4"
         >
           <div class="flex items-baseline gap-4 mb-3">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 class="text-2xl font-bold text-ink">
               v{{ item.version }}
             </h2>
-            <span class="text-sm text-gray-600 dark:text-gray-400">
+            <span class="text-sm text-ink-body">
               {{ new Date(item.date).toLocaleDateString('pt-BR') }}
             </span>
           </div>
@@ -104,7 +104,7 @@ const changelog = [
             <li
               v-for="(feature, i) in item.features"
               :key="i"
-              class="text-gray-700 dark:text-gray-300 flex items-start gap-3"
+              class="text-ink-body flex items-start gap-3"
             >
               <span class="text-blue-500 mt-1 font-bold">+</span>
               <span>{{ feature }}</span>
@@ -114,8 +114,8 @@ const changelog = [
       </div>
 
       <!-- Footer message -->
-      <div class="border-t border-gray-300 dark:border-gray-700 pt-8 text-center">
-        <p class="text-gray-600 dark:text-gray-400">
+      <div class="border-t border-hairline pt-8 text-center">
+        <p class="text-ink-body">
           Fique atento para as próximas atualizações!
         </p>
       </div>

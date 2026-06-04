@@ -11,31 +11,31 @@ const emit = defineEmits<{
       <!-- Left side - Content -->
       <div class="space-y-6 sm:space-y-8">
         <div class="space-y-4">
-          <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white leading-tight">
-            Conecte seus <span class="bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">conhecimentos</span> em sinapses
+          <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-ink leading-tight">
+            Conecte seus conhecimentos em sinapses.
           </h1>
-          <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300">
+          <p class="text-lg sm:text-xl text-ink-body">
             Crie roadmaps de aprendizado, mapeie suas fontes e fortaleça suas conexões de conhecimento
           </p>
         </div>
 
         <!-- Trust badges -->
-        <div class="flex flex-col gap-3 text-slate-600 dark:text-slate-400">
+        <div class="flex flex-col gap-3 text-ink-body">
           <div class="flex items-center gap-3">
-            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/40">
-              <span class="text-blue-700 dark:text-blue-400 text-xs font-bold">✓</span>
+            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-canvas-soft-2">
+              <span class="text-ink text-xs font-bold">✓</span>
             </span>
             Grátis para começar, sem cartão de crédito
           </div>
           <div class="flex items-center gap-3">
-            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-purple-100 dark:bg-purple-900/40">
-              <span class="text-purple-700 dark:text-purple-400 text-xs font-bold">✓</span>
+            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-canvas-soft-2">
+              <span class="text-ink text-xs font-bold">✓</span>
             </span>
             Funciona offline, sincroniza automaticamente
           </div>
           <div class="flex items-center gap-3">
-            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-cyan-100 dark:bg-cyan-900/40">
-              <span class="text-cyan-700 dark:text-cyan-400 text-xs font-bold">✓</span>
+            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-canvas-soft-2">
+              <span class="text-ink text-xs font-bold">✓</span>
             </span>
             Acesso ao seu progresso em qualquer dispositivo
           </div>
@@ -45,13 +45,13 @@ const emit = defineEmits<{
         <div class="flex flex-col sm:flex-row gap-4 pt-4">
           <button
             @click="emit('register')"
-            class="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl"
+            class="px-8 py-3.5 bg-ink text-on-primary hover:opacity-90 font-semibold rounded-pill transition-all"
           >
             Começar agora
           </button>
           <button
             @click="emit('login')"
-            class="px-8 py-3 border-2 border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-semibold rounded-lg transition-colors"
+            class="px-8 py-3.5 border border-hairline bg-canvas text-ink hover:bg-canvas-soft-2 font-semibold rounded-pill transition-colors"
           >
             Já tenho conta
           </button>

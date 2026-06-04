@@ -145,11 +145,11 @@ function deleteBlock() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900">
+  <div class="min-h-screen bg-canvas-soft">
       <div class="max-w-[120rem] mx-auto p-3 sm:p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-6 sm:space-y-8">
       <!-- Header -->
       <div>
-        <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 class="text-2xl sm:text-4xl font-bold text-ink mb-2">
           {{ roadmapStore.activeRoadmap.title }}
         </h1>
         <p class="text-sm sm:text-lg text-gray-600 dark:text-gray-300">
@@ -158,10 +158,10 @@ function deleteBlock() {
       </div>
 
       <!-- Overall Progress -->
-      <div class="p-3 sm:p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
-        <p class="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Progresso Geral do Roadmap</p>
+      <div class="p-3 sm:p-4 border border-hairline rounded-lg bg-canvas-soft">
+        <p class="text-xs sm:text-sm font-medium text-ink-body mb-3">Progresso Geral do Roadmap</p>
         <AppProgressBar :value="progressStore.roadmapProgressPercent(activeRoadmapId)" show-label />
-        <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-300 dark:border-gray-700">
+        <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-hairline">
           <AppButton variant="primary" size="sm" class="w-full sm:w-auto" @click="showAddModal = true">
             + Adicionar Módulo
           </AppButton>
@@ -177,13 +177,13 @@ function deleteBlock() {
               v-model="filterModuleName"
               type="text"
               placeholder="Buscar módulos..."
-              class="w-full sm:w-64 px-3 py-2 pl-10 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              class="w-full sm:w-64 px-3 py-2 pl-10 border border-hairline rounded-lg bg-canvas-soft text-ink"
             />
             <AppIcon name="search" size="sm" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
           <select
             v-model="filterModuleStatus"
-            class="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+            class="px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
           >
             <option value="all">Todos os status</option>
             <option value="notStarted">Não iniciados</option>
@@ -194,7 +194,7 @@ function deleteBlock() {
       </div>
 
       <!-- Results count -->
-      <div v-if="filterModuleName || filterModuleStatus !== 'all'" class="text-sm text-gray-600 dark:text-gray-400">
+      <div v-if="filterModuleName || filterModuleStatus !== 'all'" class="text-sm text-ink-body">
         {{ filteredBlocks.length }} {{ filteredBlocks.length === 1 ? 'módulo encontrado' : 'módulos encontrados' }}
       </div>
 
@@ -203,7 +203,7 @@ function deleteBlock() {
         <div
           v-for="(block, idx) in filteredBlocks"
           :key="block.id"
-          class="group min-h-[17rem] border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 hover:shadow-lg transition-shadow flex flex-col overflow-hidden"
+          class="group min-h-[17rem] border border-hairline rounded-lg bg-canvas hover:shadow-lg transition-shadow flex flex-col overflow-hidden"
         >
           <button
             type="button"
@@ -214,10 +214,10 @@ function deleteBlock() {
               <div class="flex items-center gap-3 mb-2">
                 <span class="text-lg font-semibold text-gray-500 dark:text-gray-400">{{ block.order }}.</span>
                 <div class="flex-1 min-w-0">
-                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white break-words">
+                  <h3 class="text-lg font-semibold text-ink break-words">
                     {{ block.title }}
                   </h3>
-                  <p class="text-xs text-gray-600 dark:text-gray-400">
+                  <p class="text-xs text-ink-body">
                     {{ block.topics.length }} tópicos
                   </p>
                 </div>
@@ -237,14 +237,14 @@ function deleteBlock() {
               />
 
               <!-- Stats -->
-              <div class="mt-2 flex gap-4 text-xs text-gray-600 dark:text-gray-400">
+              <div class="mt-2 flex gap-4 text-xs text-ink-body">
                 <span>{{ block.topics.filter(t => t.status === 'concluido').length }}/{{ block.topics.length }} concluídos</span>
                 <span>{{ progressStore.blockProgressPercent(block.id) }}%</span>
               </div>
           </button>
 
           <!-- Actions -->
-          <div class="border-t border-gray-200 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-900/30 px-4 py-3">
+          <div class="border-t border-hairline bg-gray-50/80 dark:bg-gray-900/30 px-4 py-3">
             <div class="flex flex-wrap items-center justify-between gap-3">
               <div class="flex flex-wrap items-center gap-2">
               <!-- Complete button -->
@@ -306,7 +306,7 @@ function deleteBlock() {
 
       <!-- No results message -->
       <div v-if="filteredBlocks.length === 0" class="text-center py-12">
-        <p class="text-gray-600 dark:text-gray-400">
+        <p class="text-ink-body">
           Nenhum módulo encontrado para os filtros selecionados.
         </p>
         <AppButton
@@ -330,25 +330,25 @@ function deleteBlock() {
       >
         <div class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label class="block text-sm font-medium text-ink-body mb-1">
               Título do Módulo
             </label>
             <input
               v-model="newBlockTitle"
               type="text"
               placeholder="Ex: Módulo 17 - Novo Tópico"
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
               @keyup.enter="addNewBlock"
             />
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label class="block text-sm font-medium text-ink-body mb-1">
               Prioridade
             </label>
             <select
               v-model="newBlockPriority"
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
             >
               <option value="normal">Normal</option>
               <option value="alta">Alta</option>
@@ -369,24 +369,24 @@ function deleteBlock() {
       >
         <div class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label class="block text-sm font-medium text-ink-body mb-1">
               Título do Módulo
             </label>
             <input
               v-model="editBlockTitle"
               type="text"
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
               @keyup.enter="saveBlockEdit"
             />
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label class="block text-sm font-medium text-ink-body mb-1">
               Prioridade
             </label>
             <select
               v-model="editBlockPriority"
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
             >
               <option value="normal">Normal</option>
               <option value="alta">Alta</option>

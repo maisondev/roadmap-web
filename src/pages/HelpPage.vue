@@ -131,11 +131,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900">
+  <div class="min-h-screen bg-canvas-soft">
     <div class="max-w-4xl mx-auto p-3 sm:p-4 space-y-6 sm:space-y-8 py-6 sm:py-8">
       <!-- Header -->
       <div class="text-center">
-        <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3">
+        <h1 class="text-2xl sm:text-4xl font-bold text-ink mb-2 sm:mb-3">
           Central de Ajuda
         </h1>
         <p class="text-sm sm:text-lg text-gray-600 dark:text-gray-300">
@@ -149,13 +149,13 @@ onMounted(() => {
           v-for="(section, idx) in processedSections"
           :key="idx"
           :id="section.id"
-          class="border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden scroll-mt-20"
+          class="border border-hairline rounded-lg overflow-hidden scroll-mt-20"
         >
           <button
             @click="toggleSection(idx)"
-            class="w-full p-3 sm:p-4 flex items-center justify-between bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
+            class="w-full p-3 sm:p-4 flex items-center justify-between bg-canvas-soft hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
           >
-            <h3 class="text-base sm:text-lg font-semibold text-gray-900 dark:text-white text-left">
+            <h3 class="text-base sm:text-lg font-semibold text-ink text-left">
               {{ section.title }}
             </h3>
             <div class="flex items-center gap-2">
@@ -171,7 +171,7 @@ onMounted(() => {
               </div>
               <ChevronDownIcon
                 :class="[
-                  'w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform',
+                  'w-5 h-5 text-ink-body transition-transform',
                   expandedIndex === idx ? 'rotate-180' : ''
                 ]"
               />
@@ -190,7 +190,7 @@ onMounted(() => {
               v-if="expandedIndex === idx"
               class="overflow-hidden"
             >
-              <p class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 border-t border-gray-300 dark:border-gray-700">
+              <p class="p-3 sm:p-4 text-sm sm:text-base text-ink-body border-t border-hairline">
                 {{ section.content }}
               </p>
             </div>

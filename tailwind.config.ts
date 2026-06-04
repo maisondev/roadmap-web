@@ -9,6 +9,19 @@ export default {
   theme: {
     extend: {
       colors: {
+        canvas: 'var(--ds-canvas)',
+        'canvas-soft': 'var(--ds-canvas-soft)',
+        'canvas-soft-2': 'var(--ds-canvas-soft-2)',
+        ink: 'var(--ds-ink)',
+        'ink-body': 'var(--ds-body)',
+        'ink-mute': 'var(--ds-mute)',
+        'on-primary': 'var(--ds-on-primary)',
+        hairline: 'var(--ds-hairline)',
+        'hairline-strong': 'var(--ds-hairline-strong)',
+        'ds-link': 'var(--ds-link)',
+        'ds-error': 'var(--ds-error)',
+        'ds-warning': 'var(--ds-warning)',
+        'ds-success': 'var(--ds-success)',
         primary: {
           DEFAULT: '#10B981',
           50: '#F0FDF4',
@@ -51,6 +64,16 @@ export default {
       },
       spacing: {
         safe: 'env(safe-area-inset-bottom)'
+      },
+      boxShadow: {
+        'card-sm': '0px 1px 1px #00000005, 0px 2px 2px #0000000a, inset 0 0 0 1px #00000014',
+        'card': '0px 2px 2px #0000000a, 0px 8px 8px -8px #0000000a, inset 0 0 0 1px #00000014',
+        'card-lg': '0px 2px 2px #0000000a, 0px 8px 16px -4px #0000000a, inset 0 0 0 1px #00000014',
+        'modal': '0px 1px 1px #00000005, 0px 8px 16px -4px #0000000a, 0px 24px 32px -8px #0000000f, inset 0 0 0 1px #00000014'
+      },
+      borderRadius: {
+        pill: '100px',
+        'pill-sm': '64px'
       },
       keyframes: {
         float: {

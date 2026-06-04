@@ -18,7 +18,7 @@
           </div>
         </div>
 
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 class="text-3xl font-bold text-ink mb-2">
           Plano ativado com sucesso! 🎉
         </h1>
 
@@ -27,8 +27,8 @@
         </p>
 
         <div v-if="currentPlan" class="bg-white dark:bg-slate-800 rounded-lg p-4 mb-6 border border-green-200 dark:border-green-800">
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Seu plano atual:</p>
-          <p class="text-lg font-semibold text-gray-900 dark:text-white">{{ currentPlan }}</p>
+          <p class="text-sm text-ink-body mb-2">Seu plano atual:</p>
+          <p class="text-lg font-semibold text-ink">{{ currentPlan }}</p>
           <p v-if="planExpiresAt" class="text-xs text-gray-500 dark:text-gray-400 mt-2">
             Válido até: {{ formatDate(planExpiresAt) }}
           </p>
@@ -64,7 +64,7 @@
           </div>
         </div>
 
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 class="text-3xl font-bold text-ink mb-2">
           Pagamento em processamento
         </h1>
 
@@ -104,7 +104,7 @@
           </div>
         </div>
 
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 class="text-3xl font-bold text-ink mb-2">
           Pagamento não aprovado
         </h1>
 
@@ -153,7 +153,7 @@
           </div>
         </div>
 
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 class="text-3xl font-bold text-ink mb-2">
           Status desconhecido
         </h1>
 

@@ -85,7 +85,7 @@ const isActive = (name: string) => route.name === name
 </script>
 
 <template>
-  <nav :class="[`sticky top-0 z-50`, authStore.isLoggedIn ? `bg-white dark:bg-gray-800 border-b border-slate-200 dark:border-gray-700 shadow-sm` : `bg-slate-950 border-b border-slate-800/60`]">
+  <nav class="sticky top-0 z-50 bg-canvas border-b border-hairline shadow-sm">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex items-center justify-between h-16">
         <!-- Left: Logo + Back button -->
@@ -100,10 +100,7 @@ const isActive = (name: string) => route.name === name
           <button
             v-if="showBackButton"
             @click="goBack"
-            class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
-            :class="authStore.isLoggedIn
-              ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-              : 'text-slate-300 hover:bg-slate-800'"
+            class="flex items-center gap-2 px-3 py-2 rounded-[6px] text-sm font-medium transition-colors text-ink-body hover:bg-canvas-soft-2"
           >
             <ArrowLeftIcon class="w-4 h-4" />
             {{ backLabel }}
@@ -117,10 +114,10 @@ const isActive = (name: string) => route.name === name
             :key="item.name"
             @click="navigateTo(item.path, item.name)"
             :class="[
-              'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+              'flex items-center gap-2 px-3 py-2 rounded-[6px] text-sm font-medium transition-colors',
               isActive(item.name)
-                ? 'bg-primary text-white'
-                : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                ? 'bg-ink text-on-primary'
+                : 'text-ink-body hover:bg-canvas-soft-2'
             ]"
           >
             <component :is="item.icon" class="w-4 h-4" />
@@ -130,9 +127,9 @@ const isActive = (name: string) => route.name === name
 
         <!-- Center: Public links (not logged in) -->
         <div v-else class="hidden md:flex items-center gap-8">
-          <button @click="router.push({ name: 'home' })" class="text-slate-300 hover:text-white text-sm transition-colors">Início</button>
-          <button @click="router.push({ name: 'help' })" class="text-slate-300 hover:text-white text-sm transition-colors">Ajuda</button>
-          <button @click="router.push({ name: 'contact' })" class="text-slate-300 hover:text-white text-sm transition-colors">Contato</button>
+          <button @click="router.push({ name: 'home' })" class="text-ink-body hover:text-ink text-sm transition-colors">Início</button>
+          <button @click="router.push({ name: 'help' })" class="text-ink-body hover:text-ink text-sm transition-colors">Ajuda</button>
+          <button @click="router.push({ name: 'contact' })" class="text-ink-body hover:text-ink text-sm transition-colors">Contato</button>
         </div>
 
         <!-- Right: Actions + Hamburguer -->
@@ -140,12 +137,12 @@ const isActive = (name: string) => route.name === name
           <!-- Streak counter -->
           <div
             v-if="dailyLogStore.streakDays > 0"
-            class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-lg bg-orange-100 dark:bg-orange-900/30"
+            class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-[6px] bg-canvas-soft-2"
           >
-            <div class="w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center text-white text-xs font-bold">
+            <div class="w-5 h-5 rounded-full bg-ds-warning flex items-center justify-center text-on-primary text-xs font-bold">
               {{ dailyLogStore.streakDays }}
             </div>
-            <span class="text-xs font-semibold text-orange-700 dark:text-orange-300 whitespace-nowrap">
+            <span class="text-xs font-semibold text-ink-body whitespace-nowrap">
               dias
             </span>
           </div>
@@ -161,10 +158,7 @@ const isActive = (name: string) => route.name === name
 
           <!-- Mobile Menu Button (always last, fixed position) -->
           <button
-            class="md:hidden p-2.5 rounded-lg transition-colors flex-shrink-0"
-            :class="authStore.isLoggedIn
-              ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-              : 'text-slate-300 hover:bg-slate-800'"
+            class="md:hidden p-2.5 rounded-[6px] transition-colors flex-shrink-0 text-ink-body hover:bg-canvas-soft-2"
             @click="showMobileMenu = true"
           >
             <Bars3Icon class="w-5 h-5" />

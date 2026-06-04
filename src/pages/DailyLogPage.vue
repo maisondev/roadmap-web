@@ -126,21 +126,21 @@ const cancelEdit = () => {
   <div class="space-y-8">
     <!-- Header -->
     <div class="space-y-4 text-center">
-      <h1 class="text-4xl font-bold text-gray-900 dark:text-white">Registros Diários</h1>
+      <h1 class="text-4xl font-bold text-ink">Registros Diários</h1>
       <p class="text-lg text-gray-600 dark:text-gray-300">
         Acompanhe sua atividade de estudo ao longo do ano
       </p>
     </div>
 
     <!-- Activity Heatmap -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+    <div class="bg-canvas rounded-lg p-6 border border-hairline">
       <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Atividade do Ano</h2>
+        <h2 class="text-xl font-semibold text-ink">Atividade do Ano</h2>
       </div>
 
       <!-- Legend -->
       <div class="mb-6 flex items-center gap-4 text-xs">
-        <span class="text-gray-600 dark:text-gray-400 font-medium">Menos</span>
+        <span class="text-ink-body font-medium">Menos</span>
         <div class="flex gap-1.5">
           <div class="w-3 h-3 bg-gray-200 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-sm" title="Sem atividade"></div>
           <div class="w-3 h-3 bg-emerald-200 dark:bg-emerald-800 border border-emerald-300 dark:border-emerald-700 rounded-sm" title="Até 30 min"></div>
@@ -148,7 +148,7 @@ const cancelEdit = () => {
           <div class="w-3 h-3 bg-emerald-500 dark:bg-emerald-500 border border-emerald-600 dark:border-emerald-400 rounded-sm" title="60-120 min"></div>
           <div class="w-3 h-3 bg-emerald-700 dark:bg-emerald-400 border border-emerald-800 dark:border-emerald-300 rounded-sm" title="120+ min"></div>
         </div>
-        <span class="text-gray-600 dark:text-gray-400 font-medium">Mais</span>
+        <span class="text-ink-body font-medium">Mais</span>
       </div>
 
       <!-- Months Heatmap (Horizontal - GitHub style with scroll) -->
@@ -156,7 +156,7 @@ const cancelEdit = () => {
         <div class="flex gap-6 min-w-min">
           <div v-for="monthData in monthsHeatmap" :key="monthData.month" class="flex-shrink-0 space-y-2">
             <!-- Month name -->
-            <h3 class="text-xs font-semibold text-gray-900 dark:text-white mb-3">{{ monthData.monthNameShort }}</h3>
+            <h3 class="text-xs font-semibold text-ink mb-3">{{ monthData.monthNameShort }}</h3>
 
             <!-- Month Heatmap Grid (7 days × weeks) -->
             <div class="inline-grid gap-2" style="grid-template-columns: repeat(7, minmax(0, 1fr));">
@@ -185,9 +185,9 @@ const cancelEdit = () => {
     </div>
 
     <!-- Today's Log Form or View -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+    <div class="bg-canvas rounded-lg p-6 border border-hairline">
       <div v-if="editingDate === null">
-        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Registro de Hoje</h2>
+        <h2 class="text-xl font-semibold text-ink mb-4">Registro de Hoje</h2>
         <div v-if="dailyLogStore.todayLog">
           <DailyLogEntry :entry="dailyLogStore.todayLog" />
           <AppButton
@@ -200,7 +200,7 @@ const cancelEdit = () => {
           </AppButton>
         </div>
         <div v-else class="text-center py-8">
-          <p class="text-gray-600 dark:text-gray-400 mb-4">Você ainda não registrou nada hoje</p>
+          <p class="text-ink-body mb-4">Você ainda não registrou nada hoje</p>
           <AppButton
             variant="primary"
             @click="startEditingToday"
@@ -212,23 +212,23 @@ const cancelEdit = () => {
 
       <!-- Edit Form -->
       <div v-else class="space-y-4">
-        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Editar Registro - {{ editingDate ? formatDateBR(editingDate) : '' }}</h2>
+        <h2 class="text-xl font-semibold text-ink">Editar Registro - {{ editingDate ? formatDateBR(editingDate) : '' }}</h2>
 
         <!-- What I did -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">O que você estudou?</label>
+          <label class="block text-sm font-medium text-ink-body mb-2">O que você estudou?</label>
           <textarea
             v-model="formData.fiz"
             rows="4"
             placeholder="Descreva o que estudou hoje..."
-            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-base focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-ink text-base focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
 
         <!-- Minutes Studied -->
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label class="block text-sm font-medium text-ink-body mb-2">
               Minutos Estudados: {{ formData.minutosEstudados }}
             </label>
             <input
@@ -243,7 +243,7 @@ const cancelEdit = () => {
 
           <!-- Questions Done -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label class="block text-sm font-medium text-ink-body mb-2">
               Questões Feitas: {{ formData.questoesFeitas }}
             </label>
             <input
@@ -259,7 +259,7 @@ const cancelEdit = () => {
 
         <!-- Mood -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label class="block text-sm font-medium text-ink-body mb-2">
             Como você se sentiu? {{ formData.mood }}/5
           </label>
           <div class="flex gap-2">
@@ -293,7 +293,7 @@ const cancelEdit = () => {
 
     <!-- Last 7 Days -->
     <div v-if="dailyLogStore.last7Days.length > 0" class="space-y-4">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Últimos 7 Dias</h2>
+      <h2 class="text-2xl font-bold text-ink">Últimos 7 Dias</h2>
       <div class="space-y-2">
         <DailyLogEntry
           v-for="log in dailyLogStore.last7Days"

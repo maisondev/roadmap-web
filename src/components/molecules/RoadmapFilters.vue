@@ -41,13 +41,13 @@ const filterStatus = computed({
           v-model="filterName"
           type="text"
           placeholder="Buscar roadmaps..."
-          class="w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm"
+          class="w-full px-3 py-2 pl-10 border border-hairline rounded-lg bg-canvas-soft text-ink text-sm"
         />
         <AppIcon name="search" size="sm" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
       </div>
       <select
         v-model="filterStatus"
-        class="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm"
+        class="px-4 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink text-sm"
       >
         <option value="all">Todos os status</option>
         <option value="ativo">Ativos</option>
@@ -80,7 +80,7 @@ const filterStatus = computed({
         variant="ghost"
         size="sm"
         @click="emit('import')"
-        class="flex items-center justify-center gap-2 flex-1 sm:flex-initial px-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+        class="flex items-center justify-center gap-2 flex-1 sm:flex-initial px-3 text-ink-body hover:bg-gray-100 dark:hover:bg-gray-700"
         title="Importar um roadmap"
       >
         <AppIcon name="upload" size="sm" />

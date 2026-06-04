@@ -102,7 +102,7 @@ async function submitAuth() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-b from-blue-50 via-white to-purple-50 dark:from-slate-950 dark:to-slate-900">
+  <div class="min-h-screen bg-canvas-soft">
     <HeroSection @register="openRegister" @login="openLogin" />
     <BenefitsSection />
     <ScienceSection />
@@ -115,63 +115,63 @@ async function submitAuth() {
       @click="showAuthModal = false"
     >
       <div
-        class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-8"
+        class="bg-canvas rounded-lg shadow-modal max-w-md w-full p-8"
         @click.stop
       >
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        <h2 class="text-2xl font-bold text-ink mb-6">
           {{ authMode === 'register' ? 'Criar conta' : 'Entrar' }}
         </h2>
 
         <div class="space-y-4 mb-6">
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label class="block text-sm font-medium text-ink-body mb-2">
               E-mail
             </label>
             <input
               v-model="email"
               type="email"
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              class="w-full px-3 py-2 border border-hairline rounded-[6px] bg-canvas-soft text-ink"
               placeholder="seu@email.com"
               @keyup.enter="submitAuth"
             />
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label class="block text-sm font-medium text-ink-body mb-2">
               Senha
             </label>
             <input
               v-model="password"
               type="password"
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              class="w-full px-3 py-2 border border-hairline rounded-[6px] bg-canvas-soft text-ink"
               :placeholder="authMode === 'register' ? 'Mínimo 6 caracteres' : 'Sua senha'"
               @keyup.enter="submitAuth"
             />
           </div>
 
-          <div v-if="authMode === 'register'" class="flex items-start gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+          <div v-if="authMode === 'register'" class="flex items-start gap-3 p-3 bg-canvas-soft-2 rounded-[6px] border border-hairline">
             <input
               id="landing-consent"
               v-model="consentGiven"
               type="checkbox"
-              class="mt-0.5 w-4 h-4 text-blue-600 border-gray-300 rounded cursor-pointer flex-shrink-0"
+              class="mt-0.5 w-4 h-4 border-hairline rounded cursor-pointer flex-shrink-0"
             />
-            <label for="landing-consent" class="text-xs text-gray-700 dark:text-gray-300 cursor-pointer leading-relaxed">
+            <label for="landing-consent" class="text-xs text-ink-body cursor-pointer leading-relaxed">
               Li e aceito a
-              <a href="/privacidade" class="text-blue-600 dark:text-blue-400 hover:underline" @click="showAuthModal = false">Política de Privacidade</a>
+              <a href="/privacidade" class="text-ds-link hover:underline" @click="showAuthModal = false">Política de Privacidade</a>
               e os
-              <a href="/termos" class="text-blue-600 dark:text-blue-400 hover:underline" @click="showAuthModal = false">Termos de Serviço</a>
+              <a href="/termos" class="text-ds-link hover:underline" @click="showAuthModal = false">Termos de Serviço</a>
               do Sinapses.
             </label>
           </div>
 
-          <p v-if="authError" class="text-sm text-red-600 dark:text-red-400">
+          <p v-if="authError" class="text-sm text-ds-error">
             {{ authError }}
           </p>
         </div>
 
         <!-- Google Login Button -->
-        <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+        <div class="mb-6 pb-6 border-b border-hairline">
           <div id="google-signin-button-landing" class="w-full flex justify-center" style="min-height: 48px;"></div>
         </div>
 
@@ -179,14 +179,14 @@ async function submitAuth() {
           <button
             @click="submitAuth"
             :disabled="isSubmitting || (authMode === 'register' && !consentGiven)"
-            class="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
+            class="flex-1 bg-ink text-on-primary hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed font-medium py-2 rounded-[6px] transition-all flex items-center justify-center gap-2"
           >
             <ArrowPathIcon v-if="isSubmitting" class="w-4 h-4 animate-spin" />
             {{ isSubmitting ? 'Carregando...' : 'Continuar' }}
           </button>
           <button
             @click="showAuthModal = false"
-            class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium py-2 rounded-lg transition-colors"
+            class="flex-1 bg-canvas-soft-2 text-ink hover:bg-canvas-soft font-medium py-2 rounded-[6px] transition-colors border border-hairline"
           >
             Cancelar
           </button>
@@ -194,7 +194,7 @@ async function submitAuth() {
 
         <button
           type="button"
-          class="w-full text-sm text-blue-600 dark:text-blue-400 hover:underline"
+          class="w-full text-sm text-ds-link hover:underline"
           @click="authMode = authMode === 'login' ? 'register' : 'login'; authError = null; consentGiven = false"
         >
           {{ authMode === 'login' ? 'Criar conta' : 'Já tenho conta' }}

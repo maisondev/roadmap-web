@@ -64,11 +64,11 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900">
+  <div class="min-h-screen bg-canvas-soft">
     <div class="max-w-4xl mx-auto p-3 sm:p-4 py-6 sm:py-8 space-y-8 sm:space-y-12">
       <!-- Header -->
       <div class="text-center space-y-2 sm:space-y-4">
-        <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+        <h1 class="text-2xl sm:text-4xl font-bold text-ink">
           Entre em Contato
         </h1>
         <p class="text-sm sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
@@ -84,13 +84,13 @@ const handleSubmit = async () => {
           :href="link.url"
           target="_blank"
           rel="noopener noreferrer"
-          class="group p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-transparent transition-all duration-300 bg-white dark:bg-gray-800 hover:shadow-lg"
+          class="group p-4 sm:p-6 rounded-lg border border-hairline hover:border-transparent transition-all duration-300 bg-canvas hover:shadow-lg"
         >
           <div class="flex flex-col items-center space-y-2 sm:space-y-3">
             <div class="group-hover:scale-110 transition-transform duration-300">
               <SocialIcon :icon="link.icon" :size="48" />
             </div>
-            <h3 class="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 class="text-base sm:text-lg font-semibold text-ink">
               {{ link.name }}
             </h3>
             <p v-if="link.name === 'Email'" class="text-sm text-gray-500 dark:text-gray-400 break-all">
@@ -104,9 +104,9 @@ const handleSubmit = async () => {
       </div>
 
       <!-- Contact Form -->
-      <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
+      <div class="bg-canvas-soft rounded-lg p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
         <div>
-          <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1 sm:mb-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-ink mb-1 sm:mb-2">
             Envie uma Mensagem
           </h2>
           <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300">
@@ -117,55 +117,55 @@ const handleSubmit = async () => {
         <form @submit.prevent="handleSubmit" class="space-y-3 sm:space-y-4">
           <!-- Name -->
           <div>
-            <label class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
+            <label class="block text-xs sm:text-sm font-medium text-ink-body mb-1 sm:mb-2">
               Nome <span class="text-red-500">*</span>
             </label>
             <input
               v-model="formData.name"
               type="text"
               placeholder="Seu nome"
-              class="w-full px-3 sm:px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              class="w-full px-3 sm:px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-ink placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               required
             />
           </div>
 
           <!-- Email -->
           <div>
-            <label class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
+            <label class="block text-xs sm:text-sm font-medium text-ink-body mb-1 sm:mb-2">
               Email <span class="text-red-500">*</span>
             </label>
             <input
               v-model="formData.email"
               type="email"
               placeholder="seu.email@exemplo.com"
-              class="w-full px-3 sm:px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              class="w-full px-3 sm:px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-ink placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               required
             />
           </div>
 
           <!-- Subject -->
           <div>
-            <label class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
+            <label class="block text-xs sm:text-sm font-medium text-ink-body mb-1 sm:mb-2">
               Assunto
             </label>
             <input
               v-model="formData.subject"
               type="text"
               placeholder="Ex: Feedback, Dúvida, Bug Report"
-              class="w-full px-3 sm:px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              class="w-full px-3 sm:px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-ink placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
             />
           </div>
 
           <!-- Message -->
           <div>
-            <label class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
+            <label class="block text-xs sm:text-sm font-medium text-ink-body mb-1 sm:mb-2">
               Mensagem <span class="text-red-500">*</span>
             </label>
             <textarea
               v-model="formData.message"
               placeholder="Digite sua mensagem aqui..."
               rows="5"
-              class="w-full px-3 sm:px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+              class="w-full px-3 sm:px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-ink placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
               required
             />
           </div>

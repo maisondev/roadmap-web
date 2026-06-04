@@ -55,7 +55,7 @@ async function toggleMenu() {
   <div v-if="authStore.isLoggedIn" class="relative">
     <button
       @click="toggleMenu"
-      class="relative p-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+      class="relative p-2.5 rounded-lg text-ink-body hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
       title="Notificações"
     >
       <BellIcon class="w-5 h-5" />
@@ -77,12 +77,12 @@ async function toggleMenu() {
     >
       <div
         v-if="showMenu"
-        class="absolute -right-4 mt-2 w-[28rem] sm:w-[28rem] max-w-[90vw] max-h-[48rem] overflow-y-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50"
+        class="absolute -right-4 mt-2 w-[28rem] sm:w-[28rem] max-w-[90vw] max-h-[48rem] overflow-y-auto bg-canvas rounded-lg shadow-lg border border-hairline z-50"
       >
         <!-- Header -->
-        <div class="sticky top-0 flex items-center justify-between bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-4">
+        <div class="sticky top-0 flex items-center justify-between bg-gray-50 dark:bg-gray-900 border-b border-hairline p-4">
           <div class="flex items-center gap-2">
-            <h3 class="font-semibold text-gray-900 dark:text-white">Notificações</h3>
+            <h3 class="font-semibold text-ink">Notificações</h3>
             <span v-if="notificationsStore.unreadCount > 0" class="inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold text-white bg-red-600 rounded-full">
               {{ notificationsStore.unreadCount }}
             </span>
@@ -97,7 +97,7 @@ async function toggleMenu() {
             </button>
             <button
               @click="router.push('/notifications'); showMenu = false"
-              class="text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              class="text-xs text-ink-body hover:text-gray-900 dark:hover:text-white"
               title="Ver todas as notificações"
             >
               Ver todas →
@@ -114,16 +114,16 @@ async function toggleMenu() {
               'border-l-4 p-5 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50',
               getNotificationBorderColor(notif.type),
               notif.read
-                ? 'bg-white dark:bg-gray-800'
+                ? 'bg-canvas'
                 : 'bg-blue-50 dark:bg-blue-900/20'
             ]"
           >
             <div class="flex items-start justify-between gap-3">
               <div class="flex-1 min-w-0 cursor-pointer" @click="notificationsStore.markAsReadSync(notif.id)">
-                <p class="font-semibold text-sm text-gray-900 dark:text-white leading-snug">
+                <p class="font-semibold text-sm text-ink leading-snug">
                   {{ notif.title }}
                 </p>
-                <p class="text-sm text-gray-700 dark:text-gray-300 mt-2 whitespace-pre-wrap break-words leading-relaxed">
+                <p class="text-sm text-ink-body mt-2 whitespace-pre-wrap break-words leading-relaxed">
                   {{ notif.message }}
                 </p>
                 <p class="text-xs text-gray-500 dark:text-gray-400 mt-2.5">
@@ -152,8 +152,8 @@ async function toggleMenu() {
 
         <!-- Empty state -->
         <div v-else class="p-8 text-center">
-          <BellIcon class="w-8 h-8 text-gray-400 dark:text-gray-600 mx-auto mb-2" />
-          <p class="text-sm text-gray-600 dark:text-gray-400">
+          <BellIcon class="w-8 h-8 text-ink-mute mx-auto mb-2" />
+          <p class="text-sm text-ink-body">
             Nenhuma notificação no momento
           </p>
         </div>

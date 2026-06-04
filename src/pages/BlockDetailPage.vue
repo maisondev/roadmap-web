@@ -91,19 +91,19 @@ const priorityColor = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900">
+  <div class="min-h-screen bg-canvas-soft">
     <div class="max-w-[120rem] mx-auto p-3 sm:p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-4 sm:space-y-6">
       <div v-if="block">
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
           <div class="min-w-0">
-            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white break-words">{{ block.title }}</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold text-ink break-words">{{ block.title }}</h1>
             <AppBadge :color="priorityColor" class="mt-2 inline-block">
               {{ block.priority === 'maxima' ? 'Prioridade Máxima' : block.priority === 'alta' ? 'Alta Prioridade' : 'Prioridade Normal' }}
             </AppBadge>
           </div>
           <div class="text-left sm:text-right flex-shrink-0">
-            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Progresso</p>
-            <p class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+            <p class="text-xs sm:text-sm text-ink-body">Progresso</p>
+            <p class="text-xl sm:text-2xl font-bold text-ink">
               {{ progressStore.blockProgressPercent(block.id) }}%
             </p>
           </div>
@@ -115,10 +115,10 @@ const priorityColor = computed(() => {
       </div>
 
       <div v-if="block" class="space-y-3 sm:space-y-4">
-        <div class="p-3 sm:p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div class="p-3 sm:p-4 border border-hairline rounded-lg bg-canvas-soft flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h2 class="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Tópicos ({{ block.topics.length }})</h2>
-            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Clique em um tópico para abrir a página de recursos.</p>
+            <h2 class="text-sm sm:text-base font-semibold text-ink">Tópicos ({{ block.topics.length }})</h2>
+            <p class="text-xs sm:text-sm text-ink-body">Clique em um tópico para abrir a página de recursos.</p>
           </div>
           <AppButton variant="secondary" size="sm" class="w-full sm:w-auto" @click="showAddTopicModal = true">
             + Novo Tópico
@@ -147,14 +147,14 @@ const priorityColor = computed(() => {
       @cancel="showAddTopicModal = false"
     >
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Título do Tópico
         </label>
         <input
           v-model="newTopicTitle"
           type="text"
           placeholder="Ex: Novo tópico de coesão"
-          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+          class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
           @keyup.enter="addNewTopic"
         />
       </div>

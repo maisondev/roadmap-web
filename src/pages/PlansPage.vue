@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto">
       <!-- Header -->
       <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Escolha seu plano</h1>
+        <h1 class="text-4xl font-bold text-ink mb-4">Escolha seu plano</h1>
         <p class="text-xl text-gray-600 dark:text-slate-300">Acesse mais recursos e limite de créditos de IA com upgrades</p>
       </div>
 
@@ -39,14 +39,14 @@
         <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition">
           <div class="p-8">
             <div class="flex items-center justify-between mb-4">
-              <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Essencial</h2>
+              <h2 class="text-2xl font-bold text-ink">Essencial</h2>
               <div v-if="currentPlan?.plan === 'ESSENCIAL'" class="px-3 py-1 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-slate-300 text-xs font-semibold rounded-full">
                 Plano atual
               </div>
             </div>
 
             <div class="mb-6">
-              <span class="text-4xl font-bold text-gray-900 dark:text-white">Grátis</span>
+              <span class="text-4xl font-bold text-ink">Grátis</span>
             </div>
 
             <ul class="space-y-4 mb-8 text-gray-700 dark:text-slate-300">
@@ -98,14 +98,14 @@
 
           <div class="p-8">
             <div class="flex items-center justify-between mb-4">
-              <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Plus</h2>
+              <h2 class="text-2xl font-bold text-ink">Plus</h2>
               <div v-if="currentPlan?.plan === 'PLUS'" class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-semibold rounded-full">
                 Plano atual
               </div>
             </div>
 
             <div class="mb-6">
-              <span class="text-4xl font-bold text-gray-900 dark:text-white">R$19,90</span>
+              <span class="text-4xl font-bold text-ink">R$19,90</span>
               <span class="text-gray-600 dark:text-slate-400">/mês</span>
             </div>
 
@@ -154,14 +154,14 @@
         <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition">
           <div class="p-8">
             <div class="flex items-center justify-between mb-4">
-              <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Avançado</h2>
+              <h2 class="text-2xl font-bold text-ink">Avançado</h2>
               <div v-if="currentPlan?.plan === 'AVANCADO'" class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-xs font-semibold rounded-full">
                 Plano atual
               </div>
             </div>
 
             <div class="mb-6">
-              <span class="text-4xl font-bold text-gray-900 dark:text-white">R$49,90</span>
+              <span class="text-4xl font-bold text-ink">R$49,90</span>
               <span class="text-gray-600 dark:text-slate-400">/mês</span>
             </div>
 

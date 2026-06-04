@@ -182,7 +182,7 @@ function saveResourceEdit() {
       'border rounded-lg transition-all overflow-hidden flex flex-col',
       resource.viewed
         ? 'bg-green-50 dark:bg-green-900/20 border-green-300 dark:border-green-700 opacity-60'
-        : 'bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-700'
+        : 'bg-gray-50 dark:bg-gray-700 border-hairline'
     ]"
   >
     <!-- YouTube Thumbnail with Title Overlay -->
@@ -210,8 +210,8 @@ function saveResourceEdit() {
 
       <!-- Header: Type and metadata -->
       <div class="flex items-center gap-2 mb-2">
-        <AppIcon :name="getIcon(resource.type)" size="sm" class="text-gray-600 dark:text-gray-400" />
-        <span class="text-xs font-medium" :class="resource.viewed ? 'text-green-700 dark:text-green-300' : 'text-gray-600 dark:text-gray-400'">
+        <AppIcon :name="getIcon(resource.type)" size="sm" class="text-ink-body" />
+        <span class="text-xs font-medium" :class="resource.viewed ? 'text-green-700 dark:text-green-300' : 'text-ink-body'">
           {{ getTypeLabel(resource.type) }}
         </span>
         <span v-if="resource.duration" class="text-xs text-gray-500 dark:text-gray-500">{{ resource.duration }}</span>
@@ -298,7 +298,7 @@ function saveResourceEdit() {
         <AppButton
           variant="ghost"
           size="sm"
-          class="text-gray-600 dark:text-gray-400"
+          class="text-ink-body"
           @click="openEditModal"
           title="Editar recurso"
         >
@@ -308,7 +308,7 @@ function saveResourceEdit() {
           v-if="resource.url && resource.type !== 'local'"
           variant="ghost"
           size="sm"
-          class="text-gray-600 dark:text-gray-400"
+          class="text-ink-body"
           @click="openInNewTab"
           title="Abrir em nova aba"
         >
@@ -318,7 +318,7 @@ function saveResourceEdit() {
           v-if="canMoveUp"
           variant="ghost"
           size="sm"
-          class="text-gray-600 dark:text-gray-400"
+          class="text-ink-body"
           @click="(e) => { e.stopPropagation(); emit('moveUp') }"
           title="Mover para cima"
         >
@@ -328,7 +328,7 @@ function saveResourceEdit() {
           v-if="canMoveDown"
           variant="ghost"
           size="sm"
-          class="text-gray-600 dark:text-gray-400"
+          class="text-ink-body"
           @click="(e) => { e.stopPropagation(); emit('moveDown') }"
           title="Mover para baixo"
         >
@@ -358,12 +358,12 @@ function saveResourceEdit() {
   >
     <div class="space-y-4">
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Tipo
         </label>
         <select
           v-model="editType"
-          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+          class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
         >
           <option value="youtube">YouTube</option>
           <option value="drive">Google Drive</option>
@@ -374,36 +374,36 @@ function saveResourceEdit() {
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Título
         </label>
         <input
           v-model="editLabel"
           type="text"
-          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+          class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
         />
       </div>
 
       <div v-if="editType !== 'local'">
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           URL
         </label>
         <input
           v-model="editUrl"
           type="url"
-          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+          class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
         />
       </div>
 
       <div v-else class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label class="block text-sm font-medium text-ink-body">
           Caminho local
         </label>
         <input
           v-model="editUrl"
           type="text"
           readonly
-          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white opacity-70"
+          class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink opacity-70"
         />
         <AppButton
           variant="secondary"
@@ -417,25 +417,25 @@ function saveResourceEdit() {
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Duração
         </label>
         <input
           v-model="editDuration"
           type="text"
           placeholder="Ex: 18 min"
-          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+          class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
         />
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Anotações do recurso
         </label>
         <textarea
           v-model="editNotes"
           rows="6"
-          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+          class="w-full px-3 py-2 text-sm border border-hairline rounded-lg bg-canvas-soft text-ink"
           placeholder="Resumo, pontos importantes, dúvidas, timestamp do vídeo, etc."
         />
       </div>

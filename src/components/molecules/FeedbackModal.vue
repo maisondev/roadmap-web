@@ -17,40 +17,40 @@
       </div>
 
       <div v-if="!success">
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label class="block text-sm font-medium text-ink-body mb-1">
           Seu Nome
         </label>
         <input
           v-model="formData.name"
           type="text"
           placeholder="João Silva"
-          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors"
+          class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors"
           :disabled="isSubmitting"
         />
       </div>
 
       <div v-if="!success">
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label class="block text-sm font-medium text-ink-body mb-1">
           Seu Email
         </label>
         <input
           v-model="formData.email"
           type="email"
           placeholder="seu@email.com"
-          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors"
+          class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors"
           :disabled="isSubmitting"
         />
       </div>
 
       <div v-if="!success">
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label class="block text-sm font-medium text-ink-body mb-1">
           Mensagem
         </label>
         <textarea
           v-model="formData.message"
           placeholder="Descreva seu feedback ou bug..."
           rows="4"
-          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors resize-none"
+          class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors resize-none"
           :disabled="isSubmitting"
         ></textarea>
       </div>

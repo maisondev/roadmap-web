@@ -56,12 +56,12 @@ function getNotificationTypeLabel(type: string) {
       <!-- Header -->
       <div class="mb-8">
         <div class="flex items-center gap-3 mb-2">
-          <BellIcon class="w-6 h-6 text-gray-700 dark:text-gray-300" />
-          <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+          <BellIcon class="w-6 h-6 text-ink-body" />
+          <h1 class="text-3xl font-bold text-ink">
             Notificações
           </h1>
         </div>
-        <p class="text-gray-600 dark:text-gray-400">
+        <p class="text-ink-body">
           {{ notificationsStore.unreadCount }} não lida(s) de {{ notificationsStore.notifications.length }} total
         </p>
       </div>
@@ -78,8 +78,8 @@ function getNotificationTypeLabel(type: string) {
       </div>
 
       <!-- Filters -->
-      <div class="mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-        <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+      <div class="mb-6 p-4 bg-canvas rounded-lg border border-hairline">
+        <h3 class="text-sm font-semibold text-ink mb-3">
           Filtros
         </h3>
         <div class="flex flex-wrap gap-2">
@@ -93,7 +93,7 @@ function getNotificationTypeLabel(type: string) {
                 'px-3 py-1 text-xs font-medium rounded-full transition-colors',
                 filterType === type
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  : 'bg-gray-100 dark:bg-gray-700 text-ink-body hover:bg-gray-200 dark:hover:bg-gray-600'
               ]"
             >
               {{ type === 'all' ? 'Todos' : getNotificationTypeLabel(type) }}
@@ -110,7 +110,7 @@ function getNotificationTypeLabel(type: string) {
                 'px-3 py-1 text-xs font-medium rounded-full transition-colors',
                 filterRead === status
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  : 'bg-gray-100 dark:bg-gray-700 text-ink-body hover:bg-gray-200 dark:hover:bg-gray-600'
               ]"
             >
               {{ status === 'all' ? 'Todos' : (status === 'read' ? 'Lidas' : 'Não lidas') }}
@@ -125,7 +125,7 @@ function getNotificationTypeLabel(type: string) {
           v-for="notif in filteredNotifications"
           :key="notif.id"
           :class="[
-            'border-l-4 p-6 rounded-lg bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-all hover:shadow-md',
+            'border-l-4 p-6 rounded-lg bg-canvas border-b border-hairline transition-all hover:shadow-md',
             getNotificationBorderColor(notif.type),
             notif.read
               ? 'opacity-85'
@@ -145,10 +145,10 @@ function getNotificationTypeLabel(type: string) {
 
             <!-- Content -->
             <div class="flex-1 min-w-0">
-              <h3 class="font-semibold text-lg text-gray-900 dark:text-white leading-snug">
+              <h3 class="font-semibold text-lg text-ink leading-snug">
                 {{ notif.title }}
               </h3>
-              <p class="text-base text-gray-700 dark:text-gray-300 mt-3 whitespace-pre-wrap break-words leading-relaxed">
+              <p class="text-base text-ink-body mt-3 whitespace-pre-wrap break-words leading-relaxed">
                 {{ notif.message }}
               </p>
               <p class="text-sm text-gray-500 dark:text-gray-400 mt-3.5">
@@ -189,8 +189,8 @@ function getNotificationTypeLabel(type: string) {
 
       <!-- Empty state -->
       <div v-else class="py-12 text-center">
-        <BellIcon class="w-12 h-12 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
-        <p class="text-lg text-gray-600 dark:text-gray-400 mb-2">
+        <BellIcon class="w-12 h-12 text-ink-mute mx-auto mb-4" />
+        <p class="text-lg text-ink-body mb-2">
           Nenhuma notificação encontrada
         </p>
         <p class="text-sm text-gray-500 dark:text-gray-500">

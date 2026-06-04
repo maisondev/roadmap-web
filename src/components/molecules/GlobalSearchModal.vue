@@ -128,13 +128,13 @@ function handleCancel() {
   >
     <div class="space-y-4">
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm font-medium text-ink-body mb-2">
           Buscar em todos os roadmaps
         </label>
         <input
           v-model="searchQuery"
           type="text"
-          class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-base"
+          class="w-full px-4 py-3 border border-hairline rounded-lg bg-canvas-soft text-ink text-base"
           placeholder="Digite para buscar roadmaps, módulos, tópicos ou recursos..."
           @keyup.enter="performSearch"
         />
@@ -142,7 +142,7 @@ function handleCancel() {
 
       <!-- Search Results -->
       <div v-if="results.length > 0" class="space-y-3 max-h-96 overflow-y-auto">
-        <div class="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <div class="text-sm font-medium text-ink-body">
           Resultados encontrados ({{ results.length }})
         </div>
 
@@ -150,7 +150,7 @@ function handleCancel() {
           v-for="result in results"
           :key="`${result.type}-${result.id}`"
           @click="handleNavigate(result)"
-          class="p-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
+          class="p-3 border border-hairline rounded-lg bg-canvas hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
         >
           <div class="flex items-start justify-between gap-3">
             <div class="min-w-0">
@@ -174,11 +174,11 @@ function handleCancel() {
                           : 'Recurso'
                   }}
                 </span>
-                <h4 class="font-semibold text-gray-900 dark:text-white truncate">
+                <h4 class="font-semibold text-ink truncate">
                   {{ result.title }}
                 </h4>
               </div>
-              <p v-if="result.description" class="text-sm text-gray-600 dark:text-gray-400 truncate">
+              <p v-if="result.description" class="text-sm text-ink-body truncate">
                 {{ result.description }}
               </p>
               <div class="flex items-center gap-2 mt-1">
@@ -212,14 +212,14 @@ function handleCancel() {
 
       <!-- No results -->
       <div v-else-if="hasSearched && results.length === 0" class="text-center py-6">
-        <p class="text-gray-600 dark:text-gray-400">
+        <p class="text-ink-body">
           Nenhum resultado encontrado para "{{ searchQuery }}"
         </p>
       </div>
 
       <!-- Empty state -->
       <div v-else-if="!hasSearched" class="text-center py-6">
-        <p class="text-gray-600 dark:text-gray-400">
+        <p class="text-ink-body">
           Digite algo para buscar em todos os seus roadmaps
         </p>
       </div>

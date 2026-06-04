@@ -27,12 +27,12 @@ async function accept() {
       v-if="authStore.needsConsent"
       class="fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
     >
-      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-5">
+      <div class="bg-canvas rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-5">
         <!-- Header -->
         <div class="space-y-1">
           <div class="flex items-center gap-2">
             <span class="text-2xl">🔒</span>
-            <h2 class="text-lg font-bold text-gray-900 dark:text-white">Política de Privacidade atualizada</h2>
+            <h2 class="text-lg font-bold text-ink">Política de Privacidade atualizada</h2>
           </div>
           <p class="text-sm text-gray-500 dark:text-gray-400">
             Para continuar usando o Sinapses, precisamos do seu consentimento conforme a LGPD.
@@ -42,7 +42,7 @@ async function accept() {
         <!-- Resumo dos dados -->
         <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 space-y-2">
           <p class="text-xs font-semibold text-blue-800 dark:text-blue-300 uppercase tracking-wide">O que coletamos</p>
-          <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+          <ul class="text-sm text-ink-body space-y-1">
             <li class="flex items-start gap-2"><span class="text-blue-500 mt-0.5">•</span> E-mail e nome (para identificação)</li>
             <li class="flex items-start gap-2"><span class="text-blue-500 mt-0.5">•</span> Roadmaps e conteúdos que você cria</li>
             <li class="flex items-start gap-2"><span class="text-blue-500 mt-0.5">•</span> Registros de estudo (tempo, notas, humor)</li>
@@ -57,7 +57,7 @@ async function accept() {
             type="checkbox"
             class="mt-0.5 w-4 h-4 text-blue-600 border-gray-300 rounded cursor-pointer flex-shrink-0"
           />
-          <span class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+          <span class="text-sm text-ink-body leading-relaxed">
             Li e aceito a
             <router-link to="/privacidade" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">Política de Privacidade</router-link>
             e os

@@ -61,18 +61,18 @@ onBeforeUnmount(() => {
 <template>
   <Teleport to="body">
     <div v-if="open" class="fixed inset-0 bg-black/50 dark:bg-black/70 flex items-center justify-center z-50 p-3 sm:p-4">
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto p-4 sm:p-6 animate-in">
-        <h2 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">{{ title }}</h2>
+      <div class="bg-canvas rounded-lg shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto p-4 sm:p-6 animate-in">
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-4">{{ title }}</h2>
 
         <div class="mb-6">
           <slot />
         </div>
 
-        <div v-if="showFooter" class="flex gap-2 sm:gap-3 justify-end sticky bottom-0 bg-white dark:bg-gray-800 -m-4 sm:-m-6 mt-6 px-4 sm:px-6 py-3 sm:py-4 flex-col-reverse sm:flex-row">
+        <div v-if="showFooter" class="flex gap-2 sm:gap-3 justify-end sticky bottom-0 bg-canvas -m-4 sm:-m-6 mt-6 px-4 sm:px-6 py-3 sm:py-4 flex-col-reverse sm:flex-row">
           <slot name="footer">
             <button
               @click="$emit('cancel')"
-              class="px-4 py-2.5 sm:py-3 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors font-medium text-sm sm:text-base"
+              class="px-4 py-2.5 sm:py-3 rounded-lg border border-hairline text-ink hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors font-medium text-sm sm:text-base"
             >
               {{ cancelLabel }}
             </button>

@@ -93,7 +93,7 @@ const breadcrumbs = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen bg-light dark:bg-gray-900 overflow-x-hidden">
+  <div class="flex flex-col min-h-screen bg-canvas-soft overflow-x-hidden">
     <!-- Navigation Bar -->
     <AppNavBar />
 

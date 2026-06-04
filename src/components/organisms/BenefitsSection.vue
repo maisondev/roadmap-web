@@ -42,13 +42,13 @@ const benefits: Benefit[] = [
 </script>
 
 <template>
-  <section class="border-y border-slate-200 dark:border-slate-800 py-16 sm:py-20 md:py-24 bg-gradient-to-b from-blue-50 via-purple-50/50 to-cyan-50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-cyan-950/20">
+  <section class="border-y border-hairline py-16 sm:py-20 md:py-24 bg-canvas-soft">
     <div class="max-w-6xl mx-auto px-4">
       <div class="text-center mb-12 sm:mb-16 md:mb-20">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">
-          Tudo para fortalecer suas sinapses
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-ink mb-3 sm:mb-4">
+          Tudo para fortalecer suas sinapses.
         </h2>
-        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+        <p class="text-base sm:text-lg text-ink-body max-w-2xl mx-auto">
           Ferramentas completas para mapear, conectar e fortalecer seus conhecimentos
         </p>
       </div>
@@ -57,15 +57,15 @@ const benefits: Benefit[] = [
         <div
           v-for="(benefit, idx) in benefits"
           :key="idx"
-          class="p-8 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10"
+          class="p-8 rounded-lg border-0 bg-canvas shadow-card hover:shadow-card-lg transition-all duration-300"
         >
           <div class="mb-4">
             <BenefitIcon :icon="benefit.icon" :size="56" />
           </div>
-          <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+          <h3 class="text-lg font-semibold text-ink mb-2">
             {{ benefit.title }}
           </h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p class="text-ink-body leading-relaxed">
             {{ benefit.description }}
           </p>
         </div>

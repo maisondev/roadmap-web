@@ -29,30 +29,30 @@ function formatDate(dateString: string): string {
 <template>
   <div
     v-if="compact"
-    class="p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 flex items-center justify-between"
+    class="p-3 border border-hairline rounded-lg bg-canvas-soft flex items-center justify-between"
   >
     <div class="flex items-center gap-3">
       <span class="text-2xl">{{ moodEmojis[entry.mood] }}</span>
       <div>
-        <p class="font-medium text-gray-900 dark:text-white">{{ formatDate(entry.date) }}</p>
-        <p class="text-sm text-gray-600 dark:text-gray-400">{{ entry.minutosEstudados }}min • {{ entry.questoesFeitas }} Q</p>
+        <p class="font-medium text-ink">{{ formatDate(entry.date) }}</p>
+        <p class="text-sm text-ink-body">{{ entry.minutosEstudados }}min • {{ entry.questoesFeitas }} Q</p>
       </div>
     </div>
   </div>
-  <div v-else class="p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800">
+  <div v-else class="p-4 border border-hairline rounded-lg bg-canvas">
     <div class="flex items-center justify-between mb-3">
-      <p class="font-semibold text-gray-900 dark:text-white">{{ formatDate(entry.date) }}</p>
+      <p class="font-semibold text-ink">{{ formatDate(entry.date) }}</p>
       <span class="text-2xl">{{ moodEmojis[entry.mood] }}</span>
     </div>
 
     <div class="space-y-2 mb-3">
       <div>
         <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Fiz</p>
-        <p class="text-gray-900 dark:text-white">{{ entry.fiz || '—' }}</p>
+        <p class="text-ink">{{ entry.fiz || '—' }}</p>
       </div>
       <div>
         <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Farei Amanhã</p>
-        <p class="text-gray-900 dark:text-white">{{ entry.fareiAmanha || '—' }}</p>
+        <p class="text-ink">{{ entry.fareiAmanha || '—' }}</p>
       </div>
     </div>
 

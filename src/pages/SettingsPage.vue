@@ -257,10 +257,10 @@ function formatPlanIcon(plan: string) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900">
+  <div class="min-h-screen bg-canvas-soft">
     <!-- Header -->
     <div class="border-b border-gray-200 dark:border-gray-800 p-3 sm:p-4">
-      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white max-w-7xl mx-auto">Configurações</h1>
+      <h1 class="text-2xl sm:text-3xl font-bold text-ink max-w-7xl mx-auto">Configurações</h1>
     </div>
 
     <!-- Main content: Sidebar + Content -->
@@ -275,7 +275,7 @@ function formatPlanIcon(plan: string) {
             'flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors border-l-4 text-left',
             activeSection === section.id
               ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-blue-600'
-              : 'text-gray-700 dark:text-gray-300 border-transparent hover:bg-gray-50 dark:hover:bg-gray-800/50'
+              : 'text-ink-body border-transparent hover:bg-gray-50 dark:hover:bg-gray-800/50'
           ]"
         >
           <AppIcon :name="section.icon" size="sm" />
@@ -294,7 +294,7 @@ function formatPlanIcon(plan: string) {
               'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors',
               activeSection === section.id
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+                : 'bg-gray-100 dark:bg-gray-800 text-ink-body'
             ]"
           >
             {{ section.label }}
@@ -307,22 +307,22 @@ function formatPlanIcon(plan: string) {
         <!-- Seção: Perfil -->
         <div v-if="activeSection === 'perfil'" class="space-y-6">
           <!-- Perfil Card -->
-          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
+          <div class="bg-canvas border border-hairline rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
             <div class="flex items-center gap-3 pb-3 sm:pb-4 border-b border-gray-100 dark:border-gray-700">
               <div class="p-2 rounded-lg bg-cyan-50 dark:bg-cyan-900/20">
                 <AppIcon name="user" size="sm" class="text-cyan-600 dark:text-cyan-400" />
               </div>
               <div>
-                <h2 class="font-semibold text-gray-900 dark:text-white text-sm sm:text-base">Perfil</h2>
+                <h2 class="font-semibold text-ink text-sm sm:text-base">Perfil</h2>
                 <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Personalize seu perfil</p>
               </div>
             </div>
             <div class="space-y-3 sm:space-y-4">
             <!-- Avatar -->
             <div>
-              <p class="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 sm:mb-3">Foto de Perfil</p>
+              <p class="text-xs sm:text-sm font-medium text-ink-body mb-2 sm:mb-3">Foto de Perfil</p>
               <div class="flex items-center gap-3 sm:gap-4">
-                <img :src="currentAvatarUrl" :alt="authStore.username || 'Avatar'" class="w-16 sm:w-20 h-16 sm:h-20 rounded-full border-2 border-gray-200 dark:border-gray-700" />
+                <img :src="currentAvatarUrl" :alt="authStore.username || 'Avatar'" class="w-16 sm:w-20 h-16 sm:h-20 rounded-full border-2 border-hairline" />
                 <div>
                   <p class="text-xs text-gray-500 dark:text-gray-400">
                     {{ profileAvatar ? 'URL customizada' : 'Usando Gravatar' }}
@@ -340,9 +340,9 @@ function formatPlanIcon(plan: string) {
 
               <div class="mt-3 sm:mt-4 space-y-2 sm:space-y-3">
                 <label class="block">
-                  <span class="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">URL customizada da foto (opcional)</span>
+                  <span class="text-xs sm:text-sm font-medium text-ink-body">URL customizada da foto (opcional)</span>
                   <input v-model="profileAvatar" type="url" placeholder="https://exemplo.com/foto.jpg"
-                    class="w-full mt-1 px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white" />
+                    class="w-full mt-1 px-3 py-2 text-sm border border-hairline rounded-lg bg-canvas-soft text-ink" />
                 </label>
                 <div class="flex gap-2">
                   <AppButton variant="ghost" size="sm" @click="resetAvatar" class="flex-1 text-xs sm:text-sm">
@@ -364,9 +364,9 @@ function formatPlanIcon(plan: string) {
             <!-- Name -->
             <div>
               <label class="block">
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Nome</span>
+                <span class="text-sm font-medium text-ink-body">Nome</span>
                 <input v-model="profileName" type="text" placeholder="Seu nome completo"
-                  class="w-full mt-1 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white" />
+                  class="w-full mt-1 px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink" />
               </label>
             </div>
 
@@ -390,33 +390,33 @@ function formatPlanIcon(plan: string) {
         </div>
 
         <!-- Seção: Conta -->
-        <div v-if="activeSection === 'conta'" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+        <div v-if="activeSection === 'conta'" class="bg-canvas border border-hairline rounded-xl p-6 space-y-4">
           <div class="flex items-center gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
             <div class="p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20">
               <AppIcon name="lock" size="sm" class="text-blue-600 dark:text-blue-400" />
             </div>
             <div>
-              <h2 class="font-semibold text-gray-900 dark:text-white">Conta</h2>
+              <h2 class="font-semibold text-ink">Conta</h2>
               <p class="text-sm text-gray-500 dark:text-gray-400">Gerenciar segurança da sua conta</p>
             </div>
           </div>
           <div class="space-y-4">
             <div>
-              <label class="block"><span class="text-sm font-medium text-gray-700 dark:text-gray-300">Senha Atual</span>
+              <label class="block"><span class="text-sm font-medium text-ink-body">Senha Atual</span>
                 <input v-model="currentPassword" type="password" placeholder="Digite sua senha atual"
-                  class="w-full mt-1 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white" />
+                  class="w-full mt-1 px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink" />
               </label>
             </div>
             <div>
-              <label class="block"><span class="text-sm font-medium text-gray-700 dark:text-gray-300">Nova Senha</span>
+              <label class="block"><span class="text-sm font-medium text-ink-body">Nova Senha</span>
                 <input v-model="newPassword" type="password" placeholder="Digite a nova senha"
-                  class="w-full mt-1 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white" />
+                  class="w-full mt-1 px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink" />
               </label>
             </div>
             <div>
-              <label class="block"><span class="text-sm font-medium text-gray-700 dark:text-gray-300">Confirmar Nova Senha</span>
+              <label class="block"><span class="text-sm font-medium text-ink-body">Confirmar Nova Senha</span>
                 <input v-model="confirmPassword" type="password" placeholder="Confirme a nova senha"
-                  class="w-full mt-1 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white" />
+                  class="w-full mt-1 px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink" />
               </label>
             </div>
             <AppButton variant="primary" @click="updatePassword" :disabled="isChangingPassword" class="w-full">
@@ -432,20 +432,20 @@ function formatPlanIcon(plan: string) {
         </div>
 
         <!-- Seção: Aparência -->
-        <div v-if="activeSection === 'aparencia'" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+        <div v-if="activeSection === 'aparencia'" class="bg-canvas border border-hairline rounded-xl p-6 space-y-4">
           <div class="flex items-center gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
             <div class="p-2 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
               <AppIcon name="sun" size="sm" class="text-yellow-600 dark:text-yellow-400" />
             </div>
             <div>
-              <h2 class="font-semibold text-gray-900 dark:text-white">Aparência</h2>
+              <h2 class="font-semibold text-ink">Aparência</h2>
               <p class="text-sm text-gray-500 dark:text-gray-400">Personalize a aparência da aplicação</p>
             </div>
           </div>
           <div class="space-y-3">
             <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
               <div>
-                <p class="font-medium text-gray-900 dark:text-white">Tema</p>
+                <p class="font-medium text-ink">Tema</p>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Tema atual: <span class="font-semibold capitalize">{{ settingsStore.settings.theme }}</span></p>
               </div>
               <AppButton variant="secondary" size="sm" @click="settingsStore.toggleTheme">Alternar</AppButton>
@@ -454,58 +454,58 @@ function formatPlanIcon(plan: string) {
         </div>
 
         <!-- Seção: Preferências -->
-        <div v-if="activeSection === 'preferencias'" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+        <div v-if="activeSection === 'preferencias'" class="bg-canvas border border-hairline rounded-xl p-6 space-y-4">
           <div class="flex items-center gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
             <div class="p-2 rounded-lg bg-purple-50 dark:bg-purple-900/20">
               <AppIcon name="sliders-horizontal" size="sm" class="text-purple-600 dark:text-purple-400" />
             </div>
             <div>
-              <h2 class="font-semibold text-gray-900 dark:text-white">Preferências</h2>
+              <h2 class="font-semibold text-ink">Preferências</h2>
               <p class="text-sm text-gray-500 dark:text-gray-400">Configure o comportamento da aplicação</p>
             </div>
           </div>
           <label class="flex items-start gap-3 cursor-pointer select-none p-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg">
             <AppCheckbox v-model="settingsStore.settings.markViewedOnOpen" class="mt-1" />
             <div>
-              <p class="text-sm font-medium text-gray-900 dark:text-white">Marcar recurso como visto ao abrir</p>
+              <p class="text-sm font-medium text-ink">Marcar recurso como visto ao abrir</p>
               <p class="text-xs text-gray-500 dark:text-gray-400">Marca automaticamente como visto ao clicar no recurso</p>
             </div>
           </label>
         </div>
 
         <!-- Seção: Metas Diárias -->
-        <div v-if="activeSection === 'metas'" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+        <div v-if="activeSection === 'metas'" class="bg-canvas border border-hairline rounded-xl p-6 space-y-4">
           <div class="flex items-center gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
             <div class="p-2 rounded-lg bg-green-50 dark:bg-green-900/20">
               <AppIcon name="target" size="sm" class="text-green-600 dark:text-green-400" />
             </div>
             <div>
-              <h2 class="font-semibold text-gray-900 dark:text-white">Metas Diárias</h2>
+              <h2 class="font-semibold text-ink">Metas Diárias</h2>
               <p class="text-sm text-gray-500 dark:text-gray-400">Defina suas metas de aprendizado</p>
             </div>
           </div>
           <div class="space-y-4">
             <label class="block">
-              <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Minutos de estudo por dia</span>
+              <span class="text-sm font-medium text-ink-body">Minutos de estudo por dia</span>
               <input v-model.number="settingsStore.settings.dailyGoalMinutes" type="number" min="0"
-                class="w-full mt-1 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white" />
+                class="w-full mt-1 px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink" />
             </label>
             <label class="block">
-              <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Questões a resolver por dia</span>
+              <span class="text-sm font-medium text-ink-body">Questões a resolver por dia</span>
               <input v-model.number="settingsStore.settings.dailyGoalQuestoes" type="number" min="0"
-                class="w-full mt-1 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white" />
+                class="w-full mt-1 px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink" />
             </label>
           </div>
         </div>
 
         <!-- Seção: Dados -->
-        <div v-if="activeSection === 'dados'" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+        <div v-if="activeSection === 'dados'" class="bg-canvas border border-hairline rounded-xl p-6 space-y-4">
           <div class="flex items-center gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
             <div class="p-2 rounded-lg bg-orange-50 dark:bg-orange-900/20">
               <AppIcon name="database" size="sm" class="text-orange-600 dark:text-orange-400" />
             </div>
             <div>
-              <h2 class="font-semibold text-gray-900 dark:text-white">Dados</h2>
+              <h2 class="font-semibold text-ink">Dados</h2>
               <p class="text-sm text-gray-500 dark:text-gray-400">Exporte e importe seu backup</p>
             </div>
           </div>
@@ -522,17 +522,17 @@ function formatPlanIcon(plan: string) {
         <!-- Seção: Privacidade & LGPD -->
         <div v-if="activeSection === 'privacidade'" class="space-y-4">
           <!-- Seus direitos -->
-          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+          <div class="bg-canvas border border-hairline rounded-xl p-6 space-y-4">
             <div class="flex items-center gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
               <div class="p-2 rounded-lg bg-green-50 dark:bg-green-900/20">
                 <AppIcon name="shield" size="sm" class="text-green-600 dark:text-green-400" />
               </div>
               <div>
-                <h2 class="font-semibold text-gray-900 dark:text-white">Privacidade & LGPD</h2>
+                <h2 class="font-semibold text-ink">Privacidade & LGPD</h2>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Seus direitos conforme a Lei Geral de Proteção de Dados</p>
               </div>
             </div>
-            <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+            <div class="space-y-3 text-sm text-ink-body">
               <p>Coletamos apenas os dados necessários para o funcionamento do Sinapses: e-mail, nome (opcional), e seu conteúdo de estudos. Você tem controle total sobre seus dados.</p>
               <div class="flex flex-wrap gap-2">
                 <router-link to="/privacidade" class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-medium hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
@@ -546,9 +546,9 @@ function formatPlanIcon(plan: string) {
           </div>
 
           <!-- Exportar dados -->
-          <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+          <div class="bg-canvas border border-hairline rounded-xl p-6 space-y-4">
             <div>
-              <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Portabilidade de Dados</h3>
+              <h3 class="font-semibold text-ink mb-1">Portabilidade de Dados</h3>
               <p class="text-sm text-gray-500 dark:text-gray-400">Baixe uma cópia completa de todos os seus dados pessoais (Art. 18, V, LGPD)</p>
             </div>
             <AppButton variant="secondary" @click="exportPersonalData" :disabled="isExportingData" class="w-full">
@@ -560,7 +560,7 @@ function formatPlanIcon(plan: string) {
           </div>
 
           <!-- Zona de perigo -->
-          <div class="bg-white dark:bg-gray-800 border border-red-200 dark:border-red-900/50 rounded-xl p-6 space-y-4">
+          <div class="bg-canvas border border-red-200 dark:border-red-900/50 rounded-xl p-6 space-y-4">
             <div>
               <h3 class="font-semibold text-red-700 dark:text-red-400 mb-1">Zona de Perigo</h3>
               <p class="text-sm text-gray-500 dark:text-gray-400">A exclusão da conta é permanente e irreversível. Todos os seus dados serão apagados (Art. 18, VI, LGPD).</p>
@@ -582,18 +582,18 @@ function formatPlanIcon(plan: string) {
           @cancel="showDeleteModal = false; deletePassword = ''; deleteError = null"
         >
           <div class="space-y-4">
-            <p class="text-sm text-gray-700 dark:text-gray-300">
+            <p class="text-sm text-ink-body">
               Esta ação é <strong>irreversível</strong>. Todos os seus roadmaps, registros, configurações e dados pessoais serão permanentemente excluídos.
             </p>
             <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label class="block text-sm font-medium text-ink-body mb-1">
                 Digite sua senha para confirmar
               </label>
               <input
                 v-model="deletePassword"
                 type="password"
                 placeholder="Sua senha atual"
-                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
                 @keyup.enter="confirmDeleteAccount"
               />
             </div>
@@ -604,21 +604,21 @@ function formatPlanIcon(plan: string) {
         </AppModal>
 
         <!-- Seção: Sobre -->
-        <div v-if="activeSection === 'sobre'" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+        <div v-if="activeSection === 'sobre'" class="bg-canvas border border-hairline rounded-xl p-6 space-y-4">
           <div class="flex items-center gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
             <div class="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/20">
               <AppIcon name="info" size="sm" class="text-indigo-600 dark:text-indigo-400" />
             </div>
             <div>
-              <h2 class="font-semibold text-gray-900 dark:text-white">Sobre</h2>
+              <h2 class="font-semibold text-ink">Sobre</h2>
               <p class="text-sm text-gray-500 dark:text-gray-400">Informações sobre a aplicação</p>
             </div>
           </div>
           <div class="space-y-3 text-sm">
-            <p><span class="font-medium text-gray-900 dark:text-white">Desenvolvedor:</span> <span class="text-gray-600 dark:text-gray-400">Maison</span></p>
-            <p><span class="font-medium text-gray-900 dark:text-white">Projeto:</span> <span class="text-gray-600 dark:text-gray-400">Organização de estudos com roadmaps e rastreamento de progresso</span></p>
-            <p><span class="font-medium text-gray-900 dark:text-white">Domínio:</span> <a href="https://sinapses.site" target="_blank" rel="noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">sinapses.site</a></p>
-            <p><span class="font-medium text-gray-900 dark:text-white">GitHub:</span> <a href="https://github.com/maisondev" target="_blank" rel="noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">@maisondev</a></p>
+            <p><span class="font-medium text-ink">Desenvolvedor:</span> <span class="text-ink-body">Maison</span></p>
+            <p><span class="font-medium text-ink">Projeto:</span> <span class="text-ink-body">Organização de estudos com roadmaps e rastreamento de progresso</span></p>
+            <p><span class="font-medium text-ink">Domínio:</span> <a href="https://sinapses.site" target="_blank" rel="noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">sinapses.site</a></p>
+            <p><span class="font-medium text-ink">GitHub:</span> <a href="https://github.com/maisondev" target="_blank" rel="noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">@maisondev</a></p>
           </div>
         </div>
       </div>

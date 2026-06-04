@@ -44,33 +44,33 @@ const isRegister = computed<boolean>(() => {
   >
     <div class="space-y-5 sm:space-y-4">
       <div v-if="mode === 'register'">
-        <label class="block text-sm sm:text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm sm:text-xs font-medium text-ink-body mb-2">
           Nome completo
         </label>
         <input
           :value="fullName"
           @input="$emit('updateFullName', ($event.target as HTMLInputElement).value)"
           type="text"
-          class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-base"
+          class="w-full px-4 py-3 border border-hairline rounded-lg bg-canvas-soft text-ink text-base"
           placeholder="Seu nome completo"
         />
       </div>
 
       <div>
-        <label class="block text-sm sm:text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm sm:text-xs font-medium text-ink-body mb-2">
           E-mail
         </label>
         <input
           :value="email"
           @input="$emit('updateEmail', ($event.target as HTMLInputElement).value)"
           type="email"
-          class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-base"
+          class="w-full px-4 py-3 border border-hairline rounded-lg bg-canvas-soft text-ink text-base"
           placeholder="seu@email.com"
         />
       </div>
 
       <div>
-        <label class="block text-sm sm:text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label class="block text-sm sm:text-xs font-medium text-ink-body mb-2">
           Senha
         </label>
         <div class="relative">
@@ -78,7 +78,7 @@ const isRegister = computed<boolean>(() => {
             :value="password"
             @input="$emit('updatePassword', ($event.target as HTMLInputElement).value)"
             :type="showPassword ? 'text' : 'password'"
-            class="w-full px-4 py-3 pr-12 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-base"
+            class="w-full px-4 py-3 pr-12 border border-hairline rounded-lg bg-canvas-soft text-ink text-base"
             :placeholder="mode === 'register' ? 'Mínimo 6 caracteres' : 'Sua senha'"
           />
           <button
@@ -100,7 +100,7 @@ const isRegister = computed<boolean>(() => {
           type="checkbox"
           class="mt-0.5 w-4 h-4 text-blue-600 border-gray-300 rounded cursor-pointer flex-shrink-0"
         />
-        <label for="navbar-consent" class="text-xs text-gray-700 dark:text-gray-300 cursor-pointer leading-relaxed">
+        <label for="navbar-consent" class="text-xs text-ink-body cursor-pointer leading-relaxed">
           Li e aceito a
           <router-link to="/privacidade" class="text-blue-600 dark:text-blue-400 hover:underline" @click="$emit('close')">Política de Privacidade</router-link>
           e os
@@ -113,7 +113,7 @@ const isRegister = computed<boolean>(() => {
         {{ authError }}
       </p>
 
-      <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+      <div class="mb-6 pb-6 border-b border-hairline">
         <div id="google-signin-button-navbar" class="flex justify-center" style="min-height: 48px;"></div>
       </div>
 

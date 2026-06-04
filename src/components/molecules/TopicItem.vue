@@ -110,7 +110,7 @@ function handleDeleteConfirm() {
 
 <template>
   <div
-    class="p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 hover:shadow-md transition-shadow flex flex-col"
+    class="p-3 border border-hairline rounded-lg bg-canvas hover:shadow-md transition-shadow flex flex-col"
   >
     <div class="flex items-start gap-3">
       <AppCheckbox
@@ -119,7 +119,7 @@ function handleDeleteConfirm() {
         @click.stop
       />
       <div class="flex-1 min-w-0 cursor-pointer" @click="emit('open')">
-        <p class="font-medium text-gray-900 dark:text-white break-words">{{ topic.title }}</p>
+        <p class="font-medium text-ink break-words">{{ topic.title }}</p>
         <div class="flex gap-2 mt-2 flex-wrap">
           <AppBadge :color="statusMap[topic.status].color" size="sm">
             {{ statusMap[topic.status].label }}
@@ -143,7 +143,7 @@ function handleDeleteConfirm() {
     </div>
 
     <!-- Action buttons -->
-    <div class="flex gap-1 mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+    <div class="flex gap-1 mt-3 pt-3 border-t border-hairline">
       <AppButton
         variant="ghost"
         size="sm"
@@ -191,13 +191,13 @@ function handleDeleteConfirm() {
     @cancel="showEditModal = false"
   >
     <div>
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      <label class="block text-sm font-medium text-ink-body mb-2">
         Título
       </label>
       <input
         v-model="editTitle"
         type="text"
-        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+        class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
         @keyup.enter="saveTitle"
       />
     </div>

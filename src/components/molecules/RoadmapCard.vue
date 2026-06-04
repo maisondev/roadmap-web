@@ -183,7 +183,7 @@ const handleDeleteConfirm = (password: string) => {
 
 <template>
   <div
-    class="relative p-6 border-l-4 rounded-lg bg-white dark:bg-gray-800 group border border-gray-300 dark:border-gray-700 flex flex-col h-full cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition-all"
+    class="relative p-6 border-l-4 rounded-lg bg-canvas group border border-hairline flex flex-col h-full cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition-all"
     :style="{ borderLeftColor: colorHex }"
     @click="$emit('navigate')"
   >
@@ -194,7 +194,7 @@ const handleDeleteConfirm = (password: string) => {
       <!-- Header -->
       <div class="min-w-0 group/content">
         <div class="flex items-start justify-between gap-3">
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white break-words group-hover/content:text-blue-600 dark:group-hover/content:text-blue-400">
+          <h3 class="text-xl font-bold text-ink break-words group-hover/content:text-blue-600 dark:group-hover/content:text-blue-400">
             {{ roadmap.title }}
           </h3>
           <div class="flex items-center gap-2 flex-shrink-0">
@@ -214,10 +214,10 @@ const handleDeleteConfirm = (password: string) => {
           <StarSolidIcon v-for="i in displayRating" :key="i" class="w-4 h-4 text-yellow-400" />
           <StarIcon v-for="i in 5 - displayRating" :key="`empty-${i}`" class="w-4 h-4 text-gray-300 dark:text-gray-600" />
         </div>
-        <span class="text-xs text-gray-600 dark:text-gray-400">{{ displayRating }}/5</span>
+        <span class="text-xs text-ink-body">{{ displayRating }}/5</span>
       </div>
 
-      <p v-if="roadmap.description" class="text-sm text-gray-600 dark:text-gray-400 roadmap-desc-clamp">
+      <p v-if="roadmap.description" class="text-sm text-ink-body roadmap-desc-clamp">
         {{ roadmap.description }}
       </p>
 
@@ -229,7 +229,7 @@ const handleDeleteConfirm = (password: string) => {
         <span 
           v-for="tag in (roadmap.tags || [])" 
           :key="tag" 
-          class="text-xs px-2 py-1 rounded bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+          class="text-xs px-2 py-1 rounded bg-gray-100 dark:bg-gray-800 text-ink-body"
         >
           {{ tag }}
         </span>
@@ -247,29 +247,29 @@ const handleDeleteConfirm = (password: string) => {
       </div>
 
       <!-- Stats -->
-      <div class="flex gap-4 text-sm text-gray-600 dark:text-gray-400">
+      <div class="flex gap-4 text-sm text-ink-body">
         <div>
-          <span class="font-semibold text-gray-900 dark:text-white">{{ stats.blocks }}</span>
+          <span class="font-semibold text-ink">{{ stats.blocks }}</span>
           <span class="ml-1">{{ pluralize(stats.blocks, 'módulo', 'módulos') }}</span>
         </div>
         <div>
-          <span class="font-semibold text-gray-900 dark:text-white">{{ stats.topics }}</span>
+          <span class="font-semibold text-ink">{{ stats.topics }}</span>
           <span class="ml-1">{{ pluralize(stats.topics, 'tópico', 'tópicos') }}</span>
         </div>
         <div>
-          <span class="font-semibold text-gray-900 dark:text-white">{{ stats.resources }}</span>
+          <span class="font-semibold text-ink">{{ stats.resources }}</span>
           <span class="ml-1">{{ pluralize(stats.resources, 'recurso', 'recursos') }}</span>
         </div>
       </div>
     </div>
 
     <!-- Bottom section: progress + actions -->
-    <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700 space-y-3">
+    <div class="mt-auto pt-4 border-t border-hairline space-y-3">
       <!-- Progress -->
       <div>
         <div class="flex justify-between items-center mb-2">
-          <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Progresso</span>
-          <span class="text-sm font-bold text-gray-900 dark:text-white">{{ stats.percent }}%</span>
+          <span class="text-sm font-medium text-ink-body">Progresso</span>
+          <span class="text-sm font-bold text-ink">{{ stats.percent }}%</span>
         </div>
         <AppProgressBar :value="stats.percent" />
       </div>
@@ -359,33 +359,33 @@ const handleDeleteConfirm = (password: string) => {
     >
       <div class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label class="block text-sm font-medium text-ink-body mb-2">
             Título
           </label>
           <input
             v-model="editTitle"
             type="text"
-            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+            class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
           />
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label class="block text-sm font-medium text-ink-body mb-2">
             Descrição
           </label>
           <textarea
             v-model="editDescription"
             rows="3"
             :maxlength="DESCRIPTION_MAX"
-            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+            class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
           />
-          <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+          <p class="text-xs text-ink-body mt-1">
             {{ (editDescription?.length || 0) }}/{{ DESCRIPTION_MAX }}
           </p>
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label class="block text-sm font-medium text-ink-body mb-2">
             Avaliação
           </label>
           <div class="flex gap-2">
@@ -408,7 +408,7 @@ const handleDeleteConfirm = (password: string) => {
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label class="block text-sm font-medium text-ink-body mb-2">
             Cor
           </label>
           <div class="flex flex-wrap gap-2">
@@ -427,12 +427,12 @@ const handleDeleteConfirm = (password: string) => {
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label class="block text-sm font-medium text-ink-body mb-2">
             Status
           </label>
           <select
             v-model="editStatus"
-            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+            class="w-full px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
           >
             <option value="ativo">Ativo</option>
             <option value="pausado">Pausado</option>
@@ -440,7 +440,7 @@ const handleDeleteConfirm = (password: string) => {
           </select>
         </div>
 
-        <div class="text-xs text-gray-600 dark:text-gray-400">
+        <div class="text-xs text-ink-body">
           Senha para deletar roadmap: <span class="font-semibold">{{ hasDeletePassword ? 'configurada' : 'não configurada' }}</span>
         </div>
       </div>

@@ -24,7 +24,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900">
+  <div class="min-h-screen bg-canvas-soft">
     <div class="max-w-3xl mx-auto px-3 sm:px-4 py-6 sm:py-10 space-y-6 sm:space-y-8">
       <div class="flex items-center gap-2">
         <AppButton variant="ghost" size="sm" @click="router.back()" class="text-xs sm:text-sm">← Voltar</AppButton>
@@ -40,7 +40,7 @@ onMounted(async () => {
 
       <template v-else-if="policy">
         <div class="space-y-1 sm:space-y-2">
-          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{{ policy.title }}</h1>
+          <h1 class="text-2xl sm:text-3xl font-bold text-ink">{{ policy.title }}</h1>
           <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
             Versão {{ policy.version }} — Última atualização: {{ policy.lastUpdated }}
           </p>
@@ -52,12 +52,12 @@ onMounted(async () => {
             :key="section.title"
             class="space-y-1 sm:space-y-2"
           >
-            <h2 class="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">{{ section.title }}</h2>
-            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{{ section.content }}</p>
+            <h2 class="text-sm sm:text-base font-semibold text-ink">{{ section.title }}</h2>
+            <p class="text-xs sm:text-sm text-ink-body leading-relaxed">{{ section.content }}</p>
           </div>
         </div>
 
-        <div class="pt-4 sm:pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div class="pt-4 sm:pt-6 border-t border-hairline">
           <router-link to="/termos" class="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline">
             Ver também: Termos de Serviço →
           </router-link>
