@@ -63,7 +63,7 @@ const sections: HelpSection[] = [
   },
   {
     title: 'Como funciona o Ranking de Professores?',
-    content: 'Você cria um ranking com um nome específico (ex: "Melhores Professores de Matemática"). Depois, você adiciona os professores que você encontrar e gosta para aquela matéria, avaliando cada um com uma nota de 1 a 5 estrelas. Assim, quando você precisa estudar aquele assunto, sabe exatamente quais são os melhores professores para aprender com eles. Por exemplo: em um ranking de "Python", você pode adicionar Guido van Rossum (5⭐), David Beazley (5⭐), e Nate Ritter (4⭐), e sempre que precisar aprender Python, você consulta seu ranking para escolher com quem estudar.'
+    content: 'Você cria um ranking com um nome específico (ex: "Melhores Professores de Matemática"). Depois, você adiciona os professores que você encontrar e gosta para aquela matéria, avaliando cada um com uma nota de 1 a 5. Assim, quando você precisa estudar aquele assunto, sabe exatamente quais são os melhores professores para aprender com eles. Por exemplo: em um ranking de "Python", você pode adicionar Guido van Rossum (5/5), David Beazley (5/5), e Nate Ritter (4/5), e sempre que precisar aprender Python, você consulta seu ranking para escolher com quem estudar.'
   },
   {
     title: 'Como editar um Roadmap?',

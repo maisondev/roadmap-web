@@ -46,7 +46,11 @@
       "Bash(npx -y playwright install chromium)",
       "Bash(npx -y playwright codegen http://localhost:5173 --output /tmp/test.js)",
       "Bash(powershell *)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(Get-Content src/pages/*.vue)",
+      "Bash(Select-String -Pattern '<template>' -A 2)",
+      "Bash(Find-ChildItem -Recurse -Filter \"*NavBar*\" -Path \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\roadmap-web\\\\src\\\\components\")",
+      "Bash(Select-Object -First 10)"
     ]
   }
 }

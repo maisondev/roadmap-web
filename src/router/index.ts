@@ -16,6 +16,7 @@ import TermsPage from '@/pages/TermsPage.vue'
 import AchievementsPage from '@/pages/AchievementsPage.vue'
 import PlansPage from '@/pages/PlansPage.vue'
 import PaymentReturnPage from '@/pages/PaymentReturnPage.vue'
+import TeacherRankingPage from '@/pages/TeacherRankingPage.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const routes = [
@@ -96,6 +97,11 @@ const routes = [
     path: '/daily-log',
     name: 'daily-log',
     component: DailyLogPage
+  },
+  {
+    path: '/teacher-ranking',
+    name: 'teacher-ranking',
+    component: TeacherRankingPage
   },
   {
     path: '/privacidade',

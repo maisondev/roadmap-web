@@ -240,13 +240,13 @@ async function loadPlan() {
   error.value = null
 
   try {
-    console.log('📋 [PlansPage] Carregando plano do usuário...')
+    console.log('[PlansPage] Loading user plan...')
     const response = await api.get('/api/plan')
-    console.log('✅ [PlansPage] Plano carregado:', response)
+    console.log('[PlansPage] Plan loaded:', response)
     currentPlan.value = response
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Erro ao carregar plano'
-    console.error('❌ [PlansPage] Erro ao carregar plano:', err)
+    console.error('[PlansPage] Error loading plan:', err)
     error.value = errorMsg
   } finally {
     isLoading.value = false
@@ -258,15 +258,15 @@ async function upgrade(plan: 'ESSENCIAL' | 'PLUS' | 'AVANCADO') {
   error.value = null
 
   try {
-    console.log(`🔄 [PlansPage] Iniciando checkout para plano: ${plan}`)
-    console.log(`📤 [PlansPage] POST /api/plan/checkout com body:`, { plan })
+    console.log(`[PlansPage] Starting checkout for plan: ${plan}`)
+    console.log(`[PlansPage] POST /api/plan/checkout with body:`, { plan })
 
     const response = await api.post('/api/plan/checkout', { plan })
-    console.log('✅ [PlansPage] Resposta do checkout:', response)
+    console.log('[PlansPage] Checkout response:', response)
 
     // Se for downgrade para Essencial (plano gratuito)
     if (response.success && plan === 'ESSENCIAL') {
-      console.log('✅ [PlansPage] Downgrade para Essencial realizado com sucesso')
+      console.log('[PlansPage] Downgrade to Essential completed successfully')
 
       // Formatar data de expiração se existir
       let message = 'Downgrade realizado com sucesso! Você agora tem acesso ao plano Essencial.'
@@ -286,18 +286,18 @@ async function upgrade(plan: 'ESSENCIAL' | 'PLUS' | 'AVANCADO') {
 
     // Para upgrades (PLUS e AVANCADO), redirecionar para checkout
     const { checkoutUrl, publicKey, preferenceId } = response
-    console.log('🔗 [PlansPage] URLs recebidas:', { checkoutUrl, publicKey, preferenceId })
+    console.log('[PlansPage] Received URLs:', { checkoutUrl, publicKey, preferenceId })
 
     if (!checkoutUrl) {
-      throw new Error('checkoutUrl não retornou da API')
+      throw new Error('checkoutUrl not returned from API')
     }
 
-    console.log('🚀 [PlansPage] Redirecionando para:', checkoutUrl)
+    console.log('[PlansPage] Redirecting to:', checkoutUrl)
     window.location.href = checkoutUrl
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Erro ao criar checkout'
-    console.error('❌ [PlansPage] Erro ao criar checkout:', err)
-    console.error('❌ [PlansPage] Mensagem de erro:', errorMsg)
+    console.error('[PlansPage] Error creating checkout:', err)
+    console.error('[PlansPage] Error message:', errorMsg)
     error.value = errorMsg
     isLoadingCheckout.value = false
   }

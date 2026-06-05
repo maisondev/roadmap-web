@@ -6,7 +6,7 @@ import { useDailyLogStore } from '@/stores/dailyLog'
 import { useSettingsStore } from '@/stores/settings'
 import { useSync } from '@/composables/useSync'
 import { useNavBar } from '@/composables/useNavBar'
-import { ArrowLeftIcon, HomeIcon, Bars3Icon, ChartBarIcon, CalendarIcon, TrophyIcon, ShieldCheckIcon, CreditCardIcon, MoonIcon, SunIcon } from '@heroicons/vue/24/outline'
+import { ArrowLeftIcon, HomeIcon, Bars3Icon, ChartBarIcon, CalendarIcon, TrophyIcon, ShieldCheckIcon, CreditCardIcon, MoonIcon, SunIcon, UserGroupIcon } from '@heroicons/vue/24/outline'
 import AppButton from '@/components/atoms/AppButton.vue'
 import FeedbackModal from '@/components/molecules/FeedbackModal.vue'
 import AuthActions from '@/components/molecules/AuthActions.vue'
@@ -72,7 +72,8 @@ const navItems = computed(() => {
     { name: 'home', path: '/', label: 'Roadmaps', icon: HomeIcon },
     { name: 'dashboard', path: '/dashboard', label: 'Dashboard', icon: ChartBarIcon },
     { name: 'daily-log', path: '/daily-log', label: 'Registros', icon: CalendarIcon },
-    { name: 'achievements', path: '/achievements', label: 'Conquistas', icon: TrophyIcon }
+    { name: 'achievements', path: '/achievements', label: 'Conquistas', icon: TrophyIcon },
+    { name: 'teacher-ranking', path: '/teacher-ranking', label: 'Professores', icon: UserGroupIcon }
   ]
   if (authStore.isOwner) {
     items.push({ name: 'plans', path: '/plans', label: 'Planos', icon: CreditCardIcon })

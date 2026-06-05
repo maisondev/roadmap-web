@@ -297,7 +297,7 @@ async function sendFirstRoadmapMessage() {
     const response = await api.post('/api/admin/send-first-roadmap-message', {
       message: firstRoadmapMessage.value
     })
-    firstRoadmapSuccess.value = `✓ Mensagens enviadas para ${response.count} usuário(s)!`
+    firstRoadmapSuccess.value = `Messages enviadas para ${response.count} usuário(s)!`
     setTimeout(() => { firstRoadmapSuccess.value = null }, 4000)
     await loadStats()
   } catch (err) {
@@ -314,7 +314,7 @@ async function syncBadges() {
   isSyncingBadges.value = true
   try {
     const response = await api.post('/api/admin/sync-badges', {})
-    syncBadgesSuccess.value = `✓ Sincronização concluída! ${response.processed} usuários processados, ${response.awarded} badges concedidos.`
+    syncBadgesSuccess.value = `Sync concluída! ${response.processed} usuários processados, ${response.awarded} badges concedidos.`
     setTimeout(() => { syncBadgesSuccess.value = null }, 5000)
     await loadStats()
   } catch (err) {
@@ -699,10 +699,10 @@ async function syncBadges() {
                 </td>
                 <td class="px-2 py-2">
                   <span v-if="user.loginMethod === 'GOOGLE'" class="px-1.5 py-0.5 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
-                    🔵
+                    Google
                   </span>
                   <span v-else class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
-                    📧
+                    Email
                   </span>
                 </td>
                 <td class="px-2 py-2 text-ink-body whitespace-nowrap">
@@ -710,10 +710,10 @@ async function syncBadges() {
                 </td>
                 <td class="px-2 py-2">
                   <span v-if="user.consentGiven" class="px-1.5 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
-                    ✓ Sim
+                    Sim
                   </span>
                   <span v-else class="px-1.5 py-0.5 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
-                    ✗
+Não
                   </span>
                 </td>
                 <td class="px-2 py-2 text-ink-body text-center">{{ user._count.roadmaps }}</td>
@@ -793,17 +793,17 @@ async function syncBadges() {
             <p class="text-3xl font-bold text-primary mt-2">{{ plansStats.summaryCounts.total }}</p>
           </div>
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-ink-body">📗 Essencial</p>
+            <p class="text-sm text-ink-body">Essencial</p>
             <p class="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">{{ plansStats.summaryCounts.essencial }}</p>
             <p class="text-xs text-ink-body mt-1">{{ plansStats.percentages.essencialPercent }}% do total</p>
           </div>
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-ink-body">🔵 Plus</p>
+            <p class="text-sm text-ink-body">Google Plus</p>
             <p class="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-2">{{ plansStats.summaryCounts.plus }}</p>
             <p class="text-xs text-ink-body mt-1">{{ plansStats.percentages.plusPercent }}% do total</p>
           </div>
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-            <p class="text-sm text-ink-body">🟣 Avançado</p>
+            <p class="text-sm text-ink-body">Avançado</p>
             <p class="text-3xl font-bold text-purple-600 dark:text-purple-400 mt-2">{{ plansStats.summaryCounts.avancado }}</p>
             <p class="text-xs text-ink-body mt-1">{{ plansStats.percentages.avancadoPercent }}% do total</p>
           </div>
@@ -812,12 +812,12 @@ async function syncBadges() {
         <!-- Assinaturas Ativas vs Expiradas -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-ink mb-4">✓ Assinaturas Ativas</h3>
+            <h3 class="font-semibold text-ink mb-4">Assinaturas Ativas</h3>
             <p class="text-4xl font-bold text-green-600 dark:text-green-400">{{ plansStats.subscriptions.active }}</p>
             <p class="text-sm text-ink-body mt-2">Usuários com plano ativo</p>
           </div>
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-ink mb-4">⏰ Assinaturas Expiradas</h3>
+            <h3 class="font-semibold text-ink mb-4">Assinaturas Expiradas</h3>
             <p class="text-4xl font-bold text-orange-600 dark:text-orange-400">{{ plansStats.subscriptions.expired }}</p>
             <p class="text-sm text-ink-body mt-2">Usuários com plano expirado</p>
           </div>
@@ -825,7 +825,7 @@ async function syncBadges() {
 
         <!-- Receita Estimada -->
         <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-ink mb-4">💰 Receita Estimada Mensal</h3>
+          <h3 class="font-semibold text-ink mb-4">Receita Estimada Mensal</h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
               <p class="text-sm text-ink-body">Plus (R$ 19,90/mês)</p>
@@ -846,7 +846,7 @@ async function syncBadges() {
 
         <!-- Alertas: Planos Expirando em 7 Dias -->
         <div v-if="plansStats.expiringPlans && plansStats.expiringPlans.length > 0" class="p-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-          <h3 class="font-semibold text-ink mb-4">⚠️ Planos Expirando em 7 Dias</h3>
+          <h3 class="font-semibold text-ink mb-4">Planos Expirando em 7 Dias</h3>
           <div class="space-y-3">
             <div
               v-for="user in plansStats.expiringPlans"
@@ -873,7 +873,7 @@ async function syncBadges() {
           </div>
         </div>
         <div v-else class="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-          <p class="text-sm text-green-700 dark:text-green-300">✓ Nenhum plano expirando nos próximos 7 dias</p>
+          <p class="text-sm text-green-700 dark:text-green-300">Nenhum plano expirando nos próximos 7 dias</p>
         </div>
       </div>
 
@@ -884,7 +884,7 @@ async function syncBadges() {
           <h3 class="font-semibold text-ink mb-4">Enviar Notificação para Usuário</h3>
           <div class="space-y-4">
             <div v-if="notificationSendSuccess" class="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-              <p class="text-sm text-green-600 dark:text-green-400">✓ Notificação enviada com sucesso!</p>
+              <p class="text-sm text-green-600 dark:text-green-400">Notificação enviada com sucesso!</p>
             </div>
             <div v-if="notificationSendError" class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
               <p class="text-sm text-red-600 dark:text-red-400">{{ notificationSendError }}</p>
@@ -901,7 +901,7 @@ async function syncBadges() {
               <div>
                 <label class="block text-sm font-medium text-ink-body mb-2">Tipo de Notificação</label>
                 <select v-model="notificationType" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-canvas-soft text-ink">
-                  <option value="info">ℹ️ Informação</option>
+                  <option value="info">Informação</option>
                   <option value="success">Sucesso</option>
                   <option value="warning">Aviso</option>
                   <option value="error">Erro</option>
@@ -956,7 +956,7 @@ async function syncBadges() {
               :disabled="isSendingFirstRoadmapMessage"
               class="w-full"
             >
-              {{ isSendingFirstRoadmapMessage ? 'Enviando...' : '📤 Enviar para Usuários' }}
+              {{ isSendingFirstRoadmapMessage ? 'Enviando...' : 'Enviar para Usuários' }}
             </AppButton>
           </div>
         </div>
@@ -982,7 +982,7 @@ async function syncBadges() {
               :disabled="isSyncingBadges"
               class="w-full"
             >
-              {{ isSyncingBadges ? 'Sincronizando...' : '⚡ Sincronizar Badges de Todos os Usuários' }}
+              {{ isSyncingBadges ? 'Sincronizando...' : 'Sincronizar Badges de Todos os Usuários' }}
             </AppButton>
           </div>
         </div>
@@ -1016,7 +1016,7 @@ async function syncBadges() {
 
         <!-- Detalhes de Custos -->
         <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-ink mb-4">💰 Análise de Custos</h3>
+          <h3 class="font-semibold text-ink mb-4">Análise de Custos</h3>
           <div class="space-y-4">
             <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded">
               <span class="text-sm text-ink-body">Total de Tokens</span>
@@ -1050,7 +1050,7 @@ async function syncBadges() {
               </div>
               <div class="flex items-center gap-3">
                 <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">
-                  ⚡ {{ user.aiCreditsUsed }}
+                  {{  user.aiCreditsUsed }}
                 </span>
                 <span class="text-xs text-gray-500 dark:text-gray-400 w-16 text-right">
                   US$ {{ (user.aiCreditsUsed * 1500 * geminiStats.estimatedCost.costPerToken).toFixed(2) }}
@@ -1065,7 +1065,7 @@ async function syncBadges() {
 
         <!-- Informações de Modelo -->
         <div class="p-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-          <h3 class="font-semibold text-ink mb-3">ℹ️ Detalhes Técnicos</h3>
+          <h3 class="font-semibold text-ink mb-3">Detalhes Técnicos</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div>
               <p class="text-ink-body">Modelo Utilizado</p>
@@ -1090,7 +1090,7 @@ async function syncBadges() {
       <!-- Refresh -->
       <div class="flex justify-end">
         <AppButton variant="secondary" size="sm" @click="loadStats" :disabled="isLoading" class="flex items-center gap-2">
-          🔄 Atualizar
+          Atualizar
         </AppButton>
       </div>
     </div>
@@ -1112,7 +1112,7 @@ async function syncBadges() {
       </p>
       <div class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
         <p class="text-xs text-red-600 dark:text-red-400 font-semibold leading-relaxed">
-          ⚠️ Esta ação não pode ser desfeita. Todos os roadmaps, logs e dados do usuário serão permanentemente removidos.
+          Esta ação não pode ser desfeita. Todos os roadmaps, logs e dados do usuário serão permanentemente removidos.
         </p>
       </div>
     </div>
@@ -1180,3 +1180,4 @@ async function syncBadges() {
     </div>
   </AppModal>
 </template>
+

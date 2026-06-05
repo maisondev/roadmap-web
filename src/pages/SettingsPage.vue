@@ -246,14 +246,6 @@ function formatPlanColor(plan: string) {
   return colorMap[plan] || colorMap.ESSENCIAL
 }
 
-function formatPlanIcon(plan: string) {
-  const iconMap: Record<string, string> = {
-    ESSENCIAL: '📦',
-    PLUS: '⭐',
-    AVANCADO: '🚀'
-  }
-  return iconMap[plan] || '📦'
-}
 </script>
 
 <template>
