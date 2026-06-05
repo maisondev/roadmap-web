@@ -123,9 +123,10 @@ const cancelEdit = () => {
 </script>
 
 <template>
-  <div class="space-y-8">
-    <!-- Header -->
-    <div class="space-y-4 text-center">
+  <div class="min-h-screen bg-canvas-soft">
+    <div class="max-w-4xl mx-auto p-4 space-y-8">
+      <!-- Header -->
+      <div class="space-y-4 text-center">
       <h1 class="text-4xl font-bold text-ink">Registros Diários</h1>
       <p class="text-lg text-gray-600 dark:text-gray-300">
         Acompanhe sua atividade de estudo ao longo do ano
@@ -302,6 +303,7 @@ const cancelEdit = () => {
           :compact="false"
         />
       </div>
+    </div>
     </div>
   </div>
 </template>
