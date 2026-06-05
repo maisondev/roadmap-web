@@ -50,7 +50,9 @@
       "Bash(Get-Content src/pages/*.vue)",
       "Bash(Select-String -Pattern '<template>' -A 2)",
       "Bash(Find-ChildItem -Recurse -Filter \"*NavBar*\" -Path \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\roadmap-web\\\\src\\\\components\")",
-      "Bash(Select-Object -First 10)"
+      "Bash(Select-Object -First 10)",
+      "Bash(npm list *)",
+      "PowerShell(Start-Process \"http://localhost:5175/\" -ErrorAction SilentlyContinue)"
     ]
   }
 }

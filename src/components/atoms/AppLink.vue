@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import PlayIcon from '@heroicons/vue/20/solid/PlayIcon.vue'
-import DocumentIcon from '@heroicons/vue/20/solid/DocumentIcon.vue'
-import LinkIcon from '@heroicons/vue/20/solid/LinkIcon.vue'
-import ArrowTopRightOnSquareIcon from '@heroicons/vue/20/solid/ArrowTopRightOnSquareIcon.vue'
+import { PlayIcon, DocumentIcon, LinkIcon, ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/outline'
 
 interface Props {
   href: string

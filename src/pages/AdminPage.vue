@@ -8,12 +8,12 @@ import AppIcon from '@/components/atoms/AppIcon.vue'
 import AppModal from '@/components/atoms/AppModal.vue'
 import {
   ChartBarIcon,
-  TrendingUpIcon,
   UsersIcon,
   DocumentTextIcon,
   BellIcon,
   CreditCardIcon,
-  BoltIcon
+  BoltIcon,
+  SparklesIcon
 } from '@heroicons/vue/24/outline'
 
 const router = useRouter()
@@ -344,7 +344,7 @@ async function syncBadges() {
         <button
           v-for="tab in [
             { id: 'stats', label: 'Estatísticas', icon: ChartBarIcon },
-            { id: 'analytics', label: 'Analytics', icon: TrendingUpIcon },
+            { id: 'analytics', label: 'Analytics', icon: SparklesIcon },
             { id: 'users', label: 'Usuários', icon: UsersIcon },
             { id: 'activity', label: 'Atividades', icon: DocumentTextIcon },
             { id: 'notifications', label: 'Notificações', icon: BellIcon },
@@ -366,8 +366,8 @@ async function syncBadges() {
       </div>
 
       <!-- Error -->
-      <div v-if="error" class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-        <p class="text-red-600 dark:text-red-400 text-sm">{{ error }}</p>
+      <div v-if="error" class="p-4 bg-danger-50 dark:bg-danger-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+        <p class="text-danger-600 dark:text-danger-400 text-sm">{{ error }}</p>
         <AppButton variant="secondary" size="sm" @click="loadStats" class="mt-2">Tentar novamente</AppButton>
       </div>
 
@@ -501,7 +501,7 @@ async function syncBadges() {
                   :y="barY(item.count)"
                   :width="barSlotWidth - barPad * 2"
                   :height="barHeight(item.count)"
-                  fill="#3b82f6"
+                  fill="rgb(59, 130, 246)"
                   rx="2"
                   :opacity="item.count === 0 ? 0.15 : 0.85"
                 />
@@ -512,7 +512,7 @@ async function syncBadges() {
                   :y="0"
                   :width="barSlotWidth - barPad * 2"
                   :height="chartHeight"
-                  fill="#3b82f6"
+                  fill="rgb(59, 130, 246)"
                   rx="2"
                   opacity="0.06"
                 />
@@ -534,7 +534,7 @@ async function syncBadges() {
                   :y="barY(item.count) - 2"
                   text-anchor="middle"
                   :font-size="Math.max(7, barSlotWidth * 0.4)"
-                  fill="#3b82f6"
+                  fill="rgb(59, 130, 246)"
                 >
                   {{ item.count }}
                 </text>
@@ -552,7 +552,7 @@ async function syncBadges() {
             <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">Criaram roadmap ou registro de log</p>
 
             <div v-if="analytics">
-              <p class="text-4xl font-bold text-green-600 dark:text-green-400">
+              <p class="text-4xl font-bold text-success-600 dark:text-success-400">
                 {{ analytics.activeUsers.count }}
               </p>
               <p class="text-sm text-ink-body mt-1">
@@ -562,7 +562,7 @@ async function syncBadges() {
               <!-- Barra de progresso -->
               <div class="mt-4 h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div
-                  class="h-full bg-green-500 rounded-full transition-all"
+                  class="h-full bg-success-500 rounded-full transition-all"
                   :style="{ width: `${Math.min(analytics.activeUsers.percentOfTotal, 100)}%` }"
                 />
               </div>
@@ -578,7 +578,7 @@ async function syncBadges() {
             <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">{{ analytics?.churn?.definition }}</p>
 
             <div v-if="analytics">
-              <p class="text-4xl font-bold" :class="analytics.churn.abandonedPercent > 30 ? 'text-red-500' : 'text-orange-500'">
+              <p class="text-4xl font-bold" :class="analytics.churn.abandonedPercent > 30 ? 'text-red-500' : 'text-warning-500'">
                 {{ analytics.churn.abandonedPercent }}%
               </p>
               <p class="text-sm text-ink-body mt-1">
@@ -589,7 +589,7 @@ async function syncBadges() {
               <div class="mt-4 h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div
                   class="h-full rounded-full transition-all"
-                  :class="analytics.churn.abandonedPercent > 30 ? 'bg-red-500' : 'bg-orange-400'"
+                  :class="analytics.churn.abandonedPercent > 30 ? 'bg-danger-500' : 'bg-warning-400'"
                   :style="{ width: `${Math.min(analytics.churn.abandonedPercent, 100)}%` }"
                 />
               </div>
@@ -614,7 +614,7 @@ async function syncBadges() {
                 </div>
                 <div class="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                   <div
-                    class="h-full bg-blue-500 rounded-full"
+                    class="h-full bg-primary-500 rounded-full"
                     :style="{ width: `${(item.count / maxFeatureCount(analytics.featureUsage.roadmapCategories)) * 100}%` }"
                   />
                 </div>
@@ -638,7 +638,7 @@ async function syncBadges() {
                 </div>
                 <div class="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                   <div
-                    class="h-full bg-purple-500 rounded-full"
+                    class="h-full bg-secondary-500 rounded-full"
                     :style="{ width: `${(item.count / maxFeatureCount(analytics.featureUsage.resourceTypes)) * 100}%` }"
                   />
                 </div>
@@ -698,10 +698,10 @@ async function syncBadges() {
                   </span>
                 </td>
                 <td class="px-2 py-2">
-                  <span v-if="user.loginMethod === 'GOOGLE'" class="px-1.5 py-0.5 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
+                  <span v-if="user.loginMethod === 'GOOGLE'" class="px-1.5 py-0.5 bg-warning-100 dark:bg-warning-900/40 text-warning-700 dark:text-warning-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
                     Google
                   </span>
-                  <span v-else class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
+                  <span v-else class="px-1.5 py-0.5 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
                     Email
                   </span>
                 </td>
@@ -709,17 +709,17 @@ async function syncBadges() {
                   {{ user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—' }}
                 </td>
                 <td class="px-2 py-2">
-                  <span v-if="user.consentGiven" class="px-1.5 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
+                  <span v-if="user.consentGiven" class="px-1.5 py-0.5 bg-success-100 dark:bg-success-900/40 text-success-700 dark:text-success-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
                     Sim
                   </span>
-                  <span v-else class="px-1.5 py-0.5 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
+                  <span v-else class="px-1.5 py-0.5 bg-danger-100 dark:bg-danger-900/40 text-danger-700 dark:text-danger-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
 Não
                   </span>
                 </td>
                 <td class="px-2 py-2 text-ink-body text-center">{{ user._count.roadmaps }}</td>
                 <td class="px-2 py-2 text-ink-body text-center">{{ user._count.logs }}</td>
                 <td class="px-2 py-2 text-center">
-                  <span class="px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded inline-block">
+                  <span class="px-1.5 py-0.5 bg-primary-100 dark:bg-primary-900/40 text-primary-700 dark:text-primary-300 text-xs font-semibold rounded inline-block">
                     {{ user._count.notifications }}
                   </span>
                 </td>
@@ -739,7 +739,7 @@ Não
                     <button
                       @click="viewUserNotifications(user)"
                       :disabled="deletingUserId === user.id || togglingUserId === user.id"
-                      class="px-3 py-1 text-xs font-medium rounded transition-colors bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/60 disabled:opacity-50 disabled:cursor-not-allowed"
+                      class="px-3 py-1 text-xs font-medium rounded transition-colors bg-primary-100 dark:bg-primary-900/40 text-primary-700 dark:text-primary-300 hover:bg-primary-200 dark:hover:bg-primary-900/60 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       Ver
                     </button>
@@ -752,7 +752,7 @@ Não
                           ? 'bg-gray-300 dark:bg-gray-600 text-ink-body cursor-not-allowed'
                           : authStore.user?.id === user.id
                             ? 'bg-gray-300 dark:bg-gray-600 text-ink-body cursor-not-allowed'
-                            : 'bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/60'
+                            : 'bg-warning-100 dark:bg-warning-900/40 text-warning-700 dark:text-warning-300 hover:bg-warning-200 dark:hover:bg-warning-900/60'
                       ]"
                     >
                       {{ deletingUserId === user.id ? '...' : 'Deletar' }}
@@ -794,17 +794,17 @@ Não
           </div>
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
             <p class="text-sm text-ink-body">Essencial</p>
-            <p class="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">{{ plansStats.summaryCounts.essencial }}</p>
+            <p class="text-3xl font-bold text-success-600 dark:text-success-400 mt-2">{{ plansStats.summaryCounts.essencial }}</p>
             <p class="text-xs text-ink-body mt-1">{{ plansStats.percentages.essencialPercent }}% do total</p>
           </div>
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
             <p class="text-sm text-ink-body">Google Plus</p>
-            <p class="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-2">{{ plansStats.summaryCounts.plus }}</p>
+            <p class="text-3xl font-bold text-primary-600 dark:text-primary-400 mt-2">{{ plansStats.summaryCounts.plus }}</p>
             <p class="text-xs text-ink-body mt-1">{{ plansStats.percentages.plusPercent }}% do total</p>
           </div>
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
             <p class="text-sm text-ink-body">Avançado</p>
-            <p class="text-3xl font-bold text-purple-600 dark:text-purple-400 mt-2">{{ plansStats.summaryCounts.avancado }}</p>
+            <p class="text-3xl font-bold text-secondary-600 dark:text-secondary-400 mt-2">{{ plansStats.summaryCounts.avancado }}</p>
             <p class="text-xs text-ink-body mt-1">{{ plansStats.percentages.avancadoPercent }}% do total</p>
           </div>
         </div>
@@ -813,12 +813,12 @@ Não
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
             <h3 class="font-semibold text-ink mb-4">Assinaturas Ativas</h3>
-            <p class="text-4xl font-bold text-green-600 dark:text-green-400">{{ plansStats.subscriptions.active }}</p>
+            <p class="text-4xl font-bold text-success-600 dark:text-success-400">{{ plansStats.subscriptions.active }}</p>
             <p class="text-sm text-ink-body mt-2">Usuários com plano ativo</p>
           </div>
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
             <h3 class="font-semibold text-ink mb-4">Assinaturas Expiradas</h3>
-            <p class="text-4xl font-bold text-orange-600 dark:text-orange-400">{{ plansStats.subscriptions.expired }}</p>
+            <p class="text-4xl font-bold text-warning-600 dark:text-warning-400">{{ plansStats.subscriptions.expired }}</p>
             <p class="text-sm text-ink-body mt-2">Usuários com plano expirado</p>
           </div>
         </div>
@@ -829,29 +829,29 @@ Não
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
               <p class="text-sm text-ink-body">Plus (R$ 19,90/mês)</p>
-              <p class="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-2">R$ {{ (plansStats.revenue.byPlan.plus || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
+              <p class="text-2xl font-bold text-primary-600 dark:text-primary-400 mt-2">R$ {{ (plansStats.revenue.byPlan.plus || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
               <p class="text-xs text-ink-body mt-1">{{ plansStats.summaryCounts.plus }} usuários</p>
             </div>
             <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
               <p class="text-sm text-ink-body">Avançado (R$ 49,90/mês)</p>
-              <p class="text-2xl font-bold text-purple-600 dark:text-purple-400 mt-2">R$ {{ (plansStats.revenue.byPlan.avancado || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
+              <p class="text-2xl font-bold text-secondary-600 dark:text-secondary-400 mt-2">R$ {{ (plansStats.revenue.byPlan.avancado || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
               <p class="text-xs text-ink-body mt-1">{{ plansStats.summaryCounts.avancado }} usuários</p>
             </div>
-            <div class="p-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg border border-green-200 dark:border-green-800">
+            <div class="p-4 bg-gradient-to-br from-success-50 to-success-50 dark:from-success-900/20 dark:to-success-900/20 rounded-lg border border-green-200 dark:border-green-800">
               <p class="text-sm font-semibold text-ink-body">Total Estimado</p>
-              <p class="text-2xl font-bold text-green-600 dark:text-green-400 mt-2">R$ {{ (plansStats.revenue.estimated || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
+              <p class="text-2xl font-bold text-success-600 dark:text-success-400 mt-2">R$ {{ (plansStats.revenue.estimated || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
             </div>
           </div>
         </div>
 
         <!-- Alertas: Planos Expirando em 7 Dias -->
-        <div v-if="plansStats.expiringPlans && plansStats.expiringPlans.length > 0" class="p-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+        <div v-if="plansStats.expiringPlans && plansStats.expiringPlans.length > 0" class="p-6 bg-warning-50 dark:bg-warning-900/20 border border-warning-200 dark:border-warning-800 rounded-lg">
           <h3 class="font-semibold text-ink mb-4">Planos Expirando em 7 Dias</h3>
           <div class="space-y-3">
             <div
               v-for="user in plansStats.expiringPlans"
               :key="user.id"
-              class="p-3 bg-canvas rounded border border-yellow-200 dark:border-yellow-800"
+              class="p-3 bg-canvas rounded border border-warning-200 dark:border-warning-800"
             >
               <div class="flex items-center justify-between">
                 <div>
@@ -861,7 +861,7 @@ Não
                   </p>
                 </div>
                 <div class="text-right">
-                  <p class="text-sm font-semibold text-yellow-700 dark:text-yellow-300">
+                  <p class="text-sm font-semibold text-warning-700 dark:text-warning-300">
                     Expira em: {{ new Date(user.planExpiresAt).toLocaleDateString('pt-BR') }}
                   </p>
                   <p class="text-xs text-ink-body mt-1">
@@ -872,8 +872,8 @@ Não
             </div>
           </div>
         </div>
-        <div v-else class="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-          <p class="text-sm text-green-700 dark:text-green-300">Nenhum plano expirando nos próximos 7 dias</p>
+        <div v-else class="p-4 bg-success-50 dark:bg-success-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+          <p class="text-sm text-success-700 dark:text-success-300">Nenhum plano expirando nos próximos 7 dias</p>
         </div>
       </div>
 
@@ -883,11 +883,11 @@ Não
         <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
           <h3 class="font-semibold text-ink mb-4">Enviar Notificação para Usuário</h3>
           <div class="space-y-4">
-            <div v-if="notificationSendSuccess" class="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-              <p class="text-sm text-green-600 dark:text-green-400">Notificação enviada com sucesso!</p>
+            <div v-if="notificationSendSuccess" class="p-3 bg-success-50 dark:bg-success-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+              <p class="text-sm text-success-600 dark:text-success-400">Notificação enviada com sucesso!</p>
             </div>
-            <div v-if="notificationSendError" class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-              <p class="text-sm text-red-600 dark:text-red-400">{{ notificationSendError }}</p>
+            <div v-if="notificationSendError" class="p-3 bg-danger-50 dark:bg-danger-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+              <p class="text-sm text-danger-600 dark:text-danger-400">{{ notificationSendError }}</p>
             </div>
 
             <div class="space-y-4">
@@ -930,11 +930,11 @@ Não
           </p>
 
           <div class="space-y-4">
-            <div v-if="firstRoadmapSuccess" class="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-              <p class="text-sm text-green-600 dark:text-green-400">{{ firstRoadmapSuccess }}</p>
+            <div v-if="firstRoadmapSuccess" class="p-3 bg-success-50 dark:bg-success-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+              <p class="text-sm text-success-600 dark:text-success-400">{{ firstRoadmapSuccess }}</p>
             </div>
-            <div v-if="firstRoadmapError" class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-              <p class="text-sm text-red-600 dark:text-red-400">{{ firstRoadmapError }}</p>
+            <div v-if="firstRoadmapError" class="p-3 bg-danger-50 dark:bg-danger-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+              <p class="text-sm text-danger-600 dark:text-danger-400">{{ firstRoadmapError }}</p>
             </div>
 
             <div>
@@ -969,11 +969,11 @@ Não
           </p>
 
           <div class="space-y-4">
-            <div v-if="syncBadgesSuccess" class="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-              <p class="text-sm text-green-600 dark:text-green-400">{{ syncBadgesSuccess }}</p>
+            <div v-if="syncBadgesSuccess" class="p-3 bg-success-50 dark:bg-success-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+              <p class="text-sm text-success-600 dark:text-success-400">{{ syncBadgesSuccess }}</p>
             </div>
-            <div v-if="syncBadgesError" class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-              <p class="text-sm text-red-600 dark:text-red-400">{{ syncBadgesError }}</p>
+            <div v-if="syncBadgesError" class="p-3 bg-danger-50 dark:bg-danger-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+              <p class="text-sm text-danger-600 dark:text-danger-400">{{ syncBadgesError }}</p>
             </div>
 
             <AppButton
@@ -994,22 +994,22 @@ Não
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
             <p class="text-sm text-ink-body">Roadmaps Gerados</p>
-            <p class="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-2">{{ geminiStats.totalAiRoadmaps }}</p>
+            <p class="text-3xl font-bold text-primary-600 dark:text-primary-400 mt-2">{{ geminiStats.totalAiRoadmaps }}</p>
             <p class="text-xs text-ink-body mt-1">com IA (Gemini)</p>
           </div>
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
             <p class="text-sm text-ink-body">Usuários Ativos</p>
-            <p class="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">{{ geminiStats.usersWithAi }}</p>
+            <p class="text-3xl font-bold text-success-600 dark:text-success-400 mt-2">{{ geminiStats.usersWithAi }}</p>
             <p class="text-xs text-ink-body mt-1">utilizaram IA</p>
           </div>
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
             <p class="text-sm text-ink-body">Tokens Estimados</p>
-            <p class="text-3xl font-bold text-purple-600 dark:text-purple-400 mt-2">{{ (geminiStats.estimatedTokens / 1000).toFixed(0) }}k</p>
+            <p class="text-3xl font-bold text-secondary-600 dark:text-secondary-400 mt-2">{{ (geminiStats.estimatedTokens / 1000).toFixed(0) }}k</p>
             <p class="text-xs text-ink-body mt-1">~1.5k por roadmap</p>
           </div>
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
             <p class="text-sm text-ink-body">Custo Total</p>
-            <p class="text-3xl font-bold text-orange-600 dark:text-orange-400 mt-2">US$ {{ geminiStats.estimatedCost.totalUSD.toFixed(2) }}</p>
+            <p class="text-3xl font-bold text-warning-600 dark:text-warning-400 mt-2">US$ {{ geminiStats.estimatedCost.totalUSD.toFixed(2) }}</p>
             <p class="text-xs text-ink-body mt-1">{{ geminiStats.estimatedCost.description }}</p>
           </div>
         </div>
@@ -1026,9 +1026,9 @@ Não
               <span class="text-sm text-ink-body">Custo por Token</span>
               <span class="text-sm font-semibold text-ink">US$ {{ geminiStats.estimatedCost.costPerToken.toFixed(9) }}</span>
             </div>
-            <div class="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded border border-orange-200 dark:border-orange-800">
+            <div class="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-danger-50 dark:from-orange-900/20 dark:to-danger-900/20 rounded border border-orange-200 dark:border-orange-800">
               <span class="text-sm font-semibold text-ink-body">Custo Total Estimado</span>
-              <span class="text-lg font-bold text-orange-600 dark:text-orange-400">US$ {{ geminiStats.estimatedCost.totalUSD.toFixed(2) }}</span>
+              <span class="text-lg font-bold text-warning-600 dark:text-warning-400">US$ {{ geminiStats.estimatedCost.totalUSD.toFixed(2) }}</span>
             </div>
           </div>
         </div>
@@ -1043,13 +1043,13 @@ Não
               class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition"
             >
               <div class="flex items-center gap-3 flex-1">
-                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-500 text-white text-sm font-bold">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary-500 text-white text-sm font-bold">
                   {{ idx + 1 }}
                 </span>
                 <span class="text-sm text-ink truncate">{{ user.email }}</span>
               </div>
               <div class="flex items-center gap-3">
-                <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">
+                <span class="inline-flex items-center gap-1 px-3 py-1 bg-primary-100 dark:bg-primary-900/40 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium">
                   {{  user.aiCreditsUsed }}
                 </span>
                 <span class="text-xs text-gray-500 dark:text-gray-400 w-16 text-right">
@@ -1064,7 +1064,7 @@ Não
         </div>
 
         <!-- Informações de Modelo -->
-        <div class="p-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+        <div class="p-6 bg-primary-50 dark:bg-primary-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
           <h3 class="font-semibold text-ink mb-3">Detalhes Técnicos</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div>
@@ -1110,8 +1110,8 @@ Não
       <p class="text-ink-body">
         Tem certeza que deseja deletar o usuário <strong>{{ userToDelete?.email }}</strong>?
       </p>
-      <div class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-        <p class="text-xs text-red-600 dark:text-red-400 font-semibold leading-relaxed">
+      <div class="p-3 bg-danger-50 dark:bg-danger-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+        <p class="text-xs text-danger-600 dark:text-danger-400 font-semibold leading-relaxed">
           Esta ação não pode ser desfeita. Todos os roadmaps, logs e dados do usuário serão permanentemente removidos.
         </p>
       </div>
@@ -1139,10 +1139,10 @@ Não
           :key="notif.id"
           class="p-3 border rounded-lg border-hairline"
           :class="{
-            'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800': notif.type === 'info',
-            'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800': notif.type === 'success',
-            'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800': notif.type === 'warning',
-            'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800': notif.type === 'error',
+            'bg-primary-50 dark:bg-primary-900/20 border-blue-200 dark:border-blue-800': notif.type === 'info',
+            'bg-success-50 dark:bg-success-900/20 border-green-200 dark:border-green-800': notif.type === 'success',
+            'bg-warning-50 dark:bg-warning-900/20 border-warning-200 dark:border-warning-800': notif.type === 'warning',
+            'bg-danger-50 dark:bg-danger-900/20 border-red-200 dark:border-red-800': notif.type === 'error',
           }"
         >
           <div class="flex items-start justify-between gap-3">
@@ -1157,10 +1157,10 @@ Não
               <span
                 class="px-2 py-1 text-xs font-semibold rounded whitespace-nowrap"
                 :class="{
-                  'bg-blue-200 dark:bg-blue-800 text-blue-700 dark:text-blue-200': notif.type === 'info',
-                  'bg-green-200 dark:bg-green-800 text-green-700 dark:text-green-200': notif.type === 'success',
-                  'bg-yellow-200 dark:bg-yellow-800 text-yellow-700 dark:text-yellow-200': notif.type === 'warning',
-                  'bg-red-200 dark:bg-red-800 text-red-700 dark:text-red-200': notif.type === 'error',
+                  'bg-primary-200 dark:bg-primary-800 text-primary-700 dark:text-blue-200': notif.type === 'info',
+                  'bg-success-200 dark:bg-success-800 text-success-700 dark:text-success-200': notif.type === 'success',
+                  'bg-yellow-200 dark:bg-yellow-800 text-warning-700 dark:text-yellow-200': notif.type === 'warning',
+                  'bg-danger-200 dark:bg-danger-800 text-danger-700 dark:text-danger-200': notif.type === 'error',
                 }"
               >
                 {{ notif.type }}
@@ -1168,7 +1168,7 @@ Não
               <button
                 @click="deleteUserNotification(notif.id)"
                 :disabled="deletingNotificationId === notif.id"
-                class="flex-shrink-0 px-3 py-1 text-xs font-semibold rounded transition-colors bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/60 disabled:opacity-50 disabled:cursor-not-allowed"
+                class="flex-shrink-0 px-3 py-1 text-xs font-semibold rounded transition-colors bg-danger-100 dark:bg-danger-900/40 text-danger-700 dark:text-danger-300 hover:bg-danger-200 dark:hover:bg-danger-900/60 disabled:opacity-50 disabled:cursor-not-allowed"
                 title="Remover notificação"
               >
                 {{ deletingNotificationId === notif.id ? '...' : '✕' }}
@@ -1180,4 +1180,6 @@ Não
     </div>
   </AppModal>
 </template>
+
+
 
