@@ -22,26 +22,27 @@ function handleClick(crumb: Crumb) {
 </script>
 
 <template>
-  <div class="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-ink-body overflow-x-auto pb-2">
+  <nav class="flex items-center gap-0 text-xs sm:text-sm text-ink-body overflow-x-auto pb-2" aria-label="breadcrumbs">
     <button
       @click="handleClick(crumbs[0])"
-      class="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 whitespace-nowrap"
+      class="inline-flex items-center gap-1.5 px-2 py-1.5 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors whitespace-nowrap"
     >
-      <AppIcon name="home" size="sm" />
-      <span class="hidden sm:inline">{{ crumbs[0].label }}</span>
+      <AppIcon name="home" size="sm" class="flex-shrink-0" />
+      <span class="hidden sm:inline font-medium">{{ crumbs[0].label }}</span>
     </button>
+
     <template v-for="(crumb, idx) in crumbs.slice(1)" :key="idx">
-      <span class="flex-shrink-0">•</span>
+      <span class="flex-shrink-0 text-gray-400 dark:text-gray-600 mx-0.5">/</span>
       <button
         v-if="crumb.action"
         @click="handleClick(crumb)"
-        class="text-blue-600 dark:text-blue-400 hover:underline whitespace-nowrap"
+        class="inline-flex items-center px-2 py-1.5 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-ink dark:hover:text-ink transition-colors whitespace-nowrap"
       >
         {{ crumb.label }}
       </button>
-      <span v-else class="font-medium text-ink whitespace-nowrap">
+      <span v-else class="inline-flex items-center px-2 py-1.5 font-semibold text-ink dark:text-ink-light whitespace-nowrap">
         {{ crumb.label }}
       </span>
     </template>
-  </div>
+  </nav>
 </template>
