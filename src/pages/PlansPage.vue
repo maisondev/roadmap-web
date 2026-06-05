@@ -235,6 +235,7 @@ import { ref, onMounted } from 'vue'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 import { api } from '../services/api'
 import AppSpinner from '../components/atoms/AppSpinner.vue'
+import AppButton from '../components/atoms/AppButton.vue'
 const currentPlan = ref<any>(null)
 const isLoading = ref(false)
 const isLoadingCheckout = ref(false)
