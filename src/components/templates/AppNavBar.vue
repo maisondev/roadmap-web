@@ -6,7 +6,7 @@ import { useDailyLogStore } from '@/stores/dailyLog'
 import { useSettingsStore } from '@/stores/settings'
 import { useSync } from '@/composables/useSync'
 import { useNavBar } from '@/composables/useNavBar'
-import { ArrowLeftIcon, HomeIcon, Bars3Icon, ChartBarIcon, CalendarIcon, TrophyIcon, ShieldCheckIcon, CreditCardIcon, MoonIcon, SunIcon, UserGroupIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline'
+import { ArrowLeftIcon, HomeIcon, Bars3Icon, ChartBarIcon, CalendarIcon, TrophyIcon, ShieldCheckIcon, CreditCardIcon, MoonIcon, SunIcon, UserGroupIcon } from '@heroicons/vue/24/outline'
 import AppButton from '@/components/atoms/AppButton.vue'
 import AppIcon from '@/components/atoms/AppIcon.vue'
 import FeedbackModal from '@/components/molecules/FeedbackModal.vue'
@@ -40,9 +40,6 @@ const {
   switchAuthMode,
   closeAuthModal
 } = useNavBar()
-
-const searchQuery = ref('')
-const showGlobalSearch = ref(false)
 
 const showBackButton = computed(() => {
   if (route.name === 'block-detail') return true
