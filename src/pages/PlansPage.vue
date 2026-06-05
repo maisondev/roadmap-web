@@ -1,11 +1,11 @@
+
 <template>
-  <div class="min-h-screen bg-canvas-soft py-12 px-4">
-    <div class="max-w-7xl mx-auto">
-      <!-- Header -->
-      <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-ink mb-4">Escolha seu plano</h1>
-        <p class="text-xl text-ink-body">Acesse mais recursos e limite de créditos de IA com upgrades</p>
-      </div>
+  <div class="min-h-screen bg-canvas-soft">
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
+      <PageHeader
+        title="Escolha seu plano"
+        description="Acesse mais recursos e limite de créditos de IA com upgrades"
+      />
 
       <!-- Error State -->
       <div v-if="error" class="mb-8 p-4 bg-canvas border border-ds-error border-opacity-30 rounded-lg">
@@ -236,6 +236,7 @@ import { CheckIcon } from '@heroicons/vue/24/outline'
 import { api } from '../services/api'
 import AppSpinner from '../components/atoms/AppSpinner.vue'
 import AppButton from '../components/atoms/AppButton.vue'
+import PageHeader from '../components/organisms/PageHeader.vue'
 const currentPlan = ref<any>(null)
 const isLoading = ref(false)
 const isLoadingCheckout = ref(false)
@@ -261,13 +262,10 @@ async function loadPlan() {
   error.value = null
 
   try {
-    console.log('[PlansPage] Loading user plan...')
     const response = await api.get('/api/plan')
-    console.log('[PlansPage] Plan loaded:', response)
     currentPlan.value = response
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Erro ao carregar plano'
-    console.error('[PlansPage] Error loading plan:', err)
     error.value = errorMsg
   } finally {
     isLoading.value = false
@@ -279,16 +277,10 @@ async function upgrade(plan: 'ESSENCIAL' | 'PLUS' | 'AVANCADO') {
   error.value = null
 
   try {
-    console.log(`[PlansPage] Starting checkout for plan: ${plan}`)
-    console.log(`[PlansPage] POST /api/plan/checkout with body:`, { plan })
-
     const response = await api.post('/api/plan/checkout', { plan })
-    console.log('[PlansPage] Checkout response:', response)
 
     // Se for downgrade para Essencial (plano gratuito)
     if (response.success && plan === 'ESSENCIAL') {
-      console.log('[PlansPage] Downgrade to Essential completed successfully')
-
       // Formatar data de expiração se existir
       let message = 'Downgrade realizado com sucesso! Você agora tem acesso ao plano Essencial.'
 
@@ -306,19 +298,15 @@ async function upgrade(plan: 'ESSENCIAL' | 'PLUS' | 'AVANCADO') {
     }
 
     // Para upgrades (PLUS e AVANCADO), redirecionar para checkout
-    const { checkoutUrl, publicKey, preferenceId } = response
-    console.log('[PlansPage] Received URLs:', { checkoutUrl, publicKey, preferenceId })
+    const { checkoutUrl } = response
 
     if (!checkoutUrl) {
       throw new Error('checkoutUrl not returned from API')
     }
 
-    console.log('[PlansPage] Redirecting to:', checkoutUrl)
     window.location.href = checkoutUrl
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Erro ao criar checkout'
-    console.error('[PlansPage] Error creating checkout:', err)
-    console.error('[PlansPage] Error message:', errorMsg)
     error.value = errorMsg
     isLoadingCheckout.value = false
   }
