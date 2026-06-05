@@ -329,14 +329,9 @@ async function syncBadges() {
   <div class="min-h-screen bg-canvas-soft">
     <div class="max-w-7xl mx-auto p-6 space-y-6">
       <!-- Header -->
-      <div class="flex items-center justify-between">
-        <div>
-          <h1 class="text-3xl font-bold text-ink">Painel de Administrador</h1>
-          <p class="text-sm text-ink-body mt-1">Acompanhe a evolução do produto</p>
-        </div>
-        <AppButton variant="secondary" size="sm" @click="router.push('/')" class="flex items-center gap-2">
-          ← Voltar
-        </AppButton>
+      <div>
+        <h1 class="text-3xl font-bold text-ink">Painel de Administrador</h1>
+        <p class="text-sm text-ink-body mt-1">Acompanhe a evolução do produto</p>
       </div>
 
       <!-- Tabs -->

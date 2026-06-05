@@ -45,18 +45,16 @@ function getHintForBadge(key: string): string {
 </script>
 
 <template>
-  <div class="py-6 sm:py-8">
-    <div class="space-y-8 sm:space-y-12">
-      <!-- Header -->
-      <div>
-        <div class="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
-          <TrophyIcon class="w-6 sm:w-8 h-6 sm:h-8 text-yellow-500" />
-          <h1 class="text-2xl sm:text-4xl font-bold text-ink">Conquistas</h1>
-        </div>
-        <p class="text-xs sm:text-base text-ink-body ml-8 sm:ml-11">
+  <div class="min-h-screen bg-canvas-soft">
+    <div class="max-w-6xl mx-auto px-3 sm:px-4 space-y-8 sm:space-y-12">
+      <PageHeader
+        title="Conquistas"
+        description="Alcance marcos e desbloqueie badges ao progredir"
+      >
+        <p class="text-sm text-ink-body">
           {{ badgesStore.earnedCount }} de {{ badgesStore.badges.length }} badges conquistados
         </p>
-      </div>
+      </PageHeader>
 
       <!-- Loading -->
       <div v-if="badgesStore.loading" class="text-center py-12">

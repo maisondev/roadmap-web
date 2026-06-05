@@ -40,10 +40,19 @@ const {
   closeAuthModal
 } = useNavBar()
 
+const searchQuery = ref('')
+
 const showBackButton = computed(() => {
   if (route.name === 'block-detail') return true
   return false
 })
+
+const handleSearchInput = (query: string) => {
+  searchQuery.value = query
+  if (query.trim()) {
+    showGlobalSearch.value = true
+  }
+}
 
 const backLabel = computed(() => {
   if (route.name === 'block-detail') return 'Roadmap'
@@ -110,8 +119,22 @@ const isActive = (name: string) => route.name === name
           </button>
         </div>
 
+        <!-- Center: Search bar (desktop) -->
+        <div v-if="authStore.isLoggedIn" class="hidden md:flex flex-1 justify-center max-w-xs mx-4">
+          <div class="relative w-full">
+            <input
+              v-model="searchQuery"
+              @focus="showGlobalSearch = true"
+              type="text"
+              placeholder="Buscar roadmaps..."
+              class="w-full px-3 py-2 pl-9 border border-hairline rounded-lg bg-canvas-soft text-ink text-sm transition-colors focus:border-gray-400"
+            />
+            <AppIcon name="search" size="sm" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          </div>
+        </div>
+
         <!-- Center: Desktop navigation -->
-        <div v-if="authStore.isLoggedIn" class="hidden md:flex items-center gap-1 flex-1 justify-center">
+        <div v-if="authStore.isLoggedIn" class="hidden lg:flex items-center gap-1 justify-center">
           <button
             v-for="item in navItems"
             :key="item.name"
