@@ -4,7 +4,7 @@ interface Props {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   size: 'md'
 })
 
@@ -63,7 +63,7 @@ const iconMap: Record<string, string> = {
 
 <template>
   <svg
-    :class="[sizeMap[size], $attrs.class]"
+    :class="[sizeMap[props.size], $attrs.class]"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -71,6 +71,6 @@ const iconMap: Record<string, string> = {
     stroke-linecap="round"
     stroke-linejoin="round"
   >
-    <path :d="iconMap[name] || iconMap['info']" />
+    <path :d="iconMap[props.name] || iconMap['info']" />
   </svg>
 </template>
