@@ -72,21 +72,27 @@
               </li>
             </ul>
 
-            <button
+            <AppButton
               v-if="currentPlan?.plan === 'ESSENCIAL'"
               disabled
-              class="w-full py-3 px-4 bg-canvas-soft-2 text-ink-body font-semibold rounded-lg cursor-not-allowed opacity-60"
+              variant="secondary"
+              size="lg"
+              block
+              class="opacity-60"
             >
               Plano atual
-            </button>
-            <button
+            </AppButton>
+            <AppButton
               v-else
               @click="upgrade('ESSENCIAL')"
               :disabled="isLoadingCheckout"
-              class="w-full py-3 px-4 bg-canvas-soft-2 hover:bg-hairline text-ink font-semibold rounded-lg transition disabled:opacity-50"
+              :loading="isLoadingCheckout"
+              variant="secondary"
+              size="lg"
+              block
             >
-              {{ isLoadingCheckout ? 'Processando...' : 'Fazer downgrade' }}
-            </button>
+              {{ isLoadingCheckout ? '' : 'Fazer downgrade' }}
+            </AppButton>
           </div>
         </div>
 
@@ -132,21 +138,27 @@
               </li>
             </ul>
 
-            <button
+            <AppButton
               v-if="currentPlan?.plan !== 'PLUS' && currentPlan?.plan !== 'AVANCADO'"
               @click="upgrade('PLUS')"
               :disabled="isLoadingCheckout"
-              class="w-full py-3 px-4 bg-ink text-on-primary font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50"
+              :loading="isLoadingCheckout"
+              variant="primary"
+              size="lg"
+              block
             >
-              {{ isLoadingCheckout ? 'Processando...' : 'Fazer upgrade' }}
-            </button>
-            <button
+              {{ isLoadingCheckout ? '' : 'Fazer upgrade' }}
+            </AppButton>
+            <AppButton
               v-else
               disabled
-              class="w-full py-3 px-4 bg-canvas-soft-2 text-ink font-semibold rounded-lg cursor-not-allowed opacity-60"
+              variant="secondary"
+              size="lg"
+              block
+              class="opacity-60"
             >
               Plano atual
-            </button>
+            </AppButton>
           </div>
         </div>
 
@@ -188,21 +200,28 @@
               </li>
             </ul>
 
-            <button
+            <AppButton
               v-if="currentPlan?.plan !== 'AVANCADO'"
               @click="upgrade('AVANCADO')"
               :disabled="isLoadingCheckout"
-              class="w-full py-3 px-4 bg-hairline-strong text-on-primary font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50"
+              :loading="isLoadingCheckout"
+              variant="ghost"
+              size="lg"
+              block
+              class="bg-hairline-strong text-on-primary hover:opacity-90"
             >
-              {{ isLoadingCheckout ? 'Processando...' : 'Fazer upgrade' }}
-            </button>
-            <button
+              {{ isLoadingCheckout ? '' : 'Fazer upgrade' }}
+            </AppButton>
+            <AppButton
               v-else
               disabled
-              class="w-full py-3 px-4 bg-canvas-soft-2 text-ink font-semibold rounded-lg cursor-not-allowed opacity-60"
+              variant="secondary"
+              size="lg"
+              block
+              class="opacity-60"
             >
               Plano atual
-            </button>
+            </AppButton>
           </div>
         </div>
       </div>

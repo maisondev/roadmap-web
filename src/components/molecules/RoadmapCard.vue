@@ -93,15 +93,16 @@ const formatDate = (dateString: string) => {
   }
 }
 
-const colors: { color: RoadmapColor; label: string; class: string }[] = [
-  { color: 'blue', label: 'Azul', class: 'bg-blue-500' },
-  { color: 'red', label: 'Vermelho', class: 'bg-red-500' },
-  { color: 'green', label: 'Verde', class: 'bg-green-500' },
-  { color: 'yellow', label: 'Amarelo', class: 'bg-yellow-500' },
-  { color: 'purple', label: 'Roxo', class: 'bg-purple-500' },
-  { color: 'pink', label: 'Rosa', class: 'bg-pink-500' },
-  { color: 'orange', label: 'Laranja', class: 'bg-orange-500' },
-  { color: 'gray', label: 'Cinza', class: 'bg-gray-500' }
+// Design System Vercel Colors + Accents
+const colors: { color: RoadmapColor; label: string; class: string; hex: string; gradient?: string }[] = [
+  { color: 'blue', label: 'Develop', class: 'bg-blue-500', hex: '#007cf0', gradient: 'from-blue-500 to-cyan-400' },
+  { color: 'purple', label: 'Preview', class: 'bg-purple-500', hex: '#7928ca', gradient: 'from-purple-600 to-pink-500' },
+  { color: 'red', label: 'Ship', class: 'bg-red-500', hex: '#ff4d4d', gradient: 'from-red-500 to-amber-400' },
+  { color: 'green', label: 'Sage', class: 'bg-green-500', hex: '#10b981', gradient: 'from-green-500 to-teal-400' },
+  { color: 'pink', label: 'Highlight', class: 'bg-pink-500', hex: '#ff0080', gradient: 'from-pink-500 to-rose-400' },
+  { color: 'yellow', label: 'Amber', class: 'bg-amber-500', hex: '#f9cb28', gradient: 'from-amber-400 to-orange-500' },
+  { color: 'orange', label: 'Coral', class: 'bg-orange-500', hex: '#ff6b35', gradient: 'from-orange-500 to-red-400' },
+  { color: 'gray', label: 'Neutral', class: 'bg-gray-500', hex: '#6b7280', gradient: 'from-gray-500 to-gray-600' }
 ]
 
 const getColorClass = (color?: RoadmapColor) => {
@@ -111,16 +112,21 @@ const getColorClass = (color?: RoadmapColor) => {
 
 const colorHex = computed(() => {
   const map: Record<RoadmapColor, string> = {
-    blue: '#3b82f6',
-    red: '#ef4444',
-    green: '#22c55e',
-    yellow: '#eab308',
-    purple: '#a855f7',
-    pink: '#ec4899',
-    orange: '#f97316',
+    blue: '#007cf0',
+    red: '#ff4d4d',
+    green: '#10b981',
+    yellow: '#f9cb28',
+    purple: '#7928ca',
+    pink: '#ff0080',
+    orange: '#ff6b35',
     gray: '#6b7280'
   }
   return map[props.roadmap.color || 'blue']
+})
+
+const colorGradient = computed(() => {
+  const colorObj = colors.find(c => c.color === (props.roadmap.color || 'blue'))
+  return colorObj?.gradient || 'from-blue-500 to-cyan-400'
 })
 
 const openEditModal = () => {
@@ -180,14 +186,14 @@ const handleDeleteConfirm = (password: string) => {
 
 <template>
   <div
-    class="relative p-6 border-l-4 rounded-lg bg-canvas group border border-hairline flex flex-col h-full cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition-all"
-    :style="{ borderLeftColor: colorHex }"
+    class="relative rounded-lg bg-canvas group border border-hairline flex flex-col h-full cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition-all overflow-hidden"
     @click="$emit('navigate')"
   >
-    <!-- Color indicator -->
-    <div class="absolute top-0 left-0 w-1 h-full rounded-l" :style="{ backgroundColor: colorHex }" />
+    <!-- Gradient header accent -->
+    <div class="h-1" :style="{ background: `linear-gradient(90deg, ${colorHex}, ${colorHex}66)` }" />
 
-    <div class="flex-1 min-h-0 space-y-4">
+    <!-- Content wrapper with padding -->
+    <div class="p-6 flex flex-col flex-1 space-y-4">
       <!-- Header -->
       <div class="min-w-0 group/content">
         <div class="flex items-start justify-between gap-3">

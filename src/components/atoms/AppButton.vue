@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { ArrowPathIcon } from '@heroicons/vue/24/outline'
+
 interface Props {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   disabled?: boolean
   loading?: boolean
   icon?: string
+  block?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
@@ -26,9 +29,11 @@ const variantClasses = {
 }
 
 const sizeClasses = {
+  xs: 'px-2 py-1 text-xs rounded-sm',
   sm: 'px-3 py-1.5 text-sm rounded-sm',
-  md: 'px-5 py-2.5 text-sm rounded-lg',
-  lg: 'px-8 py-3.5 text-base rounded-pill'
+  md: 'px-4 py-2 text-sm rounded-lg',
+  lg: 'px-6 py-3 text-base rounded-lg',
+  xl: 'px-8 py-4 text-lg rounded-lg'
 }
 </script>
 
@@ -36,13 +41,14 @@ const sizeClasses = {
   <button
     :class="[
       'font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed',
+      block ? 'w-full flex items-center justify-center gap-2' : 'inline-flex items-center gap-2',
       variantClasses[variant],
       sizeClasses[size]
     ]"
     :disabled="disabled || loading"
     @click="(e) => $emit('click', e)"
   >
-    <span v-if="loading" class="inline-block mr-2">⏳</span>
+    <ArrowPathIcon v-if="loading" class="w-4 h-4 animate-spin" />
     <slot />
   </button>
 </template>

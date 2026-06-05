@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { LockClosedIcon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
@@ -31,7 +32,7 @@ async function accept() {
         <!-- Header -->
         <div class="space-y-1">
           <div class="flex items-center gap-2">
-            <span class="text-2xl">🔒</span>
+            <LockClosedIcon class="w-6 h-6 text-blue-600 dark:text-blue-400" />
             <h2 class="text-lg font-bold text-ink">Política de Privacidade atualizada</h2>
           </div>
           <p class="text-sm text-gray-500 dark:text-gray-400">

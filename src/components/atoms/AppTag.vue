@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { XMarkIcon } from '@heroicons/vue/24/outline'
+
 interface Props {
   label: string
   removable?: boolean
@@ -36,7 +38,7 @@ const colorClasses = {
       @click="$emit('remove')"
       class="ml-1 hover:opacity-70 transition-opacity"
     >
-      ✕
+      <XMarkIcon class="w-4 h-4" />
     </button>
   </span>
 </template>
