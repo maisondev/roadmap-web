@@ -40,7 +40,6 @@ const breadcrumbs = computed(() => {
 
   const home = { label: 'Início', action: () => router.push('/') }
 
-  // Páginas públicas (não logadas)
   if (!authStore.isLoggedIn) {
     if (name === 'help') return [home, { label: 'Central de Ajuda' }]
     if (name === 'contact') return [home, { label: 'Contato' }]
@@ -106,7 +105,7 @@ const breadcrumbs = computed(() => {
     <!-- Main Content -->
     <main class="flex-1">
       <div v-if="breadcrumbs.length" class="border-b border-gray-200 dark:border-gray-800">
-        <div class="max-w-[120rem] mx-auto w-full px-4 2xl:px-6 min-[2560px]:max-w-[140rem] min-[2560px]:px-8 min-[3840px]:max-w-[160rem] min-[3840px]:px-10 py-3">
+        <div class="max-w-6xl mx-auto w-full px-4 py-3">
           <AppBreadcrumb :crumbs="breadcrumbs" />
         </div>
       </div>

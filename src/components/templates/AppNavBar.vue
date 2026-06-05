@@ -6,7 +6,7 @@ import { useDailyLogStore } from '@/stores/dailyLog'
 import { useSettingsStore } from '@/stores/settings'
 import { useSync } from '@/composables/useSync'
 import { useNavBar } from '@/composables/useNavBar'
-import { ArrowLeftIcon, HomeIcon, Bars3Icon, ChartBarIcon, CalendarIcon, TrophyIcon, ShieldCheckIcon, CreditCardIcon, MoonIcon, SunIcon, UserGroupIcon } from '@heroicons/vue/24/outline'
+import { ArrowLeftIcon, HomeIcon, Bars3Icon, ChartBarIcon, CalendarIcon, TrophyIcon, ShieldCheckIcon, CreditCardIcon, MoonIcon, SunIcon, UserGroupIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline'
 import AppButton from '@/components/atoms/AppButton.vue'
 import AppIcon from '@/components/atoms/AppIcon.vue'
 import FeedbackModal from '@/components/molecules/FeedbackModal.vue'
@@ -124,7 +124,7 @@ const isActive = (name: string) => route.name === name
               placeholder="Buscar roadmaps..."
               class="w-full px-3 py-2 pl-9 border border-hairline rounded-lg bg-canvas-soft text-ink text-sm transition-colors focus:border-gray-400"
             />
-            <AppIcon name="search" size="sm" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <MagnifyingGlassIcon class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
         </div>
 

@@ -181,7 +181,7 @@ function deleteBlock() {
       </div>
 
       <!-- Blocks Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 min-[2560px]:grid-cols-5 min-[3840px]:grid-cols-6 gap-4 min-[2560px]:gap-5 min-[3840px]:gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         <div
           v-for="(block, idx) in filteredBlocks"
           :key="block.id"
