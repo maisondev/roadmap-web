@@ -762,7 +762,8 @@ Não
                 </td>
               </tr>
             </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       </div>
 
