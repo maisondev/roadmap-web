@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { api } from '@/services/api'
 import { useRouter } from 'vue-router'
 import AppButton from '@/components/atoms/AppButton.vue'
+import { CheckIcon, XMarkIcon, ExclamationTriangleIcon, SparklesIcon, ArrowPathIcon, ClockIcon } from '@heroicons/vue/24/outline'
 
 const router = useRouter()
 const subscriptionStatus = ref<any>(null)
@@ -34,10 +35,10 @@ function getStatusColor() {
 }
 
 function getStatusIcon() {
-  if (!subscriptionStatus.value.isActive) return '❌'
-  if (subscriptionStatus.value.plan === 'ESSENCIAL') return '📦'
-  if (subscriptionStatus.value.expiresInDays && subscriptionStatus.value.expiresInDays <= 7) return '⚠️'
-  return '✅'
+  if (!subscriptionStatus.value.isActive) return XMarkIcon
+  if (subscriptionStatus.value.plan === 'ESSENCIAL') return SparklesIcon
+  if (subscriptionStatus.value.expiresInDays && subscriptionStatus.value.expiresInDays <= 7) return ExclamationTriangleIcon
+  return CheckIcon
 }
 
 function getStatusText() {
@@ -62,7 +63,7 @@ function getStatusText() {
     <div class="flex items-start justify-between mb-6">
       <div>
         <div class="flex items-center gap-2 mb-2">
-          <span class="text-2xl">{{ getStatusIcon() }}</span>
+          <component :is="getStatusIcon()" class="w-6 h-6 text-ink" />
           <div>
             <h3 class="text-lg font-bold text-ink">Plano {{ subscriptionStatus.plan }}</h3>
             <p class="text-sm text-ink-body">{{ getStatusText() }}</p>
@@ -105,13 +106,16 @@ function getStatusText() {
           :style="{ width: `${Math.min((subscriptionStatus.limits.roadmaps.used / subscriptionStatus.limits.roadmaps.limit) * 100, 100)}%` }"
         />
       </div>
-      <p v-else class="text-xs text-ink-body mt-1">Roadmaps ilimitados 🎉</p>
+      <p v-else class="text-xs text-ink-body mt-1">Roadmaps ilimitados</p>
     </div>
 
     <!-- IA Credits -->
     <div v-if="subscriptionStatus.limits.aiCreditsPerMonth > 0" class="mb-6">
       <div class="flex items-center justify-between mb-2">
-        <span class="text-sm font-medium text-ink-body">⚡ Créditos de IA/mês</span>
+        <div class="flex items-center gap-2">
+          <SparklesIcon class="w-4 h-4 text-ink-body" />
+          <span class="text-sm font-medium text-ink-body">Créditos de IA/mês</span>
+        </div>
         <span class="text-sm font-semibold text-ink">
           {{ subscriptionStatus.limits.aiCreditsRemaining }}/{{ subscriptionStatus.limits.aiCreditsPerMonth }}
         </span>
@@ -134,33 +138,33 @@ function getStatusText() {
       <p class="text-sm font-semibold text-ink mb-3">O que você pode fazer:</p>
       <ul class="space-y-2">
         <li class="flex items-center gap-2 text-sm text-ink-body">
-          <span>✓</span>
+          <CheckIcon class="w-4 h-4 flex-shrink-0 text-green-600" />
           <span>
             {{ subscriptionStatus.features.maxBlocksPerBlock === Infinity ? 'Módulos ilimitados' : `Até ${subscriptionStatus.features.maxBlocksPerRoadmap} módulos por roadmap` }}
           </span>
         </li>
         <li class="flex items-center gap-2 text-sm text-ink-body">
-          <span>✓</span>
+          <CheckIcon class="w-4 h-4 flex-shrink-0 text-green-600" />
           <span>
             {{ subscriptionStatus.features.maxTopicsPerBlock === Infinity ? 'Tópicos ilimitados' : `Até ${subscriptionStatus.features.maxTopicsPerBlock} tópicos por módulo` }}
           </span>
         </li>
         <li class="flex items-center gap-2 text-sm text-ink-body">
-          <span>✓</span>
+          <CheckIcon class="w-4 h-4 flex-shrink-0 text-green-600" />
           <span>
             {{ subscriptionStatus.features.maxResourcesPerTopic === Infinity ? 'Recursos ilimitados' : `Até ${subscriptionStatus.features.maxResourcesPerTopic} recursos por tópico` }}
           </span>
         </li>
         <li v-if="subscriptionStatus.limits.aiCreditsPerMonth === 0" class="flex items-center gap-2 text-sm text-ink-body">
-          <span>✗</span>
+          <XMarkIcon class="w-4 h-4 flex-shrink-0 text-red-600" />
           <span>Geração com IA (upgrade necessário)</span>
         </li>
         <li v-else-if="subscriptionStatus.features.canUseAi" class="flex items-center gap-2 text-sm text-green-700 dark:text-green-300">
-          <span>✓</span>
+          <CheckIcon class="w-4 h-4 flex-shrink-0 text-green-600" />
           <span>Geração com IA ({{ subscriptionStatus.limits.aiCreditsRemaining }} créditos restantes)</span>
         </li>
         <li v-else class="flex items-center gap-2 text-sm text-orange-700 dark:text-orange-300">
-          <span>⏱️</span>
+          <ClockIcon class="w-4 h-4 flex-shrink-0" />
           <span>IA disponível no próximo mês</span>
         </li>
       </ul>
@@ -174,7 +178,7 @@ function getStatusText() {
         @click="() => router.push('/plans')"
         class="flex-1"
       >
-        🚀 Fazer Upgrade
+        Fazer Upgrade
       </AppButton>
       <AppButton
         v-else-if="!subscriptionStatus.isActive"
@@ -182,14 +186,14 @@ function getStatusText() {
         @click="() => router.push('/plans')"
         class="flex-1"
       >
-        🔄 Renovar Plano
+        Renovar Plano
       </AppButton>
       <AppButton
         variant="secondary"
         @click="loadStatus"
         class="flex-1"
       >
-        🔄 Atualizar
+        Atualizar
       </AppButton>
     </div>
   </div>

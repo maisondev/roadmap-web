@@ -32,21 +32,12 @@ const editBlockTitle = ref('')
 const editBlockPriority = ref<'normal' | 'alta' | 'maxima'>('normal')
 
 // Filter state
-const filterModuleName = ref('')
 const filterModuleStatus = ref<'all' | 'notStarted' | 'inProgress' | 'completed'>('all')
 
 // Computed property for filtered blocks
 const filteredBlocks = computed(() => {
   let blocks = roadmapStore.activeRoadmap.blocks
-  
-  // Filter by name
-  if (filterModuleName.value.trim()) {
-    const searchTerm = filterModuleName.value.toLowerCase().trim()
-    blocks = blocks.filter(block => 
-      block.title.toLowerCase().includes(searchTerm)
-    )
-  }
-  
+
   // Filter by status
   if (filterModuleStatus.value !== 'all') {
     blocks = blocks.filter(block => {
@@ -57,7 +48,7 @@ const filteredBlocks = computed(() => {
       return true
     })
   }
-  
+
   return blocks
 })
 
@@ -170,31 +161,19 @@ function deleteBlock() {
 
       <!-- Filters -->
       <div class="space-y-3 sm:space-y-0 sm:flex sm:flex-row sm:gap-4 sm:items-center sm:justify-between">
-        <!-- Filters -->
-        <div class="flex flex-col gap-2 w-full sm:w-auto">
-          <div class="relative flex-1 sm:flex-initial">
-            <input
-              v-model="filterModuleName"
-              type="text"
-              placeholder="Buscar módulos..."
-              class="w-full sm:w-64 px-3 py-2 pl-10 border border-hairline rounded-lg bg-canvas-soft text-ink"
-            />
-            <AppIcon name="search" size="sm" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-          </div>
-          <select
-            v-model="filterModuleStatus"
-            class="px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
-          >
-            <option value="all">Todos os status</option>
-            <option value="notStarted">Não iniciados</option>
-            <option value="inProgress">Em andamento</option>
-            <option value="completed">Concluídos</option>
-          </select>
-        </div>
+        <select
+          v-model="filterModuleStatus"
+          class="px-3 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink"
+        >
+          <option value="all">Todos os status</option>
+          <option value="notStarted">Não iniciados</option>
+          <option value="inProgress">Em andamento</option>
+          <option value="completed">Concluídos</option>
+        </select>
       </div>
 
       <!-- Results count -->
-      <div v-if="filterModuleName || filterModuleStatus !== 'all'" class="text-sm text-ink-body">
+      <div v-if="filterModuleStatus !== 'all'" class="text-sm text-ink-body">
         {{ filteredBlocks.length }} {{ filteredBlocks.length === 1 ? 'módulo encontrado' : 'módulos encontrados' }}
       </div>
 

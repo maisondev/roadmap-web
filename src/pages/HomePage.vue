@@ -21,7 +21,6 @@ const roadmapStore = useRoadmapStore()
 const dailyLogStore = useDailyLogStore()
 
 const {
-  filterName,
   filterStatus,
   filteredRoadmapIds,
   getRoadmapStats,
@@ -48,7 +47,7 @@ const showGenerateRoadmapModal = ref(false)
 const showImportModal = ref(false)
 const showGlobalSearch = ref(false)
 
-const filterModel = ref({ name: filterName.value, status: filterStatus.value })
+const filterModel = ref({ status: filterStatus.value })
 
 async function handleCreateRoadmap(data: {
   title: string
@@ -81,7 +80,7 @@ function handleImportRoadmap(data: string) {
 
       <RoadmapFilters
         v-model="filterModel"
-        @update:modelValue="(v) => { filterName = v.name; filterStatus = v.status }"
+        @update:modelValue="(v) => { filterStatus = v.status }"
         @create="showAddRoadmapModal = true"
         @generate="showGenerateRoadmapModal = true"
         @import="showImportModal = true"
@@ -93,7 +92,7 @@ function handleImportRoadmap(data: string) {
         @useTemplate="useExampleRoadmap"
       />
 
-      <div v-if="filterName || filterStatus !== 'all'" class="text-sm text-ink-body">
+      <div v-if="filterStatus !== 'all'" class="text-sm text-ink-body">
         {{ filteredRoadmapIds.length }} {{ filteredRoadmapIds.length === 1 ? 'roadmap encontrado' : 'roadmaps encontrados' }}
       </div>
 
@@ -119,7 +118,7 @@ function handleImportRoadmap(data: string) {
         />
       </div>
 
-      <div v-if="filteredRoadmapIds.length === 0 && (filterName || filterStatus !== 'all')" class="text-center py-12">
+      <div v-if="filteredRoadmapIds.length === 0 && filterStatus !== 'all'" class="text-center py-12">
         <p class="text-ink-body">
           Nenhum roadmap encontrado para os filtros selecionados.
         </p>

@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import PlayIcon from '@heroicons/vue/20/solid/PlayIcon.vue'
+import DocumentIcon from '@heroicons/vue/20/solid/DocumentIcon.vue'
+import LinkIcon from '@heroicons/vue/20/solid/LinkIcon.vue'
+import ArrowTopRightOnSquareIcon from '@heroicons/vue/20/solid/ArrowTopRightOnSquareIcon.vue'
+
 interface Props {
   href: string
   external?: boolean
@@ -20,10 +26,10 @@ function isDrive(url: string): boolean {
   return url.includes('drive.google.com')
 }
 
-function getIcon(url: string): string {
-  if (isYoutube(url)) return '▶️'
-  if (isDrive(url)) return '📄'
-  return '🔗'
+function getIconComponent(url: string) {
+  if (isYoutube(url)) return PlayIcon
+  if (isDrive(url)) return DocumentIcon
+  return LinkIcon
 }
 </script>
 
@@ -35,8 +41,8 @@ function getIcon(url: string): string {
     class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline transition-colors"
     @click="$emit('click', $event)"
   >
-    <span>{{ getIcon(href) }}</span>
+    <component :is="getIconComponent(href)" class="w-4 h-4" />
     <slot />
-    <span v-if="external" class="text-xs">↗</span>
+    <ArrowTopRightOnSquareIcon v-if="external" class="w-3 h-3" />
   </a>
 </template>

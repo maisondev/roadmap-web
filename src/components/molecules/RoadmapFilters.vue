@@ -4,7 +4,6 @@ import AppButton from '@/components/atoms/AppButton.vue'
 import AppIcon from '@/components/atoms/AppIcon.vue'
 
 interface FilterModel {
-  name: string
   status: 'all' | 'ativo' | 'pausado' | 'concluido'
 }
 
@@ -21,11 +20,6 @@ const emit = defineEmits<{
   import: []
 }>()
 
-const filterName = computed({
-  get: () => props.modelValue.name,
-  set: (value) => emit('update:modelValue', { ...props.modelValue, name: value })
-})
-
 const filterStatus = computed({
   get: () => props.modelValue.status,
   set: (value) => emit('update:modelValue', { ...props.modelValue, status: value })
@@ -36,15 +30,6 @@ const filterStatus = computed({
   <div class="space-y-4">
     <!-- Filters -->
     <div class="flex flex-col sm:flex-row gap-3 w-full">
-      <div class="relative flex-1">
-        <input
-          v-model="filterName"
-          type="text"
-          placeholder="Buscar roadmaps..."
-          class="w-full px-3 py-2 pl-10 border border-hairline rounded-lg bg-canvas-soft text-ink text-sm"
-        />
-        <AppIcon name="search" size="sm" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-      </div>
       <select
         v-model="filterStatus"
         class="px-4 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink text-sm"

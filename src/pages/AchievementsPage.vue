@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { TrophyIcon } from '@heroicons/vue/24/outline'
+import { TrophyIcon, LockClosedIcon, LightBulbIcon } from '@heroicons/vue/24/outline'
 import { useBadgesStore } from '@/stores/badges'
 
 const badgesStore = useBadgesStore()
@@ -47,9 +47,12 @@ function getHintForBadge(key: string): string {
 
       <!-- Earned Badges -->
       <div v-else-if="badgesStore.earnedBadges.length > 0" class="mb-8 sm:mb-12">
-        <h2 class="text-lg sm:text-xl font-semibold text-ink mb-4 sm:mb-6">
-          ✨ Badges Conquistados
-        </h2>
+        <div class="flex items-center gap-2 mb-4 sm:mb-6">
+          <TrophyIcon class="w-5 h-5 text-yellow-500" />
+          <h2 class="text-lg sm:text-xl font-semibold text-ink">
+            Badges Conquistados
+          </h2>
+        </div>
         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
           <div
             v-for="badge in badgesStore.earnedBadges"
@@ -72,9 +75,12 @@ function getHintForBadge(key: string): string {
 
       <!-- Unearned Badges -->
       <div v-if="badgesStore.unearnedBadges.length > 0">
-        <h2 class="text-lg sm:text-xl font-semibold text-ink mb-4 sm:mb-6">
-          🔒 Badges Bloqueados
-        </h2>
+        <div class="flex items-center gap-2 mb-4 sm:mb-6">
+          <LockClosedIcon class="w-5 h-5 text-gray-400" />
+          <h2 class="text-lg sm:text-xl font-semibold text-ink">
+            Badges Bloqueados
+          </h2>
+        </div>
         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
           <div
             v-for="badge in badgesStore.unearnedBadges"
@@ -88,9 +94,10 @@ function getHintForBadge(key: string): string {
             <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-500 text-center mb-2 sm:mb-3 line-clamp-2">
               {{ badge.description }}
             </p>
-            <p class="text-xs text-gray-600 dark:text-gray-500 text-center font-medium bg-gray-200 dark:bg-gray-700 rounded px-2 py-1">
-              💡 {{ getHintForBadge(badge.key) }}
-            </p>
+            <div class="flex items-center justify-center gap-1 text-xs text-gray-600 dark:text-gray-500 text-center font-medium bg-gray-200 dark:bg-gray-700 rounded px-2 py-1">
+              <LightBulbIcon class="w-3 h-3" />
+              <span>{{ getHintForBadge(badge.key) }}</span>
+            </div>
           </div>
         </div>
       </div>

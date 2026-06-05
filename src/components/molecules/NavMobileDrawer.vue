@@ -166,7 +166,7 @@ const isActive = (name: string) => route.name === name
                   planData.plan === 'PLUS' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' :
                   'bg-gray-200 dark:bg-gray-600 text-ink-body'
                 ]">
-                  {{ planData.plan === 'AVANCADO' ? '🚀' : planData.plan === 'PLUS' ? '⭐' : '📦' }} {{ planData.plan }}
+                  {{ planData.plan }}
                 </span>
               </div>
             </div>

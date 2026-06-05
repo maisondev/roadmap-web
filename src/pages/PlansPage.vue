@@ -26,7 +26,7 @@
       <!-- Current Plan Info -->
       <div v-if="!isLoading && currentPlan && currentPlan.plan !== 'ESSENCIAL' && currentPlan.planExpiresAt" class="mb-8 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
         <p class="text-blue-700 dark:text-blue-400 font-medium">
-          📅 Seu plano {{ currentPlan.plan }} está ativo até <strong>{{ formatDate(currentPlan.planExpiresAt) }}</strong>
+          Seu plano {{ currentPlan.plan }} está ativo até <strong>{{ formatDate(currentPlan.planExpiresAt) }}</strong>
         </p>
         <p class="text-sm text-blue-600 dark:text-blue-300 mt-2">
           Se você fizer downgrade, continuará pagando até essa data, mas terá acesso imediato ao novo plano.

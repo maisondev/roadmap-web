@@ -34,11 +34,11 @@ const planBadgeColor = computed(() => {
   return 'bg-gray-100 dark:bg-gray-900/30 text-ink-body'
 })
 
-const planIcon = computed(() => {
+const planLabel = computed(() => {
   const plan = planData.value?.plan
-  if (plan === 'AVANCADO') return '🚀'
-  if (plan === 'PLUS') return '⭐'
-  return '📦'
+  if (plan === 'AVANCADO') return 'Avançado'
+  if (plan === 'PLUS') return 'Plus'
+  return 'Gratuito'
 })
 
 function getGravatarUrl(userEmail: string): string {
@@ -138,7 +138,7 @@ function toggleTheme() {
                 {{ authStore.userEmail }}
               </p>
               <div v-if="planData" :class="['text-xs font-semibold px-2 py-1 rounded-full mt-2 inline-block', planBadgeColor]">
-                {{ planIcon }} {{ planData.plan }}
+                {{ planData.plan }}
               </div>
             </div>
           </div>

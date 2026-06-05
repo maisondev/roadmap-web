@@ -41,22 +41,10 @@ export function useRoadmapActions() {
   const authStore = useAuthStore()
 
   // Filter state
-  const filterName = ref('')
   const filterStatus = ref<'all' | 'ativo' | 'pausado' | 'concluido'>('all')
 
   const filteredRoadmapIds = computed(() => {
     let roadmaps = Object.keys(roadmapStore.roadmaps)
-
-    if (filterName.value.trim()) {
-      const searchTerm = filterName.value.toLowerCase().trim()
-      roadmaps = roadmaps.filter(id => {
-        const roadmap = roadmapStore.roadmaps[id]
-        return (
-          roadmap.title.toLowerCase().includes(searchTerm) ||
-          roadmap.description.toLowerCase().includes(searchTerm)
-        )
-      })
-    }
 
     if (filterStatus.value !== 'all') {
       roadmaps = roadmaps.filter(id => {
@@ -395,7 +383,6 @@ export function useRoadmapActions() {
 
   return {
     // State
-    filterName,
     filterStatus,
     filteredRoadmapIds,
 

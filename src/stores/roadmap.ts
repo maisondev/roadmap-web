@@ -92,10 +92,10 @@ export const useRoadmapStore = defineStore('roadmap', () => {
         activeRoadmapId.value = Object.keys(roadmaps.value)[0] || 'interpretacao-textos'
       }
 
-      console.log(`✅ ${Object.keys(roadmapMap).length} roadmaps carregados com sucesso`)
+      console.log(`Loaded ${Object.keys(roadmapMap).length} roadmaps successfully`)
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Erro ao carregar roadmaps'
-      console.error('❌ Erro ao inicializar roadmap:', err)
+      console.error('Error initializing roadmap:', err)
       roadmaps.value = { [roadmapInterpretacaoTextos.id]: roadmapInterpretacaoTextos }
     } finally {
       isLoading.value = false
@@ -413,7 +413,7 @@ export const useRoadmapStore = defineStore('roadmap', () => {
       // Mostrar notificação de sucesso
       const notificationsStore = useNotificationsStore()
       notificationsStore.addNotification(
-        '🎉 Roadmap criado!',
+        'Roadmap criado!',
         `O roadmap "${title}" foi criado com sucesso!`,
         'success'
       )

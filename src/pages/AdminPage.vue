@@ -6,6 +6,15 @@ import { api } from '@/services/api'
 import AppButton from '@/components/atoms/AppButton.vue'
 import AppIcon from '@/components/atoms/AppIcon.vue'
 import AppModal from '@/components/atoms/AppModal.vue'
+import {
+  ChartBarIcon,
+  TrendingUpIcon,
+  UsersIcon,
+  DocumentTextIcon,
+  BellIcon,
+  CreditCardIcon,
+  BoltIcon
+} from '@heroicons/vue/24/outline'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -37,7 +46,7 @@ const notificationSendError = ref<string | null>(null)
 const notificationSendSuccess = ref(false)
 
 // Mensagem para primeiro roadmap
-const firstRoadmapMessage = ref('Continue criando roadmaps incríveis! Você está no caminho certo! 🚀')
+const firstRoadmapMessage = ref('Continue criando roadmaps incríveis! Você está no caminho certo!')
 const isSendingFirstRoadmapMessage = ref(false)
 const firstRoadmapSuccess = ref<string | null>(null)
 const firstRoadmapError = ref<string | null>(null)
@@ -334,23 +343,24 @@ async function syncBadges() {
       <div class="flex gap-2 border-b border-slate-200 dark:border-slate-700 overflow-x-auto pb-2">
         <button
           v-for="tab in [
-            { id: 'stats', label: '📊 Estatísticas' },
-            { id: 'analytics', label: '📈 Analytics' },
-            { id: 'users', label: '👥 Usuários' },
-            { id: 'activity', label: '📝 Atividades' },
-            { id: 'notifications', label: '🔔 Notificações' },
-            { id: 'plans', label: '💳 Planos' },
-            { id: 'ia', label: '⚡ IA (Gemini)' },
+            { id: 'stats', label: 'Estatísticas', icon: ChartBarIcon },
+            { id: 'analytics', label: 'Analytics', icon: TrendingUpIcon },
+            { id: 'users', label: 'Usuários', icon: UsersIcon },
+            { id: 'activity', label: 'Atividades', icon: DocumentTextIcon },
+            { id: 'notifications', label: 'Notificações', icon: BellIcon },
+            { id: 'plans', label: 'Planos', icon: CreditCardIcon },
+            { id: 'ia', label: 'IA (Gemini)', icon: BoltIcon },
           ]"
           :key="tab.id"
           @click="activeTab = tab.id as any"
           :class="[
-            'px-4 py-3 font-medium transition-colors whitespace-nowrap',
+            'flex items-center gap-2 px-4 py-3 font-medium transition-colors whitespace-nowrap',
             activeTab === tab.id
               ? 'border-b-2 border-primary text-primary'
               : 'text-ink-body hover:text-gray-900 dark:hover:text-white'
           ]"
         >
+          <component :is="tab.icon" class="w-4 h-4" />
           {{ tab.label }}
         </button>
       </div>
@@ -414,11 +424,11 @@ async function syncBadges() {
         <!-- Métodos de Login -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" v-if="loginStats">
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-ink mb-4">📧 Login por Email</h3>
-            <p class="text-4xl font-bold text-blue-600 dark:text-blue-400">{{ loginStats.email }}</p>
+            <h3 class="font-semibold text-ink mb-4">Login por Email</h3>
+            <p class="text-4xl font-bold text-primary-600 dark:text-primary-400">{{ loginStats.email }}</p>
             <div class="mt-3 h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
               <div
-                class="h-full bg-blue-500 rounded-full transition-all"
+                class="h-full bg-primary-500 rounded-full transition-all"
                 :style="{ width: `${loginStats.emailPercent}%` }"
               />
             </div>
@@ -426,11 +436,11 @@ async function syncBadges() {
           </div>
 
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-ink mb-4">🔵 Login via Google</h3>
-            <p class="text-4xl font-bold text-orange-600 dark:text-orange-400">{{ loginStats.google }}</p>
+            <h3 class="font-semibold text-ink mb-4">Login via Google</h3>
+            <p class="text-4xl font-bold text-warning-600 dark:text-warning-400">{{ loginStats.google }}</p>
             <div class="mt-3 h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
               <div
-                class="h-full bg-orange-500 rounded-full transition-all"
+                class="h-full bg-warning-500 rounded-full transition-all"
                 :style="{ width: `${loginStats.googlePercent}%` }"
               />
             </div>
@@ -438,14 +448,14 @@ async function syncBadges() {
           </div>
 
           <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-            <h3 class="font-semibold text-ink mb-4">👥 Total de Usuários</h3>
+            <h3 class="font-semibold text-ink mb-4">Total de Usuários</h3>
             <p class="text-4xl font-bold text-primary">{{ loginStats.total }}</p>
             <p class="text-sm text-ink-body mt-4">
-              <span class="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded mr-2">
-                📧 {{ loginStats.email }}
+              <span class="inline-block px-2 py-1 bg-primary-100 dark:bg-primary-900/40 text-primary-700 dark:text-primary-300 text-xs font-semibold rounded mr-2">
+                {{ loginStats.email }}
               </span>
-              <span class="inline-block px-2 py-1 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 text-xs font-semibold rounded">
-                🔵 {{ loginStats.google }}
+              <span class="inline-block px-2 py-1 bg-warning-100 dark:bg-warning-900/40 text-warning-700 dark:text-warning-300 text-xs font-semibold rounded">
+                {{ loginStats.google }}
               </span>
             </p>
           </div>
@@ -513,7 +523,7 @@ async function syncBadges() {
                   :y="svgHeight - 2"
                   text-anchor="middle"
                   :font-size="Math.max(7, barSlotWidth * 0.45)"
-                  fill="#9ca3af"
+                  fill="#71717A"
                 >
                   {{ item.date.slice(5).replace('-', '/') }}
                 </text>
@@ -668,7 +678,7 @@ async function syncBadges() {
                 <th class="px-2 py-2 text-left font-semibold text-ink text-xs">Consentimento</th>
                 <th class="px-2 py-2 text-center font-semibold text-ink text-xs">RM</th>
                 <th class="px-2 py-2 text-center font-semibold text-ink text-xs">Logs</th>
-                <th class="px-2 py-2 text-center font-semibold text-ink text-xs">🔔</th>
+                <th class="px-2 py-2 text-center font-semibold text-ink text-xs"><BellIcon class="w-4 h-4 inline" /></th>
                 <th class="px-2 py-2 text-left font-semibold text-ink text-xs">Cadastro</th>
                 <th class="px-2 py-2 text-left font-semibold text-ink text-xs">Ação</th>
               </tr>
@@ -677,13 +687,13 @@ async function syncBadges() {
               <tr v-for="user in users" :key="user.id" class="hover:bg-gray-50 dark:hover:bg-gray-800 text-xs">
                 <td class="px-3 py-2 text-ink font-medium">{{ user.email }}</td>
                 <td class="px-2 py-2">
-                  <span v-if="user.role === 'OWNER'" class="px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
-                    👑 Owner
+                  <span v-if="user.role === 'OWNER'" class="px-1.5 py-0.5 bg-secondary-100 dark:bg-secondary-900/40 text-secondary-700 dark:text-secondary-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
+                    Owner
                   </span>
-                  <span v-else-if="user.role === 'ADMIN'" class="px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
+                  <span v-else-if="user.role === 'ADMIN'" class="px-1.5 py-0.5 bg-primary-100 dark:bg-primary-900/40 text-primary-700 dark:text-primary-300 text-xs font-semibold rounded whitespace-nowrap inline-block">
                     Admin
                   </span>
-                  <span v-else class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-ink-body text-xs font-semibold rounded whitespace-nowrap inline-block">
+                  <span v-else class="px-1.5 py-0.5 bg-neutral-100 dark:bg-neutral-700 text-ink-body text-xs font-semibold rounded whitespace-nowrap inline-block">
                     Usuário
                   </span>
                 </td>
@@ -731,7 +741,7 @@ async function syncBadges() {
                       :disabled="deletingUserId === user.id || togglingUserId === user.id"
                       class="px-3 py-1 text-xs font-medium rounded transition-colors bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/60 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      🔔 Ver
+                      Ver
                     </button>
                     <button
                       @click="confirmDelete(user)"

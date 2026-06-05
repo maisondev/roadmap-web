@@ -34,14 +34,12 @@ const isSelectingLocalPath = ref(false)
 const showAddResourceModal = ref(false)
 const documentIsLocal = ref(false)
 
-const searchQuery = ref('')
 const filterType = ref<'all' | 'youtube' | 'drive' | 'document' | 'link' | 'local'>('all')
 const onlyUnviewed = ref(false)
 const sortBy = ref<'added_desc' | 'added_asc' | 'rating_desc'>('added_desc')
 
 const filteredResources = computed(() => {
   const resources = topic.value?.resources ?? []
-  const q = searchQuery.value.trim().toLowerCase()
 
   let list = resources
 
@@ -51,13 +49,6 @@ const filteredResources = computed(() => {
 
   if (onlyUnviewed.value) {
     list = list.filter(r => !r.viewed)
-  }
-
-  if (q) {
-    list = list.filter(r => {
-      const hay = `${r.label} ${r.url ?? ''} ${r.localPath ?? ''} ${r.notes ?? ''}`.toLowerCase()
-      return hay.includes(q)
-    })
   }
 
   const sorted = [...list]
@@ -222,15 +213,6 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
 
           <div class="p-3 border border-hairline rounded-lg bg-canvas-soft space-y-3">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div class="sm:col-span-2">
-                <label class="block text-xs font-medium text-ink-body mb-1">Buscar</label>
-                <input
-                  v-model="searchQuery"
-                  type="text"
-                  placeholder="Título, URL, anotações..."
-                  class="w-full px-3 py-2 text-sm border border-hairline rounded-lg bg-canvas-soft text-ink"
-                />
-              </div>
               <div>
                 <label class="block text-xs font-medium text-ink-body mb-1">Tipo</label>
                 <select
@@ -255,11 +237,11 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
                 <option value="added_asc">Mais antigos</option>
                 <option value="rating_desc">Melhor rating</option>
               </select>
+              </div>
             </div>
             <div class="text-xs text-ink-body">
               {{ filteredResources.length }} resultado{{ filteredResources.length === 1 ? '' : 's' }}
             </div>
-          </div>
           </div>
 
           <div v-if="filteredResources.length > 0" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">

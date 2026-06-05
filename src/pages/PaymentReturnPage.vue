@@ -19,7 +19,7 @@
         </div>
 
         <h1 class="text-3xl font-bold text-ink mb-2">
-          Plano ativado com sucesso! 🎉
+          Plano ativado com sucesso!
         </h1>
 
         <p class="text-gray-600 dark:text-gray-300 mb-6">
@@ -74,7 +74,7 @@
 
         <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
           <p class="text-sm text-blue-900 dark:text-blue-200">
-            ℹ️ Você receberá uma confirmação por email quando o pagamento for processado.
+            Você receberá uma confirmação por email quando o pagamento for processado.
           </p>
         </div>
 
@@ -114,7 +114,7 @@
 
         <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
           <p class="text-sm text-red-900 dark:text-red-200">
-            🔒 Seu cartão está seguro. Você não foi cobrado.
+            Seu cartão está seguro. Você não foi cobrado.
           </p>
         </div>
 
@@ -220,7 +220,7 @@ onMounted(async () => {
   const queryStatus = route.query.status as string
   status.value = queryStatus || 'unknown'
 
-  console.log(`💳 [PaymentReturn] Status: ${status.value}`)
+  console.log(`[PaymentReturn] Status: ${status.value}`)
 
   // If user is logged in, fetch current plan
   if (authStore.isAuthenticated) {
@@ -229,29 +229,29 @@ onMounted(async () => {
       const data = await response.json()
       currentPlan.value = data.plan
       planExpiresAt.value = data.planExpiresAt
-      console.log(`💳 [PaymentReturn] Plano atual:`, { plan: data.plan, expiresAt: data.planExpiresAt })
+      console.log(`[PaymentReturn] Current plan:`, { plan: data.plan, expiresAt: data.planExpiresAt })
     } catch (error) {
-      console.error('❌ [PaymentReturn] Erro ao buscar plano:', error)
+      console.error('[PaymentReturn] Error fetching plan:', error)
     }
   }
 
   // Auto-redirect on success (com delay para webhook processar)
   if (status.value === 'approved') {
-    console.log(`✅ [PaymentReturn] Pagamento aprovado! Aguardando webhook processar...`)
+    console.log(`[PaymentReturn] Payment approved, waiting for webhook...`)
 
     // Esperar 5 segundos para webhook processar (pode levar tempo)
     await new Promise(resolve => setTimeout(resolve, 5000))
 
     // Refetch do plano para confirmar atualização
-    console.log(`🔄 [PaymentReturn] Refetchando plano...`)
+    console.log(`[PaymentReturn] Refetching plan...`)
     try {
       const response = await api.get('/api/plan')
       const data = await response.json()
       currentPlan.value = data.plan
       planExpiresAt.value = data.planExpiresAt
-      console.log(`✅ [PaymentReturn] Plano atualizado:`, { plan: data.plan, expiresAt: data.planExpiresAt })
+      console.log(`[PaymentReturn] Plan updated:`, { plan: data.plan, expiresAt: data.planExpiresAt })
     } catch (error) {
-      console.error('❌ [PaymentReturn] Erro ao refetch plano:', error)
+      console.error('[PaymentReturn] Error refetching plan:', error)
     }
 
     // Contador visual
@@ -259,7 +259,7 @@ onMounted(async () => {
       countdown.value--
       if (countdown.value <= 0) {
         clearInterval(interval)
-        console.log(`🚀 [PaymentReturn] Redirecionando para dashboard...`)
+        console.log(`[PaymentReturn] Redirecting to dashboard...`)
         goToDashboard()
       }
     }, 1000)

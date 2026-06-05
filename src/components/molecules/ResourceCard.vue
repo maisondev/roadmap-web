@@ -6,7 +6,7 @@ import AppLink from '@/components/atoms/AppLink.vue'
 import AppButton from '@/components/atoms/AppButton.vue'
 import AppIcon from '@/components/atoms/AppIcon.vue'
 import AppModal from '@/components/atoms/AppModal.vue'
-import { ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/outline'
+import { ArrowTopRightOnSquareIcon, ClockIcon } from '@heroicons/vue/24/outline'
 
 interface Props {
   resource: Resource
@@ -230,7 +230,7 @@ function saveResourceEdit() {
         >
           {{ resource.label }}
           <AppIcon v-if="!isOpeningLocal" name="download" size="xs" class="inline ml-1" />
-          <span v-else class="ml-1 text-xs">⏳</span>
+          <ClockIcon v-else class="inline ml-1 w-3 h-3" />
         </button>
 
         <!-- External resource (link) -->

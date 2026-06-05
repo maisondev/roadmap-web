@@ -52,7 +52,7 @@ class SyncManager {
     this.queue.value.push(newAction)
     this.saveQueue()
 
-    console.log(`[SYNC] ➕ Ação adicionada à fila:`, {
+    console.log(`[SYNC] Action added to queue:`, {
       tipo: action.type,
       recurso: action.resource,
       id: newAction.id,
@@ -68,20 +68,20 @@ class SyncManager {
     // Cancelar timer anterior
     if (this.syncTimer) {
       clearTimeout(this.syncTimer)
-      console.log(`[SYNC] ⏱️  Timer anterior cancelado`)
+      console.log(`[SYNC] Previous timer cancelled`)
     }
 
     // Agendar novo sync
-    console.log(`[SYNC] ⏱️  Agendando sync em ${this.debounceDelay}ms`)
+    console.log(`[SYNC] Scheduling sync in ${this.debounceDelay}ms`)
     this.syncTimer = setTimeout(() => {
-      console.log(`[SYNC] ⏰ Debounce expirou! Iniciando sincronização...`)
+      console.log(`[SYNC] Debounce expired, starting sync...`)
       this.sync()
     }, this.debounceDelay)
   }
 
   async sync() {
     if (this.syncing.value || this.queue.value.length === 0) {
-      console.log(`[SYNC] ⚠️  Sync ignorado:`, {
+      console.log(`[SYNC] Sync skipped:`, {
         jaEstaSincronizando: this.syncing.value,
         filaVazia: this.queue.value.length === 0
       })
@@ -89,25 +89,25 @@ class SyncManager {
     }
 
     this.syncing.value = true
-    console.log(`[SYNC] 🔄 Iniciando sincronização de ${this.queue.value.length} ação(ões)`)
+    console.log(`[SYNC] Starting sync of ${this.queue.value.length} action(s)`)
 
     const actionsToSync = [...this.queue.value]
 
     for (const action of actionsToSync) {
       try {
-        console.log(`[SYNC] 📤 Sincronizando:`, action.type, action.resource, action.resourceId)
+        console.log(`[SYNC] Syncing:`, action.type, action.resource, action.resourceId)
         await this.executeSyncAction(action)
-        console.log(`[SYNC] ✅ Sucesso:`, action.id)
+        console.log(`[SYNC] Success:`, action.id)
 
         // Remover da fila após sucesso
         this.queue.value = this.queue.value.filter(a => a.id !== action.id)
       } catch (err) {
         action.attempts++
-        console.error(`[SYNC] ❌ Erro na ação ${action.id} (tentativa ${action.attempts}/${action.maxAttempts}):`, err)
+        console.error(`[SYNC] Error in action ${action.id} (attempt ${action.attempts}/${action.maxAttempts}):`, err)
 
         // Se excedeu tentativas, remover
         if (action.attempts >= action.maxAttempts) {
-          console.error(`[SYNC] 💥 Ação ${action.id} falhou permanentemente após ${action.maxAttempts} tentativas`)
+          console.error(`[SYNC] Action ${action.id} failed permanently after ${action.maxAttempts} attempts`)
           this.queue.value = this.queue.value.filter(a => a.id !== action.id)
         }
       }
@@ -115,13 +115,13 @@ class SyncManager {
 
     this.saveQueue()
     this.syncing.value = false
-    console.log(`[SYNC] ✨ Sincronização concluída. Fila atual: ${this.queue.value.length} ação(ões)`)
+    console.log(`[SYNC] Sync completed. Queue: ${this.queue.value.length} action(s)`)
   }
 
   private async executeSyncAction(action: SyncAction) {
     const { type, resource, resourceId, parentId, data } = action
 
-    console.log(`[SYNC] 🔗 Executando:`, {
+    console.log(`[SYNC] Executing:`, {
       tipo: type,
       recurso: resource,
       dados: data
@@ -129,7 +129,7 @@ class SyncManager {
 
     switch (true) {
       case resource === 'roadmap' && type === 'create':
-        console.log(`[SYNC] 📍 POST /api/roadmaps`)
+        console.log(`[SYNC] POST /api/roadmaps`)
         return api.post('/api/roadmaps', data)
 
       case resource === 'roadmap' && type === 'update':
