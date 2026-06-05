@@ -114,20 +114,6 @@ const isActive = (name: string) => route.name === name
           </button>
         </div>
 
-        <!-- Center: Search bar (desktop) -->
-        <div v-if="authStore.isLoggedIn" class="hidden md:flex flex-1 justify-center max-w-xs mx-4">
-          <div class="relative w-full">
-            <input
-              v-model="searchQuery"
-              @focus="showGlobalSearch = true"
-              type="text"
-              placeholder="Buscar roadmaps..."
-              class="w-full px-3 py-2 pl-9 border border-hairline rounded-lg bg-canvas-soft text-ink text-sm transition-colors focus:border-gray-400"
-            />
-            <MagnifyingGlassIcon class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-          </div>
-        </div>
-
         <!-- Center: Desktop navigation -->
         <div v-if="authStore.isLoggedIn" class="hidden lg:flex items-center gap-1 justify-center">
           <button

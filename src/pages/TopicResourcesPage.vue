@@ -244,7 +244,7 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
             </div>
           </div>
 
-          <div v-if="filteredResources.length > 0" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div v-if="filteredResources.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <ResourceCard
               v-for="(resource, index) in filteredResources"
               :key="resource.id"
