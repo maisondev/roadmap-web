@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useTeacherRankingStore } from '@/stores/teacherRanking'
+import PageHeader from '@/components/organisms/PageHeader.vue'
 import AppButton from '@/components/atoms/AppButton.vue'
 import { PencilIcon, TrashIcon } from '@heroicons/vue/24/outline'
 
@@ -79,15 +80,14 @@ function cancelEdit() {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-4xl mx-auto p-4 space-y-6">
-      <h1 class="text-3xl font-bold text-ink">Ranking de Professores</h1>
+    <div class="max-w-4xl mx-auto p-4 space-y-8">
+      <PageHeader
+        title="Ranking de Professores"
+        description="Avalie e organize os melhores professores por disciplina"
+      />
 
       <div class="p-4 sm:p-6 border border-hairline rounded-lg bg-canvas-soft">
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
-          <div>
-            <h2 class="text-lg sm:text-xl font-semibold text-ink">Seus Rankings</h2>
-            <p class="text-xs sm:text-sm text-ink-body mt-1">Avalie professores por disciplina (salvo neste navegador).</p>
-          </div>
           <div class="w-full sm:w-40">
             <label class="block text-xs font-medium text-ink-body mb-1">Disciplina</label>
             <select

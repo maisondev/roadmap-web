@@ -8,6 +8,7 @@ import {
   BookOpenIcon,
   SparklesIcon
 } from '@heroicons/vue/24/outline'
+import PageHeader from '@/components/organisms/PageHeader.vue'
 import { useBadgesStore } from '@/stores/badges'
 
 const badgesStore = useBadgesStore()

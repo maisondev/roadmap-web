@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useDailyLogStore } from '@/stores/dailyLog'
+import PageHeader from '@/components/organisms/PageHeader.vue'
 import DailyLogEntry from '@/components/molecules/DailyLogEntry.vue'
 import AppButton from '@/components/atoms/AppButton.vue'
 
@@ -125,13 +126,10 @@ const cancelEdit = () => {
 <template>
   <div class="min-h-screen bg-canvas-soft">
     <div class="max-w-4xl mx-auto p-4 space-y-8">
-      <!-- Header -->
-      <div class="space-y-4 text-center">
-      <h1 class="text-4xl font-bold text-ink">Registros Diários</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-300">
-        Acompanhe sua atividade de estudo ao longo do ano
-      </p>
-    </div>
+      <PageHeader
+        title="Registros Diários"
+        description="Acompanhe sua atividade de estudo ao longo do ano"
+      />
 
     <!-- Activity Heatmap -->
     <div class="bg-canvas rounded-lg p-6 border border-hairline">

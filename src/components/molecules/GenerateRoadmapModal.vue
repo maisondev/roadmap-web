@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import AppModal from '@/components/atoms/AppModal.vue'
+import { getColor } from '@/utils/colorSystem'
 import { api } from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
 import type { Block, Resource, ResourceType, Topic } from '@/types'
@@ -195,7 +196,7 @@ function resetForm() {
 <template>
   <AppModal
     :open="open"
-    title="Gerar Roadmap com IA"
+    title="Gerar Roadmap com IA ✨"
     cancel-label="Cancelar"
     submit-label=""
     :disabled="isGenerating"

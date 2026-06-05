@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import AppModal from '@/components/atoms/AppModal.vue'
+import { getColor } from '@/utils/colorSystem'
 import type { Block } from '@/types'
 
 interface Props {
@@ -90,9 +91,12 @@ function resetForm() {
     @submit="handleSubmit"
     @cancel="handleCancel"
   >
+    <!-- Color accent bar -->
+    <div class="h-1 -mx-6 -mt-6 mb-6" :style="{ background: getColor('develop').start }" />
+
     <div class="space-y-5">
       <div>
-        <label class="block text-sm font-medium text-ink-body mb-2">
+        <label class="block text-sm font-medium mb-2" :style="{ color: getColor('develop').start }">
           Título do Roadmap
         </label>
         <input
@@ -105,38 +109,41 @@ function resetForm() {
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-ink-body mb-2">
+        <label class="block text-sm font-medium mb-2" :style="{ color: getColor('preview').start }">
           Descrição
         </label>
         <textarea
           v-model="description"
           placeholder="Descreva o foco deste roadmap..."
           rows="3"
-          class="w-full px-4 py-3 border border-hairline rounded-lg bg-canvas-soft text-ink text-base"
+          class="w-full px-4 py-3 border rounded-lg bg-canvas-soft text-ink text-base"
+          :style="{ borderColor: getColor('preview').start + '40' }"
         />
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-ink-body mb-2">
+        <label class="block text-sm font-medium mb-2" :style="{ color: getColor('ship').start }">
           Categoria
         </label>
         <input
           v-model="category"
           type="text"
           placeholder="Ex: programação, direito, dados"
-          class="w-full px-4 py-3 border border-hairline rounded-lg bg-canvas-soft text-ink text-base"
+          class="w-full px-4 py-3 border rounded-lg bg-canvas-soft text-ink text-base"
+          :style="{ borderColor: getColor('ship').start + '40' }"
         />
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-ink-body mb-2">
+        <label class="block text-sm font-medium mb-2" :style="{ color: getColor('warning').start }">
           Tags (separadas por vírgula)
         </label>
         <input
           v-model="tags"
           type="text"
           placeholder="Ex: concursos, estudo, preparação"
-          class="w-full px-4 py-3 border border-hairline rounded-lg bg-canvas-soft text-ink text-base"
+          class="w-full px-4 py-3 border rounded-lg bg-canvas-soft text-ink text-base"
+          :style="{ borderColor: getColor('warning').start + '40' }"
         />
       </div>
 
