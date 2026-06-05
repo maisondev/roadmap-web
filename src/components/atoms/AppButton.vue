@@ -19,15 +19,15 @@ defineEmits<{
 }>()
 
 const variantClasses = {
-  primary: 'bg-ink text-on-primary rounded-pill hover:opacity-90',
-  secondary: 'bg-canvas text-ink border border-hairline rounded-pill hover:bg-canvas-soft-2',
-  ghost: 'bg-transparent text-ink-body hover:bg-canvas-soft-2 rounded-[6px]',
+  primary: 'bg-ink text-on-primary hover:opacity-90',
+  secondary: 'bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2',
+  ghost: 'bg-transparent text-ink-body hover:bg-canvas-soft-2',
   danger: 'bg-ds-error text-white hover:opacity-90'
 }
 
 const sizeClasses = {
-  sm: 'px-3 py-1.5 text-sm rounded-[6px]',
-  md: 'px-5 py-2.5 text-sm rounded-pill',
+  sm: 'px-3 py-1.5 text-sm rounded-sm',
+  md: 'px-5 py-2.5 text-sm rounded-lg',
   lg: 'px-8 py-3.5 text-base rounded-pill'
 }
 </script>
