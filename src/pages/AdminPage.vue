@@ -667,9 +667,10 @@ async function syncBadges() {
 
       <!-- ===== USERS TAB ===== -->
       <div v-else-if="activeTab === 'users' && users" class="space-y-4">
-        <div class="w-full overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
-          <table class="w-full text-sm">
-            <thead class="bg-canvas-soft border-b border-slate-200 dark:border-slate-700 sticky top-0">
+        <div class="w-full rounded-lg border border-slate-200 dark:border-slate-700" style="overflow: visible;">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-canvas-soft border-b border-slate-200 dark:border-slate-700 sticky top-0">
               <tr>
                 <th class="px-3 py-2 text-left font-semibold text-ink text-xs">Email</th>
                 <th class="px-2 py-2 text-left font-semibold text-ink text-xs">Status</th>

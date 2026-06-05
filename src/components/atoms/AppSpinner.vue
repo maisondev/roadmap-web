@@ -5,10 +5,10 @@
       <div class="absolute inset-0 rounded-full border-4 border-hairline"></div>
 
       <!-- Círculo animado -->
-      <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-primary border-r-primary animate-spin"></div>
+      <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-ds-success border-r-ds-success animate-spin"></div>
 
       <!-- Círculo interno -->
-      <div class="absolute inset-2 rounded-full bg-gradient-to-r from-primary/10 to-transparent"></div>
+      <div class="absolute inset-2 rounded-full bg-gradient-to-r from-ds-success/10 to-transparent"></div>
     </div>
   </div>
 </template>

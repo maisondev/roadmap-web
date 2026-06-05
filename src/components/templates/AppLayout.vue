@@ -26,6 +26,12 @@ const routeLabels: Record<string, string> = {
   help: 'Ajuda',
   contact: 'Contato',
   'daily-log': 'Registros Diários',
+  achievements: 'Conquistas',
+  'teacher-ranking': 'Ranking de Professores',
+  plans: 'Planos',
+  'payment-return': 'Retorno de Pagamento',
+  privacy: 'Privacidade',
+  terms: 'Termos de Serviço',
 }
 
 const breadcrumbs = computed(() => {
@@ -104,7 +110,7 @@ const breadcrumbs = computed(() => {
           <AppBreadcrumb :crumbs="breadcrumbs" />
         </div>
       </div>
-      <div class="max-w-[120rem] mx-auto w-full 2xl:px-6 min-[2560px]:max-w-[140rem] min-[2560px]:px-8 min-[3840px]:max-w-[160rem] min-[3840px]:px-10">
+      <div class="max-w-[120rem] mx-auto w-full px-4 2xl:px-6 min-[2560px]:max-w-[140rem] min-[2560px]:px-8 min-[3840px]:max-w-[160rem] min-[3840px]:px-10">
         <RouterView />
       </div>
     </main>
