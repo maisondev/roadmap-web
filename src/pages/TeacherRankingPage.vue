@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { useTeacherRankingStore } from '@/stores/teacherRanking'
 import PageHeader from '@/components/organisms/PageHeader.vue'
 import AppButton from '@/components/atoms/AppButton.vue'
+import AppSpinner from '@/components/atoms/AppSpinner.vue'
 import { PencilIcon, TrashIcon } from '@heroicons/vue/24/outline'
 
 const teacherRankingStore = useTeacherRankingStore()

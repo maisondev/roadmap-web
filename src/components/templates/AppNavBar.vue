@@ -42,18 +42,12 @@ const {
 } = useNavBar()
 
 const searchQuery = ref('')
+const showGlobalSearch = ref(false)
 
 const showBackButton = computed(() => {
   if (route.name === 'block-detail') return true
   return false
 })
-
-const handleSearchInput = (query: string) => {
-  searchQuery.value = query
-  if (query.trim()) {
-    showGlobalSearch.value = true
-  }
-}
 
 const backLabel = computed(() => {
   if (route.name === 'block-detail') return 'Roadmap'
