@@ -138,8 +138,8 @@ const labelHeight = 18
 const svgHeight = chartHeight + labelHeight
 const barSlotWidth = computed(() => {
   const total = analyticsRange.value
-  // Largura mínima de 8px por barra, máximo de 24px
-  return Math.max(8, Math.min(24, 600 / total))
+  // Largura mínima de 3px por barra, máximo de 16px
+  return Math.max(3, Math.min(16, 1000 / total))
 })
 const svgWidth = computed(() => barSlotWidth.value * analyticsRange.value)
 const barPad = 1
@@ -491,7 +491,7 @@ async function syncBadges() {
           <div v-if="analytics && paddedUsersByDay.length" class="overflow-x-auto">
             <svg
               :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
-              :style="{ minWidth: '280px', width: '100%', height: '160px' }"
+              :style="{ minWidth: '600px', width: '100%', height: '200px' }"
               preserveAspectRatio="none"
             >
               <g v-for="(item, i) in paddedUsersByDay" :key="item.date">

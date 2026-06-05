@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { TrophyIcon, LockClosedIcon, LightBulbIcon } from '@heroicons/vue/24/outline'
+import {
+  TrophyIcon,
+  LockClosedIcon,
+  LightBulbIcon,
+  FireIcon,
+  BookOpenIcon,
+  SparklesIcon
+} from '@heroicons/vue/24/outline'
 import { useBadgesStore } from '@/stores/badges'
 
 const badgesStore = useBadgesStore()
@@ -13,6 +20,16 @@ function formatDate(date: string | null): string {
   if (!date) return ''
   const d = new Date(date)
   return d.toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' })
+}
+
+function getBadgeIcon(key: string) {
+  const iconMap: Record<string, any> = {
+    PRIMEIRA_AULA: TrophyIcon,
+    SEMANA_COMPLETA: FireIcon,
+    BIBLIOFILO: BookOpenIcon,
+    META_MASTER: SparklesIcon
+  }
+  return iconMap[key] || TrophyIcon
 }
 
 function getHintForBadge(key: string): string {
@@ -59,7 +76,9 @@ function getHintForBadge(key: string): string {
             :key="badge.key"
             class="p-3 sm:p-6 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-yellow-300 dark:border-yellow-700 rounded-xl hover:shadow-lg transition-shadow"
           >
-            <div class="text-4xl sm:text-6xl mb-2 sm:mb-4 text-center">{{ badge.icon }}</div>
+            <div class="flex justify-center mb-2 sm:mb-4">
+              <component :is="getBadgeIcon(badge.key)" class="w-12 sm:w-16 h-12 sm:h-16 text-yellow-600 dark:text-yellow-400" />
+            </div>
             <h3 class="text-sm sm:text-lg font-bold text-ink text-center mb-1 sm:mb-2">
               {{ badge.title }}
             </h3>
@@ -87,7 +106,9 @@ function getHintForBadge(key: string): string {
             :key="badge.key"
             class="p-3 sm:p-6 bg-gray-100 dark:bg-gray-800 border-2 border-hairline rounded-xl opacity-75"
           >
-            <div class="text-4xl sm:text-6xl mb-2 sm:mb-4 text-center opacity-40">{{ badge.icon }}</div>
+            <div class="flex justify-center mb-2 sm:mb-4 opacity-40">
+              <component :is="getBadgeIcon(badge.key)" class="w-12 sm:w-16 h-12 sm:h-16 text-gray-400 dark:text-gray-600" />
+            </div>
             <h3 class="text-sm sm:text-lg font-bold text-gray-500 dark:text-gray-400 text-center mb-1 sm:mb-2">
               {{ badge.title }}
             </h3>
