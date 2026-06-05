@@ -111,6 +111,23 @@ PostgreSQL Database
 
 ---
 
+## 🎨 Design System
+
+### ⚠️ IMPORTANTE — Decisões de Design
+
+**Para TODA decisão de design, consulte `Design.md`** no repositório. Ele contém:
+- Paleta de cores oficial (tokens de design)
+- Tipografia (weights, sizes, tracking)
+- Spacing system (4px base unit)
+- Componentes padrão (buttons, cards, inputs, etc)
+- Elevation & shadows (stacked shadow rules)
+- Border radius scale
+- Responsive breakpoints
+
+**Nenhuma mudança visual deve ser feita sem verificar Design.md primeiro.** Isso garante consistência com o Design System Vercel/Geist e evita introdução de cores/espaçamentos inconsistentes.
+
+---
+
 ## 🎨 Tema e Dark Mode
 
 ### Dark Mode Padrão
