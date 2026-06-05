@@ -10,9 +10,9 @@
       <!-- Error State -->
       <div v-if="error" class="mb-8 p-4 bg-canvas border border-ds-error border-opacity-30 rounded-lg">
         <p class="text-ds-error font-medium">Erro ao carregar plano: {{ error }}</p>
-        <button @click="loadPlan" class="mt-2 px-4 py-2 bg-ds-error text-on-primary rounded hover:opacity-90 transition">
+        <AppButton @click="loadPlan" variant="danger" size="sm" class="mt-2">
           Tentar novamente
-        </button>
+        </AppButton>
       </div>
 
       <!-- Loading State -->
