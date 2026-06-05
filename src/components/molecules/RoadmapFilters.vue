@@ -9,15 +9,19 @@ interface FilterModel {
 
 interface Props {
   modelValue: FilterModel
+  onSearch?: () => void
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  onSearch: undefined
+})
 
 const emit = defineEmits<{
   'update:modelValue': [value: FilterModel]
   create: []
   generate: []
   import: []
+  search: []
 }>()
 
 const filterStatus = computed({
@@ -27,9 +31,24 @@ const filterStatus = computed({
 </script>
 
 <template>
-  <div class="space-y-4">
-    <!-- Filters -->
-    <div class="flex flex-col sm:flex-row gap-3 w-full">
+  <div class="space-y-3">
+    <!-- Row 1: Search + Status -->
+    <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+      <!-- Busca Global -->
+      <div class="flex-1">
+        <AppButton
+          variant="secondary"
+          size="sm"
+          @click="emit('search')"
+          class="w-full flex items-center gap-2 justify-center sm:justify-start"
+        >
+          <AppIcon name="search" size="sm" />
+          <span class="hidden sm:inline">Busca Global</span>
+          <span class="sm:hidden">Buscar</span>
+        </AppButton>
+      </div>
+
+      <!-- Status Filter -->
       <select
         v-model="filterStatus"
         class="px-4 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink text-sm"
@@ -41,8 +60,8 @@ const filterStatus = computed({
       </select>
     </div>
 
-    <!-- Buttons -->
-    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
+    <!-- Row 2: Action Buttons -->
+    <div class="flex gap-2 flex-wrap">
       <AppButton
         variant="primary"
         size="sm"
@@ -65,11 +84,11 @@ const filterStatus = computed({
         variant="ghost"
         size="sm"
         @click="emit('import')"
-        class="flex items-center justify-center gap-2 flex-1 sm:flex-initial px-3 text-ink-body hover:bg-gray-100 dark:hover:bg-gray-700"
+        class="flex items-center justify-center gap-2 flex-1 sm:flex-initial"
         title="Importar um roadmap"
       >
         <AppIcon name="upload" size="sm" />
-        <span class="hidden sm:inline">Importar</span>
+        <span>Importar</span>
       </AppButton>
     </div>
   </div>

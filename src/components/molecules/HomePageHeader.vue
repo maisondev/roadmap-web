@@ -8,21 +8,12 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="text-center py-8">
-    <h1 class="text-5xl font-bold text-ink mb-3">
+  <div class="py-6 border-b border-hairline">
+    <h1 class="text-4xl font-bold text-ink mb-2">
       Meus Roadmaps
     </h1>
-    <p class="text-xl text-gray-600 dark:text-gray-300 mb-4">
+    <p class="text-base text-ink-body">
       Crie e acompanhe múltiplos roadmaps de estudo
     </p>
-    <AppButton
-      variant="secondary"
-      size="md"
-      @click="$emit('openSearch')"
-      class="flex items-center gap-2"
-    >
-      <AppIcon name="search" size="sm" />
-      Busca Global
-    </AppButton>
   </div>
 </template>

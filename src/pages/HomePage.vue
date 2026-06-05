@@ -84,6 +84,7 @@ function handleImportRoadmap(data: string) {
         @create="showAddRoadmapModal = true"
         @generate="showGenerateRoadmapModal = true"
         @import="showImportModal = true"
+        @search="showGlobalSearch = true"
       />
 
       <RoadmapExampleSection
