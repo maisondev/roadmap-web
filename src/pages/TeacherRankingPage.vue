@@ -87,7 +87,11 @@ function cancelEdit() {
         description="Avalie e organize os melhores professores por disciplina"
       />
 
-      <div class="p-4 sm:p-6 border border-hairline rounded-lg bg-canvas-soft">
+      <div v-if="teacherRankingStore.isLoading" class="flex justify-center py-12">
+        <AppSpinner />
+      </div>
+
+      <div v-else class="p-4 sm:p-6 border border-hairline rounded-lg bg-canvas-soft">
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
           <div class="w-full sm:w-40">
             <label class="block text-xs font-medium text-ink-body mb-1">Disciplina</label>
@@ -226,6 +230,7 @@ function cancelEdit() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </div>
