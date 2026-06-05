@@ -267,7 +267,7 @@ const handleDeleteConfirm = (password: string) => {
     </div>
 
     <!-- Bottom section: progress + actions -->
-    <div class="mt-auto pt-4 border-t border-hairline space-y-3">
+    <div class="mt-auto pt-4 px-6 pb-6 border-t border-hairline space-y-3">
       <!-- Progress -->
       <div>
         <div class="flex justify-between items-center mb-2">

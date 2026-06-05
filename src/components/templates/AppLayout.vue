@@ -106,11 +106,11 @@ const breadcrumbs = computed(() => {
     <!-- Main Content -->
     <main class="flex-1">
       <div v-if="breadcrumbs.length" class="border-b border-gray-200 dark:border-gray-800">
-        <div class="max-w-[120rem] mx-auto w-full 2xl:px-6 min-[2560px]:max-w-[140rem] min-[2560px]:px-8 min-[3840px]:max-w-[160rem] min-[3840px]:px-10 px-4 2xl:px-8 py-3">
+        <div class="max-w-[120rem] mx-auto w-full px-4 2xl:px-6 min-[2560px]:max-w-[140rem] min-[2560px]:px-8 min-[3840px]:max-w-[160rem] min-[3840px]:px-10 py-3">
           <AppBreadcrumb :crumbs="breadcrumbs" />
         </div>
       </div>
-      <div class="max-w-[120rem] mx-auto w-full px-4 2xl:px-6 min-[2560px]:max-w-[140rem] min-[2560px]:px-8 min-[3840px]:max-w-[160rem] min-[3840px]:px-10">
+      <div class="max-w-[120rem] mx-auto w-full px-4 2xl:px-6 min-[2560px]:max-w-[140rem] min-[2560px]:px-8 min-[3840px]:max-w-[160rem] min-[3840px]:px-10 py-6 sm:py-8">
         <RouterView />
       </div>
     </main>
