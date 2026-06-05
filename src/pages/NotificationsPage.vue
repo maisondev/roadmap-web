@@ -53,7 +53,7 @@ function getNotificationTypeLabel(type: string) {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-4xl mx-auto px-4 space-y-6">
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <PageHeader title="Notificações">
         <p class="text-ink-body">
           {{ notificationsStore.unreadCount }} não lida(s) de {{ notificationsStore.notifications.length }} total

@@ -77,6 +77,12 @@ const priorityColors = {
   maxima: 'purple'
 } as const
 
+const priorityHex = {
+  normal: '#10b981',
+  alta: '#f59e0b',
+  maxima: '#7928ca'
+} as const
+
 function navigateToBlock(blockId: string) {
   router.push({
     name: 'block-detail',
@@ -138,7 +144,7 @@ function deleteBlock() {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-      <div class="max-w-[120rem] mx-auto px-3 sm:px-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-6 sm:space-y-8">
+      <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <!-- Header -->
       <PageHeader
         :title="roadmapStore.activeRoadmap.title"
@@ -179,83 +185,104 @@ function deleteBlock() {
         <div
           v-for="(block, idx) in filteredBlocks"
           :key="block.id"
-          class="group min-h-[17rem] border border-hairline rounded-lg bg-canvas hover:shadow-lg transition-shadow flex flex-col overflow-hidden"
+          class="group border border-hairline rounded-xl bg-canvas hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 hover:border-hairline-strong flex flex-col overflow-hidden cursor-pointer"
+          @click="navigateToBlock(block.id)"
         >
-          <button
-            type="button"
-            class="flex-1 min-w-0 p-4 text-left"
-            @click="navigateToBlock(block.id)"
+          <!-- Priority accent bar -->
+          <div
+            class="h-[3px]"
+            :style="{ background: `linear-gradient(90deg, ${priorityHex[block.priority]}, ${priorityHex[block.priority]}66)` }"
+          />
+
+          <!-- Tinted header -->
+          <div
+            class="px-5 pt-4 pb-3"
+            :style="{ background: `${priorityHex[block.priority]}0d` }"
           >
-              <!-- Title and Priority -->
-              <div class="flex items-center gap-3 mb-2">
-                <span class="text-lg font-semibold text-gray-500 dark:text-gray-400">{{ block.order }}.</span>
-                <div class="flex-1 min-w-0">
-                  <h3 class="text-lg font-semibold text-ink break-words">
-                    {{ block.title }}
-                  </h3>
-                  <p class="text-xs text-ink-body">
-                    {{ block.topics.length }} tópicos
-                  </p>
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <div class="flex items-start gap-2.5 flex-1 min-w-0">
+                <span
+                  class="text-xs font-bold shrink-0 mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-white"
+                  :style="{ background: priorityHex[block.priority] }"
+                >
+                  {{ block.order }}
+                </span>
+                <h3 class="text-base font-semibold text-ink leading-snug tracking-tight break-words">
+                  {{ block.title }}
+                </h3>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 pl-7">
+              <AppBadge :color="priorityColors[block.priority]" size="sm">
+                {{ priorityLabels[block.priority] }}
+              </AppBadge>
+            </div>
+          </div>
+
+          <!-- Main content -->
+          <div class="px-5 py-3 flex-1">
+            <!-- Stats row -->
+            <div class="grid grid-cols-3 gap-0 border border-hairline rounded-lg overflow-hidden">
+              <div class="text-center py-2.5 px-1">
+                <div class="text-base font-bold text-ink tracking-tight">{{ block.topics.length }}</div>
+                <div class="text-xs text-ink-mute leading-none mt-0.5">tópicos</div>
+              </div>
+              <div class="text-center py-2.5 px-1 border-x border-hairline">
+                <div class="text-base font-bold text-ink tracking-tight">
+                  {{ block.topics.filter(t => t.status === 'concluido').length }}
                 </div>
+                <div class="text-xs text-ink-mute leading-none mt-0.5">concluídos</div>
               </div>
-
-              <!-- Badges -->
-              <div class="flex gap-2 mb-3 flex-wrap">
-                <AppBadge :color="priorityColors[block.priority]" size="sm">
-                  {{ priorityLabels[block.priority] }}
-                </AppBadge>
+              <div class="text-center py-2.5 px-1">
+                <div
+                  class="text-base font-bold tracking-tight"
+                  :style="{ color: priorityHex[block.priority] }"
+                >
+                  {{ progressStore.blockProgressPercent(block.id) }}%
+                </div>
+                <div class="text-xs text-ink-mute leading-none mt-0.5">progresso</div>
               </div>
+            </div>
+          </div>
 
-              <!-- Progress Bar -->
+          <!-- Bottom: progress + actions -->
+          <div class="px-5 pb-4 pt-1 border-t border-hairline space-y-3">
+            <div class="pt-3">
               <AppProgressBar
                 :value="progressStore.blockProgressPercent(block.id)"
                 :color="block.priority === 'maxima' ? 'blue' : block.priority === 'alta' ? 'yellow' : 'green'"
               />
+            </div>
 
-              <!-- Stats -->
-              <div class="mt-2 flex gap-4 text-xs text-ink-body">
-                <span>{{ block.topics.filter(t => t.status === 'concluido').length }}/{{ block.topics.length }} concluídos</span>
-                <span>{{ progressStore.blockProgressPercent(block.id) }}%</span>
-              </div>
-          </button>
-
-          <!-- Actions -->
-          <div class="border-t border-hairline bg-gray-50/80 dark:bg-gray-900/30 px-4 py-3">
-            <div class="flex flex-wrap items-center justify-between gap-3">
-              <div class="flex flex-wrap items-center gap-2">
-              <!-- Complete button -->
-              <AppButton
-                :variant="progressStore.blockProgressPercent(block.id) === 100 ? 'secondary' : 'ghost'"
-                size="sm"
-                @click="(e) => { e.stopPropagation(); toggleBlockCompletion(block.id) }"
-                :title="progressStore.blockProgressPercent(block.id) === 100 ? 'Desmarcar como concluído' : 'Marcar como concluído'"
-              >
-                <AppIcon :name="progressStore.blockProgressPercent(block.id) === 100 ? 'check-circle' : 'check'" size="sm" />
-              </AppButton>
-
-              <!-- Edit button -->
-              <AppButton
-                variant="ghost"
-                size="sm"
-                @click="(e) => { e.stopPropagation(); openEditModal(block.id) }"
-                title="Editar módulo"
-              >
-                <PencilIcon class="w-4 h-4" />
-              </AppButton>
-
-              <!-- Delete button -->
-              <AppButton
-                variant="ghost"
-                size="sm"
-                @click="(e) => { e.stopPropagation(); confirmDeleteBlock(block.id) }"
-                title="Deletar módulo"
-              >
-                <AppIcon name="trash" size="sm" class="text-red-500" />
-              </AppButton>
+            <div class="flex items-center justify-between gap-1">
+              <div class="flex items-center gap-0.5">
+                <AppButton
+                  :variant="progressStore.blockProgressPercent(block.id) === 100 ? 'secondary' : 'ghost'"
+                  size="sm"
+                  @click="(e) => { e.stopPropagation(); toggleBlockCompletion(block.id) }"
+                  :title="progressStore.blockProgressPercent(block.id) === 100 ? 'Desmarcar como concluído' : 'Marcar como concluído'"
+                >
+                  <AppIcon :name="progressStore.blockProgressPercent(block.id) === 100 ? 'check-circle' : 'check'" size="sm" />
+                </AppButton>
+                <AppButton
+                  variant="ghost"
+                  size="sm"
+                  @click="(e) => { e.stopPropagation(); openEditModal(block.id) }"
+                  title="Editar módulo"
+                >
+                  <PencilIcon class="w-4 h-4" />
+                </AppButton>
+                <AppButton
+                  variant="ghost"
+                  size="sm"
+                  @click="(e) => { e.stopPropagation(); confirmDeleteBlock(block.id) }"
+                  title="Deletar módulo"
+                >
+                  <AppIcon name="trash" size="sm" class="text-ds-error" />
+                </AppButton>
               </div>
 
-              <!-- Move buttons -->
-              <div class="flex items-center gap-1">
+              <div class="flex items-center gap-0.5">
                 <AppButton
                   v-if="roadmapStore.activeRoadmap.blocks.findIndex(b => b.id === block.id) > 0"
                   variant="ghost"

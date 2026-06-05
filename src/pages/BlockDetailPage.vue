@@ -92,7 +92,7 @@ const priorityColor = computed(() => {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-[120rem] mx-auto p-3 sm:p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-4 sm:space-y-6">
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <div v-if="block">
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
           <div class="min-w-0">

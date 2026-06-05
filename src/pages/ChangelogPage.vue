@@ -75,14 +75,11 @@ const changelog = [
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-4xl mx-auto px-4 space-y-8">
-      <!-- Header -->
-      <div class="text-center">
-        <PageHeader
-          title="Changelog"
-          description="Histórico de funcionalidades e melhorias"
-        />
-      </div>
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
+      <PageHeader
+        title="Changelog"
+        description="Histórico de funcionalidades e melhorias"
+      />
 
       <!-- Changelog Items -->
       <div class="space-y-8">

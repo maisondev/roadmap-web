@@ -26,7 +26,7 @@ onMounted(async () => {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-3xl mx-auto px-3 sm:px-4 py-6 sm:py-10 space-y-6 sm:space-y-8">
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <div class="flex items-center gap-2">
         <AppButton variant="ghost" size="sm" @click="router.back()" class="text-xs sm:text-sm">← Voltar</AppButton>
       </div>

@@ -251,13 +251,11 @@ function formatPlanColor(plan: string) {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <!-- Header -->
-    <div class="max-w-7xl mx-auto px-4">
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <PageHeader title="Configurações" />
-    </div>
 
-    <!-- Main content: Sidebar + Content -->
-    <div class="max-w-7xl mx-auto p-3 sm:p-4 grid grid-cols-1 md:grid-cols-[200px_1fr] lg:grid-cols-[240px_1fr] gap-4 sm:gap-6">
+      <!-- Main content: Sidebar + Content -->
+      <div class="grid grid-cols-1 md:grid-cols-[200px_1fr] lg:grid-cols-[240px_1fr] gap-4 sm:gap-6">
       <!-- Sidebar Navigation (Desktop) -->
       <nav class="hidden md:flex flex-col gap-1">
         <button
@@ -615,6 +613,7 @@ function formatPlanColor(plan: string) {
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </template>

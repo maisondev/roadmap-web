@@ -76,6 +76,40 @@ function typeColor(type: keyof typeof resourceCounts.value): 'blue' | 'purple' |
 const canMoveUp = computed(() => props.index > 0)
 const canMoveDown = computed(() => props.index < (props.total ?? 0) - 1)
 
+const statusHex = computed(() => {
+  const map: Record<string, string> = {
+    nao_iniciado: '#6b7280',
+    not_started: '#6b7280',
+    em_andamento: '#f59e0b',
+    in_progress: '#f59e0b',
+    concluido: '#10b981',
+    completed: '#10b981'
+  }
+  return map[props.topic.status] ?? '#6b7280'
+})
+
+const statusBadgeClasses = computed(() => {
+  const s = props.topic.status
+  if (s === 'concluido' || s === 'completed')
+    return 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400'
+  if (s === 'em_andamento' || s === 'in_progress')
+    return 'bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-400'
+  return 'bg-canvas-soft-2 text-ink-body'
+})
+
+const visibleResourceTypes = computed(() =>
+  (Object.keys(resourceCounts.value) as Array<keyof typeof resourceCounts.value>)
+    .filter(type => resourceCounts.value[type] > 0)
+)
+
+const resourceDotColor: Record<string, string> = {
+  youtube: 'bg-red-500',
+  drive:   'bg-amber-500',
+  document:'bg-violet-500',
+  link:    'bg-blue-500',
+  local:   'bg-gray-500'
+}
+
 function handleStatusChange(newStatus: boolean | 'indeterminate') {
   let status = 'not_started'
   if (newStatus === true) {
@@ -110,40 +144,58 @@ function handleDeleteConfirm() {
 
 <template>
   <div
-    class="p-3 border border-hairline rounded-lg bg-canvas hover:shadow-md transition-shadow flex flex-col"
+    class="group border border-hairline rounded-xl bg-canvas hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 hover:border-hairline-strong flex flex-col overflow-hidden"
   >
-    <div class="flex items-start gap-3">
-      <AppCheckbox
-        :model-value="topic.status === 'completed' || topic.status === 'concluido' ? true : topic.status === 'in_progress' || topic.status === 'em_andamento' ? 'indeterminate' : false"
-        @update:model-value="handleStatusChange"
-        @click.stop
-      />
-      <div class="flex-1 min-w-0 cursor-pointer" @click="emit('open')">
-        <p class="font-medium text-ink break-words">{{ topic.title }}</p>
-        <div class="flex gap-2 mt-2 flex-wrap">
-          <AppBadge :color="statusMap[topic.status].color" size="sm">
-            {{ statusMap[topic.status].label }}
-          </AppBadge>
-          <AppTag
-            v-for="type in (Object.keys(resourceCounts) as Array<keyof typeof resourceCounts>)"
-            :key="type"
-            v-show="resourceCounts[type] > 0"
-            :label="`${resourceCounts[type]} ${typeLabel(type)}`"
-            :color="typeColor(type)"
-            size="sm"
+    <!-- Status accent bar -->
+    <div
+      class="h-[3px]"
+      :style="{ background: `linear-gradient(90deg, ${statusHex}, ${statusHex}66)` }"
+    />
+
+    <!-- Tinted header: checkbox + title + status badge -->
+    <div class="px-4 pt-3 pb-2.5" :style="{ background: `${statusHex}0d` }">
+      <div class="flex items-start gap-3">
+        <div class="pt-0.5 shrink-0" @click.stop>
+          <AppCheckbox
+            :model-value="topic.status === 'completed' || topic.status === 'concluido' ? true : topic.status === 'in_progress' || topic.status === 'em_andamento' ? 'indeterminate' : false"
+            @update:model-value="handleStatusChange"
           />
-          <AppTag
-            v-if="topic.questoesSolvidas > 0"
-            :label="`${topic.questoesSolvidas} questões`"
-            color="green"
-            size="sm"
-          />
+        </div>
+        <div class="flex-1 min-w-0 cursor-pointer" @click="emit('open')">
+          <p class="font-semibold text-ink break-words leading-snug tracking-tight">{{ topic.title }}</p>
+          <div class="mt-1.5">
+            <span class="text-xs px-2.5 py-0.5 rounded-full font-medium" :class="statusBadgeClasses">
+              {{ statusMap[topic.status]?.label ?? topic.status }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Action buttons -->
-    <div class="flex gap-1 mt-3 pt-3 border-t border-hairline">
+    <!-- Resource tags + questions -->
+    <div
+      v-if="visibleResourceTypes.length > 0 || topic.questoesSolvidas > 0"
+      class="px-4 py-2.5 flex flex-wrap gap-1.5 cursor-pointer"
+      @click="emit('open')"
+    >
+      <span
+        v-for="type in visibleResourceTypes"
+        :key="type"
+        class="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-canvas-soft-2 text-ink-body border border-hairline"
+      >
+        <span class="w-1.5 h-1.5 rounded-full shrink-0" :class="resourceDotColor[type]" />
+        {{ resourceCounts[type] }} {{ typeLabel(type) }}
+      </span>
+      <span
+        v-if="topic.questoesSolvidas > 0"
+        class="text-xs px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800"
+      >
+        {{ topic.questoesSolvidas }} questões
+      </span>
+    </div>
+
+    <!-- Action bar -->
+    <div class="flex items-center gap-0.5 mt-auto px-3 py-2 border-t border-hairline">
       <AppButton
         variant="ghost"
         size="sm"
@@ -175,8 +227,9 @@ function handleDeleteConfirm() {
         size="sm"
         @click="(e) => { e.stopPropagation(); confirmDelete() }"
         title="Deletar tópico"
+        class="ml-auto"
       >
-        <TrashIcon class="w-4 h-4 text-red-500" />
+        <TrashIcon class="w-4 h-4 text-ds-error" />
       </AppButton>
     </div>
   </div>

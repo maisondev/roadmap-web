@@ -66,14 +66,11 @@ const handleSubmit = async () => {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-4xl mx-auto px-3 sm:px-4 space-y-8 sm:space-y-12">
-      <!-- Header -->
-      <div class="text-center">
-        <PageHeader
-          title="Entre em Contato"
-          description="Tem dúvidas, sugestões ou feedback? Adoramos ouvir de você!"
-        />
-      </div>
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
+      <PageHeader
+        title="Entre em Contato"
+        description="Tem dúvidas, sugestões ou feedback? Adoramos ouvir de você!"
+      />
 
       <!-- Contact Links -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">

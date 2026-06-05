@@ -14,7 +14,8 @@ import {
   BellIcon,
   CreditCardIcon,
   BoltIcon,
-  SparklesIcon
+  SparklesIcon,
+  XMarkIcon
 } from '@heroicons/vue/24/outline'
 
 const router = useRouter()

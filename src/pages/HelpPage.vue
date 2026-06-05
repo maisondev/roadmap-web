@@ -133,7 +133,7 @@ onMounted(() => {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-4xl mx-auto px-4 space-y-6">
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <PageHeader
         title="Central de Ajuda"
         description="Saiba como usar o Concursos Português"

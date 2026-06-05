@@ -81,7 +81,7 @@ function cancelEdit() {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-4xl mx-auto p-4 space-y-8">
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <PageHeader
         title="Ranking de Professores"
         description="Avalie e organize os melhores professores por disciplina"

@@ -2,6 +2,8 @@
 import { onBeforeUnmount, watch } from 'vue'
 import AppButton from '@/components/atoms/AppButton.vue'
 
+defineOptions({ inheritAttrs: false })
+
 interface Props {
   open: boolean
   title: string

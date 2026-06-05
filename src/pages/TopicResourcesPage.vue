@@ -189,7 +189,7 @@ const statusMap: Record<string, { color: 'gray' | 'yellow' | 'green', label: str
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-[120rem] mx-auto p-3 sm:p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-4 sm:space-y-6">
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <div v-if="topic && block" class="grid grid-cols-1 xl:grid-cols-[minmax(0,1.5fr)_minmax(22rem,28rem)] gap-4 sm:gap-6 items-start xl:items-start">
         <section class="space-y-3 sm:space-y-4 min-w-0">
           <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
