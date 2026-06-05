@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ChevronDownIcon, LinkIcon } from '@heroicons/vue/24/outline'
 import FeedbackModal from '@/components/molecules/FeedbackModal.vue'
+import PageHeader from '@/components/organisms/PageHeader.vue'
 
 interface HelpSection {
   title: string
@@ -132,16 +133,11 @@ onMounted(() => {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-4xl mx-auto p-3 sm:p-4 space-y-6 sm:space-y-8 py-6 sm:py-8">
-      <!-- Header -->
-      <div class="text-center">
-        <h1 class="text-2xl sm:text-4xl font-bold text-ink mb-2 sm:mb-3">
-          Central de Ajuda
-        </h1>
-        <p class="text-sm sm:text-lg text-gray-600 dark:text-gray-300">
-          Saiba como usar o Concursos Português
-        </p>
-      </div>
+    <div class="max-w-4xl mx-auto px-4 space-y-6">
+      <PageHeader
+        title="Central de Ajuda"
+        description="Saiba como usar o Concursos Português"
+      />
 
       <!-- Help Sections -->
       <div class="space-y-3">

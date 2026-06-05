@@ -9,6 +9,7 @@ import AppButton from '@/components/atoms/AppButton.vue'
 import AppIcon from '@/components/atoms/AppIcon.vue'
 import AppModal from '@/components/atoms/AppModal.vue'
 import AppConfirmModal from '@/components/atoms/AppConfirmModal.vue'
+import PageHeader from '@/components/organisms/PageHeader.vue'
 import { PencilIcon } from '@heroicons/vue/24/outline'
 
 const router = useRouter()
@@ -137,16 +138,12 @@ function deleteBlock() {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-      <div class="max-w-[120rem] mx-auto p-3 sm:p-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-6 sm:space-y-8">
+      <div class="max-w-[120rem] mx-auto px-3 sm:px-4 2xl:px-8 min-[2560px]:px-12 min-[3840px]:max-w-[160rem] min-[3840px]:px-16 space-y-6 sm:space-y-8">
       <!-- Header -->
-      <div>
-        <h1 class="text-2xl sm:text-4xl font-bold text-ink mb-2">
-          {{ roadmapStore.activeRoadmap.title }}
-        </h1>
-        <p class="text-sm sm:text-lg text-gray-600 dark:text-gray-300">
-          {{ roadmapStore.activeRoadmap.description }}
-        </p>
-      </div>
+      <PageHeader
+        :title="roadmapStore.activeRoadmap.title"
+        :description="roadmapStore.activeRoadmap.description"
+      />
 
       <!-- Overall Progress -->
       <div class="p-3 sm:p-4 border border-hairline rounded-lg bg-canvas-soft">

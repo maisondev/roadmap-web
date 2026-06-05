@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import AppButton from '@/components/atoms/AppButton.vue'
+import PageHeader from '@/components/organisms/PageHeader.vue'
 
 const router = useRouter()
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
@@ -39,12 +40,11 @@ onMounted(async () => {
       </div>
 
       <template v-else-if="policy">
-        <div class="space-y-1 sm:space-y-2">
-          <h1 class="text-2xl sm:text-3xl font-bold text-ink">{{ policy.title }}</h1>
+        <PageHeader :title="policy.title">
           <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
             Versão {{ policy.version }} — Última atualização: {{ policy.lastUpdated }}
           </p>
-        </div>
+        </PageHeader>
 
         <div class="space-y-4 sm:space-y-6">
           <div

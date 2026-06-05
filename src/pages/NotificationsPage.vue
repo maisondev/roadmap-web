@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useNotificationsStore } from '@/stores/notifications'
 import { BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import PageHeader from '@/components/organisms/PageHeader.vue'
 
 const router = useRouter()
 const notificationsStore = useNotificationsStore()
@@ -52,19 +53,12 @@ function getNotificationTypeLabel(type: string) {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-4xl mx-auto p-4 space-y-6">
-      <!-- Header -->
-      <div class="mb-8">
-        <div class="flex items-center gap-3 mb-2">
-          <BellIcon class="w-6 h-6 text-ink-body" />
-          <h1 class="text-3xl font-bold text-ink">
-            Notificações
-          </h1>
-        </div>
+    <div class="max-w-4xl mx-auto px-4 space-y-6">
+      <PageHeader title="Notificações">
         <p class="text-ink-body">
           {{ notificationsStore.unreadCount }} não lida(s) de {{ notificationsStore.notifications.length }} total
         </p>
-      </div>
+      </PageHeader>
 
       <!-- Actions -->
       <div class="mb-6 flex flex-wrap items-center gap-3">

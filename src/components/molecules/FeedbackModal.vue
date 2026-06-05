@@ -13,7 +13,7 @@
       </div>
 
       <div v-if="success" class="p-3 bg-green-100 dark:bg-green-900/30 border border-green-400 dark:border-green-700 rounded-lg text-green-700 dark:text-green-300 text-sm">
-        ✓ Feedback enviado com sucesso! Obrigado.
+        Feedback enviado com sucesso! Obrigado.
       </div>
 
       <div v-if="!success">

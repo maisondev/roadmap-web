@@ -6,6 +6,7 @@ import { api } from '@/services/api'
 import AppButton from '@/components/atoms/AppButton.vue'
 import AppIcon from '@/components/atoms/AppIcon.vue'
 import AppModal from '@/components/atoms/AppModal.vue'
+import PageHeader from '@/components/organisms/PageHeader.vue'
 import {
   ChartBarIcon,
   UsersIcon,
@@ -327,12 +328,11 @@ async function syncBadges() {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-7xl mx-auto p-6 space-y-6">
-      <!-- Header -->
-      <div>
-        <h1 class="text-3xl font-bold text-ink">Painel de Administrador</h1>
-        <p class="text-sm text-ink-body mt-1">Acompanhe a evolução do produto</p>
-      </div>
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
+      <PageHeader
+        title="Painel de Administrador"
+        description="Acompanhe a evolução do produto"
+      />
 
       <!-- Tabs -->
       <div class="flex gap-2 border-b border-slate-200 dark:border-slate-700 overflow-x-auto pb-2">
@@ -1165,10 +1165,11 @@ Não
               <button
                 @click="deleteUserNotification(notif.id)"
                 :disabled="deletingNotificationId === notif.id"
-                class="flex-shrink-0 px-3 py-1 text-xs font-semibold rounded transition-colors bg-danger-100 dark:bg-danger-900/40 text-danger-700 dark:text-danger-300 hover:bg-danger-200 dark:hover:bg-danger-900/60 disabled:opacity-50 disabled:cursor-not-allowed"
+                class="flex-shrink-0 p-1.5 rounded transition-colors text-danger-700 dark:text-danger-300 hover:bg-danger-100 dark:hover:bg-danger-900/40 disabled:opacity-50 disabled:cursor-not-allowed"
                 title="Remover notificação"
               >
-                {{ deletingNotificationId === notif.id ? '...' : '✕' }}
+                <XMarkIcon v-if="deletingNotificationId !== notif.id" class="w-4 h-4" />
+                <span v-else class="inline-block text-xs">...</span>
               </button>
             </div>
           </div>

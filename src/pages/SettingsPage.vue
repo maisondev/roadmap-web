@@ -10,6 +10,7 @@ import AppButton from '@/components/atoms/AppButton.vue'
 import AppIcon from '@/components/atoms/AppIcon.vue'
 import AppCheckbox from '@/components/atoms/AppCheckbox.vue'
 import AppModal from '@/components/atoms/AppModal.vue'
+import PageHeader from '@/components/organisms/PageHeader.vue'
 import SubscriptionStatus from '@/components/molecules/SubscriptionStatus.vue'
 import MD5 from 'crypto-js/md5'
 
@@ -251,8 +252,8 @@ function formatPlanColor(plan: string) {
 <template>
   <div class="min-h-screen bg-canvas-soft">
     <!-- Header -->
-    <div class="border-b border-gray-200 dark:border-gray-800 p-3 sm:p-4">
-      <h1 class="text-2xl sm:text-3xl font-bold text-ink max-w-7xl mx-auto">Configurações</h1>
+    <div class="max-w-7xl mx-auto px-4">
+      <PageHeader title="Configurações" />
     </div>
 
     <!-- Main content: Sidebar + Content -->

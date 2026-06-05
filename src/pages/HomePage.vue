@@ -75,7 +75,7 @@ function handleImportRoadmap(data: string) {
   <LandingPage v-if="!authStore.isLoggedIn" />
 
   <div v-else class="min-h-screen bg-canvas-soft">
-    <div class="max-w-6xl mx-auto p-4 space-y-8">
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <HomePageHeader @openSearch="showGlobalSearch = true" />
 
       <RoadmapFilters

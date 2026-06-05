@@ -46,7 +46,7 @@ function getHintForBadge(key: string): string {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-6xl mx-auto px-3 sm:px-4 space-y-8 sm:space-y-12">
+    <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <PageHeader
         title="Conquistas"
         description="Alcance marcos e desbloqueie badges ao progredir"

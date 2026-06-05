@@ -231,7 +231,6 @@ function cancelEdit() {
           </div>
         </div>
       </div>
-      </div>
     </div>
   </div>
 </template>

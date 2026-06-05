@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import PageHeader from '@/components/organisms/PageHeader.vue'
+
 const changelog = [
   {
     version: '1.6.0',
@@ -73,15 +75,13 @@ const changelog = [
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-4xl mx-auto p-4 space-y-8 py-8">
+    <div class="max-w-4xl mx-auto px-4 space-y-8">
       <!-- Header -->
       <div class="text-center">
-        <h1 class="text-4xl font-bold text-ink mb-3">
-          Changelog
-        </h1>
-        <p class="text-lg text-gray-600 dark:text-gray-300">
-          Histórico de funcionalidades e melhorias
-        </p>
+        <PageHeader
+          title="Changelog"
+          description="Histórico de funcionalidades e melhorias"
+        />
       </div>
 
       <!-- Changelog Items -->

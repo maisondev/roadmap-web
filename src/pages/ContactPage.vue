@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { EnvelopeIcon } from '@heroicons/vue/24/outline'
 import SocialIcon from '@/components/atoms/SocialIcon.vue'
+import PageHeader from '@/components/organisms/PageHeader.vue'
 
 interface ContactLink {
   name: string
@@ -65,15 +66,13 @@ const handleSubmit = async () => {
 
 <template>
   <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-4xl mx-auto p-3 sm:p-4 py-6 sm:py-8 space-y-8 sm:space-y-12">
+    <div class="max-w-4xl mx-auto px-3 sm:px-4 space-y-8 sm:space-y-12">
       <!-- Header -->
-      <div class="text-center space-y-2 sm:space-y-4">
-        <h1 class="text-2xl sm:text-4xl font-bold text-ink">
-          Entre em Contato
-        </h1>
-        <p class="text-sm sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          Tem dúvidas, sugestões ou feedback? Adoramos ouvir de você!
-        </p>
+      <div class="text-center">
+        <PageHeader
+          title="Entre em Contato"
+          description="Tem dúvidas, sugestões ou feedback? Adoramos ouvir de você!"
+        />
       </div>
 
       <!-- Contact Links -->

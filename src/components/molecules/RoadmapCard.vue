@@ -166,8 +166,13 @@ const statusLabel = computed(() => {
   return map[(props.roadmap.status || 'ativo') as RoadmapStatus]
 })
 
-const statusClasses = computed(() => {
-  return 'bg-canvas-soft-2 text-ink-body'
+const statusBadgeClasses = computed(() => {
+  const map: Record<RoadmapStatus, string> = {
+    ativo: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400',
+    pausado: 'bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-400',
+    concluido: 'bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-400'
+  }
+  return map[(props.roadmap.status || 'ativo') as RoadmapStatus]
 })
 
 const isExample = computed(() => {
@@ -186,100 +191,105 @@ const handleDeleteConfirm = (password: string) => {
 
 <template>
   <div
-    class="relative rounded-lg bg-canvas group border border-hairline flex flex-col h-full cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition-all overflow-hidden"
+    class="relative rounded-xl bg-canvas group border border-hairline flex flex-col h-full cursor-pointer transition-all duration-200 overflow-hidden hover:shadow-lg hover:-translate-y-0.5 hover:border-hairline-strong"
     @click="$emit('navigate')"
   >
-    <!-- Gradient header accent -->
-    <div class="h-1" :style="{ background: `linear-gradient(90deg, ${colorHex}, ${colorHex}66)` }" />
+    <!-- Gradient accent bar -->
+    <div class="h-[3px]" :style="{ background: `linear-gradient(90deg, ${colorHex}, ${colorHex}66)` }" />
 
-    <!-- Content wrapper with padding -->
-    <div class="p-6 flex flex-col flex-1 space-y-4">
-      <!-- Header -->
-      <div class="min-w-0 group/content">
-        <div class="flex items-start justify-between gap-3">
-          <h3 class="text-xl font-bold text-ink break-words group-hover/content:text-blue-600 dark:group-hover/content:text-blue-400">
-            {{ roadmap.title }}
-          </h3>
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <span v-if="isExample" class="text-xs px-2.5 py-1 rounded whitespace-nowrap bg-canvas-soft-2 text-ink-body font-semibold">
-              📚 Exemplo
-            </span>
-            <span class="text-xs px-2 py-1 rounded whitespace-nowrap" :class="statusClasses">
-              {{ statusLabel }}
-            </span>
-          </div>
-        </div>
+    <!-- Tinted header -->
+    <div class="px-5 pt-4 pb-3" :style="{ background: `${colorHex}0d` }">
+      <!-- Title row -->
+      <div class="flex items-start justify-between gap-2 mb-2.5">
+        <h3 class="text-base font-semibold text-ink leading-snug tracking-tight break-words flex-1">
+          {{ roadmap.title }}
+        </h3>
+        <span
+          v-if="isExample"
+          class="text-xs px-2 py-0.5 rounded-full whitespace-nowrap bg-canvas-soft-2 text-ink-body border border-hairline font-medium shrink-0"
+        >
+          Template
+        </span>
       </div>
 
-      <!-- Rating -->
-      <div class="flex items-center gap-1">
-        <div class="flex gap-0.5">
-          <StarSolidIcon v-for="i in displayRating" :key="i" class="w-4 h-4 text-ds-warning" />
-          <StarIcon v-for="i in 5 - displayRating" :key="`empty-${i}`" class="w-4 h-4 text-hairline" />
+      <!-- Status badge + Rating -->
+      <div class="flex items-center justify-between">
+        <span class="text-xs px-2.5 py-0.5 rounded-full font-medium whitespace-nowrap" :class="statusBadgeClasses">
+          {{ statusLabel }}
+        </span>
+        <div class="flex items-center gap-0.5">
+          <StarSolidIcon v-for="i in displayRating" :key="i" class="w-3.5 h-3.5 text-ds-warning" />
+          <StarIcon v-for="i in 5 - displayRating" :key="`empty-${i}`" class="w-3.5 h-3.5 text-ink-mute" />
+          <span class="text-xs text-ink-mute ml-1">{{ displayRating }}/5</span>
         </div>
-        <span class="text-xs text-ink-body">{{ displayRating }}/5</span>
       </div>
+    </div>
 
-      <p v-if="roadmap.description" class="text-sm text-ink-body roadmap-desc-clamp">
+    <!-- Main content -->
+    <div class="px-5 py-3 flex flex-col flex-1 space-y-3">
+      <!-- Description -->
+      <p v-if="roadmap.description" class="text-sm text-ink-body roadmap-desc-clamp leading-relaxed">
         {{ roadmap.description }}
       </p>
 
-      <!-- Category and Tags -->
-      <div v-if="roadmap.category || (roadmap.tags && roadmap.tags.length > 0)" class="flex flex-wrap gap-2 mb-2">
-        <span v-if="roadmap.category" class="text-xs px-2 py-1 rounded bg-canvas-soft-2 text-ink-body">
+      <!-- Category, Tags and Visibility -->
+      <div
+        v-if="roadmap.category || (roadmap.tags && roadmap.tags.length > 0) || roadmap.visibility === 'public'"
+        class="flex flex-wrap gap-1.5"
+      >
+        <span
+          v-if="roadmap.category"
+          class="text-xs px-2 py-0.5 rounded-full bg-canvas-soft-2 text-ink-body border border-hairline"
+        >
           {{ roadmap.category }}
         </span>
         <span
           v-for="tag in (roadmap.tags || [])"
           :key="tag"
-          class="text-xs px-2 py-1 rounded bg-canvas-soft-2 text-ink-body"
+          class="text-xs px-2 py-0.5 rounded-full bg-canvas-soft-2 text-ink-body border border-hairline"
         >
           {{ tag }}
         </span>
+        <span
+          v-if="roadmap.visibility === 'public'"
+          class="text-xs px-2 py-0.5 rounded-full bg-canvas-soft-2 text-ink-body border border-hairline flex items-center gap-1"
+        >
+          <AppIcon name="eye" size="xs" />
+          Público
+        </span>
       </div>
 
-      <!-- Visibility -->
-      <div v-if="roadmap.visibility === 'public'" class="flex items-center gap-1 mb-2">
-        <AppIcon name="eye" size="xs" class="text-ink-body" />
-        <span class="text-xs text-ink-body">Público</span>
-      </div>
-
-      <!-- Last Update -->
-      <div class="text-xs text-ink-mute">
-        Última atualização: {{ formatDate(roadmap.updatedAt) }}
-      </div>
-
-      <!-- Stats -->
-      <div class="flex gap-4 text-sm text-ink-body">
-        <div>
-          <span class="font-semibold text-ink">{{ stats.blocks }}</span>
-          <span class="ml-1">{{ pluralize(stats.blocks, 'módulo', 'módulos') }}</span>
+      <!-- Stats — 3 columns -->
+      <div class="grid grid-cols-3 gap-0 border border-hairline rounded-lg overflow-hidden">
+        <div class="text-center py-2.5 px-1">
+          <div class="text-base font-bold text-ink tracking-tight">{{ stats.blocks }}</div>
+          <div class="text-xs text-ink-mute leading-none mt-0.5">{{ pluralize(stats.blocks, 'módulo', 'módulos') }}</div>
         </div>
-        <div>
-          <span class="font-semibold text-ink">{{ stats.topics }}</span>
-          <span class="ml-1">{{ pluralize(stats.topics, 'tópico', 'tópicos') }}</span>
+        <div class="text-center py-2.5 px-1 border-x border-hairline">
+          <div class="text-base font-bold text-ink tracking-tight">{{ stats.topics }}</div>
+          <div class="text-xs text-ink-mute leading-none mt-0.5">{{ pluralize(stats.topics, 'tópico', 'tópicos') }}</div>
         </div>
-        <div>
-          <span class="font-semibold text-ink">{{ stats.resources }}</span>
-          <span class="ml-1">{{ pluralize(stats.resources, 'recurso', 'recursos') }}</span>
+        <div class="text-center py-2.5 px-1">
+          <div class="text-base font-bold text-ink tracking-tight">{{ stats.resources }}</div>
+          <div class="text-xs text-ink-mute leading-none mt-0.5">{{ pluralize(stats.resources, 'recurso', 'recursos') }}</div>
         </div>
       </div>
     </div>
 
-    <!-- Bottom section: progress + actions -->
-    <div class="mt-auto pt-4 px-6 pb-6 border-t border-hairline space-y-3">
+    <!-- Bottom: progress + actions -->
+    <div class="px-5 pb-4 pt-1 space-y-3 border-t border-hairline mt-auto">
       <!-- Progress -->
-      <div>
-        <div class="flex justify-between items-center mb-2">
-          <span class="text-sm font-medium text-ink-body">Progresso</span>
-          <span class="text-sm font-bold text-ink">{{ stats.percent }}%</span>
+      <div class="pt-3">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-xs font-medium text-ink-body">Progresso</span>
+          <span class="text-sm font-bold" :style="{ color: colorHex }">{{ stats.percent }}%</span>
         </div>
         <AppProgressBar :value="stats.percent" />
       </div>
 
-      <!-- Actions grouped -->
-      <div class="flex items-center justify-between gap-2">
-        <div class="flex items-center gap-1">
+      <!-- Actions + timestamp -->
+      <div class="flex items-center justify-between gap-1">
+        <div class="flex items-center gap-0.5">
           <AppButton
             variant="ghost"
             size="sm"
@@ -315,25 +325,28 @@ const handleDeleteConfirm = (password: string) => {
           </AppButton>
         </div>
 
-        <div v-if="canMoveUp || canMoveDown" class="flex items-center gap-1">
-          <AppButton
-            v-if="canMoveUp"
-            variant="ghost"
-            size="sm"
-            @click="(e) => { e.stopPropagation(); $emit('moveUp') }"
-            title="Mover para cima"
-          >
-            <ChevronUpIcon class="w-4 h-4" />
-          </AppButton>
-          <AppButton
-            v-if="canMoveDown"
-            variant="ghost"
-            size="sm"
-            @click="(e) => { e.stopPropagation(); $emit('moveDown') }"
-            title="Mover para baixo"
-          >
-            <ChevronDownIcon class="w-4 h-4" />
-          </AppButton>
+        <div class="flex items-center gap-1">
+          <div v-if="canMoveUp || canMoveDown" class="flex items-center gap-0.5">
+            <AppButton
+              v-if="canMoveUp"
+              variant="ghost"
+              size="sm"
+              @click="(e) => { e.stopPropagation(); $emit('moveUp') }"
+              title="Mover para cima"
+            >
+              <ChevronUpIcon class="w-3.5 h-3.5" />
+            </AppButton>
+            <AppButton
+              v-if="canMoveDown"
+              variant="ghost"
+              size="sm"
+              @click="(e) => { e.stopPropagation(); $emit('moveDown') }"
+              title="Mover para baixo"
+            >
+              <ChevronDownIcon class="w-3.5 h-3.5" />
+            </AppButton>
+          </div>
+          <span class="text-xs text-ink-mute">{{ formatDate(roadmap.updatedAt) }}</span>
         </div>
       </div>
     </div>
