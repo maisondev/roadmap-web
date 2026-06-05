@@ -326,8 +326,8 @@ async function syncBadges() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-light dark:bg-gray-900 p-6">
-    <div class="w-full mx-auto space-y-6" style="max-width: calc(100% - 2rem)">
+  <div class="min-h-screen bg-canvas-soft">
+    <div class="max-w-7xl mx-auto p-6 space-y-6">
       <!-- Header -->
       <div class="flex items-center justify-between">
         <div>
@@ -902,9 +902,9 @@ async function syncBadges() {
                 <label class="block text-sm font-medium text-ink-body mb-2">Tipo de Notificação</label>
                 <select v-model="notificationType" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-canvas-soft text-ink">
                   <option value="info">ℹ️ Informação</option>
-                  <option value="success">✓ Sucesso</option>
-                  <option value="warning">⚠️ Aviso</option>
-                  <option value="error">❌ Erro</option>
+                  <option value="success">Sucesso</option>
+                  <option value="warning">Aviso</option>
+                  <option value="error">Erro</option>
                 </select>
               </div>
               <div>
@@ -916,7 +916,7 @@ async function syncBadges() {
                 <textarea v-model="notificationMessage" placeholder="Mensagem da notificação" rows="4" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-canvas-soft text-ink" />
               </div>
               <AppButton variant="primary" @click="sendNotification" :disabled="isSendingNotification" class="w-full">
-                {{ isSendingNotification ? 'Enviando...' : '🔔 Enviar Notificação' }}
+                {{ isSendingNotification ? 'Enviando...' : 'Enviar Notificação' }}
               </AppButton>
             </div>
           </div>
@@ -924,7 +924,7 @@ async function syncBadges() {
 
         <!-- Mensagem para Primeiro Roadmap -->
         <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-ink mb-2">🎯 Incentivar Usuários com 1 Roadmap</h3>
+          <h3 class="font-semibold text-ink mb-2">Incentivar Usuários com 1 Roadmap</h3>
           <p class="text-sm text-ink-body mb-4">
             Envie mensagens personalizadas para usuários que criaram exatamente 1 roadmap e ainda não receberam a badge PRIMEIRA_AULA
           </p>
@@ -946,7 +946,7 @@ async function syncBadges() {
                 class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-canvas-soft text-ink"
               />
               <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                Título da notificação será: "🎯 Continue Aprendendo!"
+                Título da notificação será: "Continue Aprendendo!"
               </p>
             </div>
 
@@ -963,7 +963,7 @@ async function syncBadges() {
 
         <!-- Sincronização de Badges -->
         <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-ink mb-2">🏆 Sincronizar Badges</h3>
+          <h3 class="font-semibold text-ink mb-2">Sincronizar Badges</h3>
           <p class="text-sm text-ink-body mb-4">
             Processa todos os usuários e atribui badges que ainda não receberam com base em suas atividades (roadmaps criados, recursos adicionados, logs diários, etc)
           </p>
@@ -1035,7 +1035,7 @@ async function syncBadges() {
 
         <!-- Top Usuários -->
         <div class="p-6 bg-canvas border border-slate-200 dark:border-slate-700 rounded-lg">
-          <h3 class="font-semibold text-ink mb-4">🏆 Top 10 Usuários com IA</h3>
+          <h3 class="font-semibold text-ink mb-4">Top 10 Usuários com IA</h3>
           <div v-if="geminiStats.topUsers.length > 0" class="space-y-3">
             <div
               v-for="(user, idx) in geminiStats.topUsers"

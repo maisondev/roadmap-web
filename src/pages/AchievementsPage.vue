@@ -27,7 +27,7 @@ function getHintForBadge(key: string): string {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+  <div class="min-h-screen bg-canvas-soft">
     <div class="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
       <!-- Header -->
       <div class="mb-8 sm:mb-12">

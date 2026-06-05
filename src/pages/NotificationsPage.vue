@@ -51,8 +51,8 @@ function getNotificationTypeLabel(type: string) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
-    <div class="max-w-4xl mx-auto px-4 py-8">
+  <div class="min-h-screen bg-canvas-soft">
+    <div class="max-w-4xl mx-auto p-4 space-y-6">
       <!-- Header -->
       <div class="mb-8">
         <div class="flex items-center gap-3 mb-2">
