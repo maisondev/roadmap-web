@@ -52,7 +52,8 @@
       "Bash(Find-ChildItem -Recurse -Filter \"*NavBar*\" -Path \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\roadmap-web\\\\src\\\\components\")",
       "Bash(Select-Object -First 10)",
       "Bash(npm list *)",
-      "PowerShell(Start-Process \"http://localhost:5175/\" -ErrorAction SilentlyContinue)"
+      "PowerShell(Start-Process \"http://localhost:5175/\" -ErrorAction SilentlyContinue)",
+      "Bash(npx getdesign@latest add vercel)"
     ]
   }
 }
