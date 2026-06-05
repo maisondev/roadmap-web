@@ -44,10 +44,10 @@ function getHintForBadge(key: string): string {
 </script>
 
 <template>
-  <div class="min-h-screen bg-canvas-soft">
-    <div class="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
+  <div class="py-6 sm:py-8">
+    <div class="space-y-8 sm:space-y-12">
       <!-- Header -->
-      <div class="mb-8 sm:mb-12">
+      <div>
         <div class="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
           <TrophyIcon class="w-6 sm:w-8 h-6 sm:h-8 text-yellow-500" />
           <h1 class="text-2xl sm:text-4xl font-bold text-ink">Conquistas</h1>
@@ -63,7 +63,7 @@ function getHintForBadge(key: string): string {
       </div>
 
       <!-- Earned Badges -->
-      <div v-else-if="badgesStore.earnedBadges.length > 0" class="mb-8 sm:mb-12">
+      <div v-else-if="badgesStore.earnedBadges.length > 0">
         <div class="flex items-center gap-2 mb-4 sm:mb-6">
           <TrophyIcon class="w-5 h-5 text-yellow-500" />
           <h2 class="text-lg sm:text-xl font-semibold text-ink">
