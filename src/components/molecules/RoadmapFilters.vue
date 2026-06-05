@@ -21,7 +21,6 @@ const emit = defineEmits<{
   create: []
   generate: []
   import: []
-  search: []
 }>()
 
 const filterStatus = computed({
@@ -32,23 +31,8 @@ const filterStatus = computed({
 
 <template>
   <div class="space-y-3">
-    <!-- Row 1: Search + Status -->
+    <!-- Status Filter -->
     <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
-      <!-- Busca Global -->
-      <div class="flex-1">
-        <AppButton
-          variant="secondary"
-          size="sm"
-          @click="emit('search')"
-          class="w-full flex items-center gap-2 justify-center sm:justify-start"
-        >
-          <AppIcon name="search" size="sm" />
-          <span class="hidden sm:inline">Busca Global</span>
-          <span class="sm:hidden">Buscar</span>
-        </AppButton>
-      </div>
-
-      <!-- Status Filter -->
       <select
         v-model="filterStatus"
         class="px-4 py-2 border border-hairline rounded-lg bg-canvas-soft text-ink text-sm"
